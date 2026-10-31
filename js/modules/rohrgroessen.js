@@ -104,6 +104,18 @@
 
   WK.register({
     id: 'rohrgroessen',
+    bereich: 'rohr',
+    hilfe: {
+      wofuer: 'Rohrmaße nachschlagen: Welchen Außen- und Innendurchmesser hat DN 25, oder ein Kupferrohr 28 × 1,5? Dazu gibt es einen Umrechner von Zoll in Millimeter und zurück.',
+      schritte: [
+        'Werkstoff wählen: Stahl, Kupfer, Edelstahl, Mehrschicht oder Rohrgewinde.',
+        'In der Liste nachschauen oder oben im Suchfeld tippen, zum Beispiel 28 oder DN 25.',
+        'Die Spalten zeigen Außendurchmesser, Wandstärke und Innendurchmesser in Millimetern.',
+        'Zoll in Millimeter: unten den Zollwert eintippen, zum Beispiel 1 1/4 oder 0,75. Oder Millimeter eintippen und den Zollwert ablesen.'
+      ],
+      beispiel: 'Stahlrohr DN 25 (1 Zoll): Außendurchmesser 33,7 mm, Wand 3,25 mm, Innendurchmesser 27,2 mm. Und 1 1/4 Zoll sind 31,75 mm.',
+      hinweis: 'Beim Gewinde ist der Zollwert nur der Name: Ein 1/2-Zoll-Gewinde hat 20,955 mm Außendurchmesser, nicht 12,7 mm.'
+    },
     title: 'Rohrgrößen',
     desc: 'Zoll ↔ DN ↔ mm, Außen- und Innen-Ø je Werkstoff',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg>',

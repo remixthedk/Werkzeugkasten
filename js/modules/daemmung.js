@@ -74,7 +74,7 @@
         if (r.aussen) rows.push({ k: 'Außen-Ø mit Dämmung', v: fmt(r.aussen, 0) + ' mm' });
       }
       rows.push({ k: 'Fundstelle', v: 'Anlage 8 ' + r.zeile });
-      out.replaceChildren(ui.result(rows), r.hinweis ? ui.note(r.hinweis, 'warn') : null);
+      out.replaceChildren(...[ui.result(rows), r.hinweis ? ui.note(r.hinweis, 'warn') : null].filter(Boolean));
     }
 
     pre.select.addEventListener('change', () => {
@@ -105,6 +105,19 @@
 
   WK.register({
     id: 'daemmung',
+    bereich: 'rohr',
+    hilfe: {
+      wofuer: 'Das Gebäudeenergiegesetz (GEG) schreibt vor, wie dick Rohre gedämmt sein müssen. Hier siehst du die Mindestdicke für dein Rohr. Hat dein Dämmstoff eine andere Wärmeleitfähigkeit (λ), wird die Dicke dafür umgerechnet.',
+      schritte: [
+        'Medium wählen: Heizung / Warmwasser oder Kälte / Kaltwasser.',
+        'Bei Heizung / Warmwasser die Einbausituation wählen. "Normal" ist der Standardfall. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, an der Außenluft die doppelte.',
+        'Rohr aus der Liste wählen oder den Innendurchmesser selbst eintippen. Der Innendurchmesser ist das Maß innen im Rohr, nicht außen.',
+        'Nur wenn dein Dämmstoff nicht λ 0,035 hat: den λ-Wert vom Datenblatt des Dämmstoffs eintragen und den Außendurchmesser des Rohres angeben.',
+        'Ergebnis: die Mindestdicke in Millimetern, auf volle Millimeter aufgerundet.'
+      ],
+      beispiel: 'Heizungsrohr Kupfer 22 × 1, Innendurchmesser 20 mm, Standardfall: Tabellenwert 20 mm bei λ 0,035. Dein Dämmstoff hat λ 0,040: Ergebnis 25 mm.',
+      hinweis: 'Ausnahmen, zum Beispiel kurze Stichleitungen, stehen weiter unten in der Ergebniskarte. Maßgeblich ist immer der Gesetzestext.'
+    },
     title: 'Dämmung nach GEG',
     desc: 'Mindestdicke Rohrdämmung, Umrechnung auf anderes λ',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/></svg>',

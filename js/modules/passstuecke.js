@@ -24,11 +24,11 @@
   // ---- Oberfläche ----
   const SKIZZE = '<svg class="skizze" viewBox="0 0 300 120" role="img" aria-label="Skizze Versatz">' +
     '<path d="M10 95H95L195 25H290" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<path d="M215 95V25" stroke="#e8700a" stroke-width="2" stroke-dasharray="4 4"/>' +
-    '<path d="M95 95H215" stroke="#e8700a" stroke-width="2" stroke-dasharray="4 4"/>' +
+    '<path d="M215 95V25" stroke="#f28c28" stroke-width="2" stroke-dasharray="4 4"/>' +
+    '<path d="M95 95H215" stroke="#f28c28" stroke-width="2" stroke-dasharray="4 4"/>' +
     '<g fill="currentColor" font-size="13" font-family="system-ui,sans-serif">' +
     '<text x="222" y="64">V</text><text x="148" y="112">A (Längsmaß)</text>' +
-    '<text x="132" y="52">L</text><text x="108" y="90">α</text></g></svg>';
+    '<text x="132" y="52">L</text><text x="122" y="88">α</text></g></svg>';
 
   function render() {
     const { h, ui, fmt } = WK;
@@ -69,7 +69,7 @@
         ];
         if (r.zuschnitt <= 0) warn = 'Zuschnitt ist null oder negativ: Z-Maße größer als die Mittenlänge.';
       }
-      out.replaceChildren(ui.result(rows), warn ? ui.note(warn, 'warn') : null);
+      out.replaceChildren(...[ui.result(rows), warn ? ui.note(warn, 'warn') : null].filter(Boolean));
     }
 
     const tabs = ui.tabs([
@@ -90,6 +90,19 @@
 
   WK.register({
     id: 'passstuecke',
+    bereich: 'rohr',
+    hilfe: {
+      wofuer: 'Muss eine Leitung seitlich versetzt werden, setzt du zwei Bögen und ein schräges Rohrstück dazwischen. Hier rechnest du aus, wie lang dieses Rohrstück zugeschnitten werden muss.',
+      schritte: [
+        'Querversatz V eintippen: der seitliche Abstand zwischen den beiden Rohrmitten.',
+        'Winkel eintippen. Bei 45°-Bögen sind das 45.',
+        'Z-Maß der beiden Bögen eintragen: der Abstand von der Bogenmitte bis zum Rohrende. Es steht im Katalog des Herstellers. Kennst du es nicht, lass 0 stehen, dann bekommst du nur die Länge von Mitte zu Mitte.',
+        'Ergebnis: Die Zuschnittlänge sägst du ab. Die Mittenlänge L ist die Strecke von Bogenmitte zu Bogenmitte.',
+        'Kennst du statt des Winkels das Längsmaß, wähle oben "Längs + Quer".'
+      ],
+      beispiel: 'Versatz 300 mm bei 45°: Mittenlänge 424 mm. Mit je 20 mm Z-Maß sind das 424 − 20 − 20 = 384 mm Zuschnitt.',
+      hinweis: 'Bei 45° gilt: Mittenlänge = Versatz × 1,414.'
+    },
     title: 'Passstücke',
     desc: 'Zuschnitt bei Versatz: 45° und andere Winkel, Z-Maße',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h6l8-12h6"/></svg>',

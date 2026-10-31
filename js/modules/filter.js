@@ -96,6 +96,18 @@
 
   WK.register({
     id: 'filter',
+    bereich: 'lueftung',
+    hilfe: {
+      wofuer: 'Dein alter Luftfilter hat eine Klasse wie F7 oder M6. Neue Filter werden nach ISO 16890 angegeben, zum Beispiel ePM1 60 %. Hier siehst du, welche alte Klasse zu welcher neuen passt, und umgekehrt.',
+      schritte: [
+        'Oben "Alt → Neu" wählen, wenn du die alte Klasse kennst. Sie steht auf dem Filterrahmen oder dem Lieferschein.',
+        'Klasse auswählen, zum Beispiel F7. Du siehst, welche Abscheidegrade dazu passen.',
+        'Für die andere Richtung "Neu → Alt" wählen: Messgröße (ePM1, ePM2,5 oder ePM10) wählen und den Prozentwert eintippen. Du siehst, welche alten Klassen dazu passen können.',
+        'Ganz unten steht die Gesamttabelle zum Nachschauen.'
+      ],
+      beispiel: 'Alter Filter F7. Das passt zu ePM1 40–65 % oder ePM2,5 65–75 %. Beim Nachbestellen suchst du einen neuen Filter, dessen Prüfbericht in diesem Bereich liegt.',
+      hinweis: 'Das sind Richtwerte, keine genaue Umrechnung. Entscheidend ist das Datenblatt des Herstellers.'
+    },
     title: 'Filter-Umrechner',
     desc: 'RLT-Filter: F7, M5 & Co. alt ↔ ISO 16890 (ePM)',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>',

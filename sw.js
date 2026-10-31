@@ -3,7 +3,9 @@ importScripts('js/version.js', 'js/modulliste.js');
 
 const CACHE = 'werkzeugkasten-v' + self.WK.VERSION;
 const CORE = [
-  './', 'index.html', 'manifest.webmanifest', 'css/style.css',
+  './', 'index.html', 'manifest.webmanifest', 'css/style.css', 'css/fonts.css',
+  'fonts/barlow-latin-400-normal.woff2', 'fonts/barlow-latin-500-normal.woff2',
+  'fonts/barlow-latin-600-normal.woff2', 'fonts/barlow-condensed-latin-700-normal.woff2',
   'js/version.js', 'js/modulliste.js', 'js/app.js',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/favicon.svg'
 ];

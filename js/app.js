@@ -74,7 +74,20 @@
         h('thead', {}, h('tr', {}, head.map(c => h('th', {}, c)))),
         h('tbody', {}, rows.map(r => h('tr', {}, r.map(c => h('td', {}, c)))))));
     },
-    panel(title, ...kids) { return h('section', { class: 'panel' }, title ? h('h2', {}, title) : null, ...kids); }
+    panel(title, ...kids) { return h('section', { class: 'panel' }, title ? h('h2', {}, title) : null, ...kids); },
+    // Aufklappbare Beschreibung oben im Modul. x: { wofuer, schritte[], beispiel, hinweis }
+    help(x) {
+      if (!x) return null;
+      return h('details', { class: 'help' },
+        h('summary', {}, 'Wofür ist das und wie benutze ich es?'),
+        h('div', { class: 'helpbody' },
+          h('h3', {}, 'Wofür ist das?'),
+          h('p', {}, x.wofuer),
+          h('h3', {}, 'So benutzt du es'),
+          h('ol', {}, x.schritte.map(s => h('li', {}, s))),
+          x.beispiel ? [h('h3', {}, 'Beispiel'), h('p', {}, x.beispiel)] : null,
+          x.hinweis ? h('p', { class: 'note' }, x.hinweis) : null));
+    }
   };
 
   // ---- Module laden --------------------------------------------------------
@@ -113,23 +126,31 @@
     title.textContent = 'Werkzeugkasten';
     back.hidden = true;
     document.title = 'Werkzeugkasten';
-    view.replaceChildren(
+    const kachel = m => h('a', { class: 'card', href: '#/' + m.id },
+      h('span', { class: 'ico', html: m.icon }),
+      h('strong', {}, m.title),
+      h('small', {}, m.desc));
+    const bereiche = WK.BEREICHE.map(b => ({ b, mods: WK.modules.filter(m => m.bereich === b.id) }));
+    const ohne = WK.modules.filter(m => !WK.BEREICHE.some(b => b.id === m.bereich));
+    if (ohne.length) bereiche.push({ b: { id: 'weitere', title: 'Weitere' }, mods: ohne });
+    // replaceChildren nimmt nur Elemente oder Text: kein null, keine Listen
+    view.replaceChildren(...[
       h('p', { class: 'lead' }, 'Rechner und Nachschlagetabellen für die Baustelle.'),
-      h('div', { class: 'grid' }, WK.modules.map(m =>
-        h('a', { class: 'card', href: '#/' + m.id },
-          h('span', { class: 'ico', html: m.icon }),
-          h('strong', {}, m.title),
-          h('small', {}, m.desc)))),
+      ...bereiche.filter(x => x.mods.length).map(x =>
+        h('section', { class: 'bereich', 'data-bereich': x.b.id },
+          h('h2', { class: 'sect' }, x.b.title),
+          h('div', { class: 'grid' }, x.mods.map(kachel)))),
       failedModules.length
         ? WK.ui.note('Nicht geladen (offline und noch nicht zwischengespeichert): ' + failedModules.join(', '), 'warn')
-        : null);
+        : null
+    ].filter(Boolean));
   }
 
   function modulePage(m) {
     title.textContent = m.title;
     back.hidden = false;
     document.title = m.title + ' – Werkzeugkasten';
-    view.replaceChildren(m.render());
+    view.replaceChildren(...[WK.ui.help(m.hilfe), m.render()].filter(Boolean));
   }
 
   function route() {
