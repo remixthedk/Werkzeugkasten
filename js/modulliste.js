@@ -30,6 +30,8 @@ self.WK.MODULES = [
   { id: 'kaeltemittel', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js'] },
   { id: 'ueberhitzung', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js', 'js/modules/ueberhitzung.js'] },
   { id: 'dichtheit',    files: ['js/modules/dichtheit.js'] },
+  { id: 'kanal',        files: ['js/modules/kanal.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] },
+  { id: 'rechnen',      files: ['js/modules/rechnen.js'] },
   { id: 'gruppen',      files: ['js/data/erklaerungen.js', 'js/gruppen.js'] }
 ];

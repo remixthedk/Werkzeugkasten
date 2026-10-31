@@ -55,7 +55,7 @@
       { value: 'warm', label: 'Heizung / Warmwasser' },
       { value: 'kalt', label: 'Kälte / Kaltwasser (RLT, Klimakälte)' }
     ], 'warm');
-    const sit = ui.select('Einbausituation', D.situationen.map(s => ({ value: s.id, label: s.label })), 'normal');
+    const sit = ui.select('Einbauort', D.situationen.map(s => ({ value: s.id, label: s.label })), 'normal');
 
     // Rohrauswahl in zwei Schritten: erst Material, dann Größe
     const mat = ui.select('Rohrmaterial', [
@@ -67,6 +67,7 @@
     const id = ui.num('Innendurchmesser Rohr', { unit: 'mm', value: '20' });
     const ad = ui.num('Außendurchmesser Rohr (optional)', { unit: 'mm', value: '22', hint: 'nur für die Angabe "Außen-Ø mit Dämmung"' });
     const out = h('div');
+    const sitHinweis = ui.note('Eine geschlossene, unbeheizte Garage zählt als Innenraum: Standardfall. Die doppelte Dicke gilt nur im Freien, wo die Leitung an die Außenluft grenzt.');
 
     const werk = () => R.werkstoffe.find(w => w.id === mat.get());
 
@@ -85,7 +86,7 @@
 
     function update() {
       const w = werk();
-      sit.el.hidden = medium.get() !== 'warm';
+      sit.el.hidden = sitHinweis.hidden = medium.get() !== 'warm';
       groesse.el.hidden = !w;
       wand.el.hidden = !(w && w.nurAussen && groesse.get());
       if (w && !groesse.get()) { out.replaceChildren(ui.note('Größe wählen.')); return; }
@@ -134,7 +135,7 @@
     sit.select.addEventListener('change', update);
 
     const root = h('div', {},
-      ui.panel(null, medium.el, sit.el, mat.el, groesse.el, wand.el, id.el, ad.el),
+      ui.panel(null, medium.el, sit.el, sitHinweis, mat.el, groesse.el, wand.el, id.el, ad.el),
       ui.panel('Ergebnis', out,
         ui.note('Maßgeblich ist laut Gesetz der Innendurchmesser der Leitung. Die Werte gelten für Dämmstoffe mit λ = 0,035 W/(m·K). ' +
           'Hat dein Dämmstoff ein anderes λ, muss die Dicke umgerechnet werden. Das Gesetz nennt dafür kein festes Verfahren ' +
@@ -156,7 +157,7 @@
       wofuer: 'Das Gebäudeenergiegesetz (GEG) schreibt vor, wie dick Rohre gedämmt sein müssen. Hier siehst du die Mindestdicke für dein Rohr.',
       schritte: [
         'Medium wählen: Heizung / Warmwasser oder Kälte / Kaltwasser.',
-        'Bei Heizung / Warmwasser die Einbausituation wählen. "Normal" ist der Standardfall. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, an der Außenluft die doppelte.',
+        'Bei Heizung / Warmwasser den Einbauort wählen. "Im Haus" ist der Standardfall, auch im unbeheizten Keller oder in der geschlossenen Garage. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, im Freien die doppelte.',
         'Rohrmaterial wählen (Raxofix, Prestabo, Mapress XL, Kupfer oder Stahl-Gewinderohr), danach die Größe. Bei Raxofix, Prestabo, Mapress XL und Stahl füllt sich der Innendurchmesser von selbst. Bei Kupfer trägst du die Wandstärke ein, der Innendurchmesser wird daraus gerechnet.',
         'Oder bei "Maße selbst eingeben" den Innendurchmesser direkt eintippen. Das ist das Maß innen im Rohr, nicht außen.',
         'Ergebnis: die Mindestdicke in Millimetern, auf volle Millimeter aufgerundet.'
@@ -167,6 +168,7 @@
     quelle: [
       'Mindestdicken: Anlage 8 GEG. Gleiche Werte in gesetze-im-internet.de, buzer.de und lxgesetze.de (geprüft Oktober 2026). Die Tabelle bezieht sich auf den Innendurchmesser.',
       'Rohrmaße: Raxofix aus der Viega-Gebrauchsanleitung (Prospekt und Händlerdaten bestätigen). Prestabo aus dem Viega-Katalog (Modell 1103, Prestabo XL), bestätigt durch Modell 1104, Händlerangaben und Geberit Mapress C-Stahl mit gleichen Maßen. Mapress XL (88,9 und 108 mm, 2,0 mm Wand): Heinze, pdod.de und thyssenkrupp-Werkstoffhandbuch. Stahl-Gewinderohr: DIN EN 10255, drei Quellen (Sikla, zickwolff.de, Wikipedia). Innen-Ø jeweils gerechnet.',
+      'Einbauort: Das Gesetz nennt unbeheizte Räume nicht ausdrücklich. "An Außenluft grenzend" (Nr. 1 a) hh)) gilt hier nur für Leitungen im Freien. Dass eine geschlossene, unbeheizte Garage als Innenraum zählt, ist eine Auslegung des Wortlauts, keine Aussage des Gesetzes. Frostschutz ist eine eigene Entscheidung, das GEG regelt nur die Mindestdämmung.',
       'Nicht enthalten: Umrechnung auf anderes λ. Das Gesetz nennt kein Verfahren, eine belegte Formel liegt nicht vor.'
     ],
     title: 'Dämmung nach GEG',

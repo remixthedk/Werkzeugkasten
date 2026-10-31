@@ -2,6 +2,18 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.6.0] – 2026-10-31
+
+Zwei neue Kacheln und ein klarerer Einbauort bei der Dämmung.
+
+### Neu
+- **Luftkanal** (Lüftung & Klima): Welcher runde Kanal ersetzt meinen eckigen? Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt? Wie schnell strömt die Luft im Kanal? Formel d = 1,3 · (a·b)^0,625 / (a+b)^0,25 (gleicher Druckverlust), mit zwei Quellen und eigener Gegenrechnung abgesichert (höchstens 0,5 % Abweichung)
+- **Dreisatz & Prozent** (Umrechnen): Dreisatz (gerade und umgekehrt), Prozent von einem Wert, Anteil und Veränderung in Prozent, Preis mit Aufschlag oder Rabatt, Preis netto ↔ brutto. Preise immer mit zwei Nachkommastellen, Steuersatz selbst eintragen
+- Beide mit Fragen in ganzen Sätzen, Hinweisen unter den Feldern und "Was bedeutet das?"
+
+### Geändert
+- **Dämmung nach GEG:** Die Auswahl heißt jetzt "Einbauort". "Im Haus, auch Garage (Standard)" statt "Normal", "Im Freien, Außenwand (doppelt)" statt "An Außenluft grenzend". Unter der Auswahl steht ein Hinweis: Eine geschlossene, unbeheizte Garage zählt als Innenraum, die doppelte Dicke gilt nur im Freien. Das Gesetz nennt unbeheizte Räume nicht, deshalb steht in "Quelle und Prüfstand", dass es eine Auslegung ist, und der Hinweis, dass Frostschutz eine eigene Entscheidung ist. Die Mindestdicken sind unverändert
+
 ## [1.5.0] – 2026-10-31
 
 Einfachere Bedienung für Einsteiger. Keine neuen Rechner, alle Rechnungen sind unverändert.

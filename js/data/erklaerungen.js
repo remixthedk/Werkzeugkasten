@@ -32,7 +32,7 @@
     ],
     'rohr/daemmung': [
       { b: 'GEG', t: 'Das Gebäudeenergiegesetz schreibt vor, wie dick die Dämmung von Rohren für Heizung und Warmwasser mindestens sein muss, damit wenig Wärme verloren geht.' },
-      { b: 'Einbausituation', t: 'Die Mindestdicke hängt davon ab, wo das Rohr liegt. "Normal" ist der Standardfall. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, an der Außenluft die doppelte.' },
+      { b: 'Einbausituation', t: 'Die Mindestdicke hängt davon ab, wo das Rohr liegt. "Im Haus" ist der Standardfall, auch im unbeheizten Keller oder in der geschlossenen Garage. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, im Freien (Außenwand, Hof, offener Carport) die doppelte. Frostschutz ist eine eigene Entscheidung, das Gesetz regelt nur die Mindestdämmung.' },
       { b: 'Wärmeleitfähigkeit λ', t: 'Die angezeigten Dicken gelten für einen Dämmstoff mit λ 0,035 W/(m·K). Den Wert findest du auf der Verpackung oder im Datenblatt des Dämmstoffs.' },
       INNEN
     ],
@@ -95,6 +95,38 @@
       { b: 'Zustandszahl', t: 'Sie rechnet das Gasvolumen vom Zähler auf das Volumen bei Normbedingungen um, weil Gas sich mit Druck und Temperatur ausdehnt. Sie liegt meist knapp unter 1 und steht auf der Gasrechnung.' },
       { b: 'Brennwert', t: 'Die Energie, die in 1 m³ Gas steckt, in kWh. Der Abrechnungsbrennwert unterscheidet sich je Versorger und steht auf der Gasrechnung.' },
       { b: 'kWh', t: 'Kilowattstunde: die Einheit, in der Energie abgerechnet wird.' }
+    ],
+    // ---- Luftkanal ----
+    'kanal/rund': [
+      { b: 'Gleichwertiger Durchmesser', t: 'Ein runder und ein eckiger Kanal sind gleichwertig, wenn bei gleicher Luftmenge gleich viel Druck verloren geht. Der Querschnitt ist dabei nicht gleich groß: Der runde Kanal hat etwas weniger Querschnittsfläche als der eckige, weil die Luft im eckigen Kanal mehr Reibung hat.' },
+      { b: 'Seitenverhältnis', t: 'Das Verhältnis der langen zur kurzen Seite. Ein Kanal 300 × 200 mm hat 1,5 : 1. Je flacher der Kanal, desto mehr Reibung hat die Luft.' }
+    ],
+    'kanal/eckig': [
+      { b: 'Gleichwertiger Durchmesser', t: 'Ein runder und ein eckiger Kanal sind gleichwertig, wenn bei gleicher Luftmenge gleich viel Druck verloren geht. Der Querschnitt ist dabei nicht gleich groß.' },
+      { b: 'Eine Seite vorgeben', t: 'Ein eckiger Kanal hat zwei Seiten. Eine davon gibst du vor, meist die Höhe, weil sie durch die Decke oder den Einbauort begrenzt ist. Die App rechnet die andere aus.' }
+    ],
+    'kanal/tempo': [
+      { b: 'Luftmenge (Volumenstrom)', t: 'Wie viel Luft in einer Stunde durch den Kanal strömt, in m³/h. Sie steht im Lüftungskonzept oder auf dem Gerät. 1 m³/h sind etwa 0,28 l/s.' },
+      { b: 'Luftgeschwindigkeit', t: 'Wie schnell die Luft im Kanal strömt, in m/s. Bei hoher Geschwindigkeit werden Strömungsgeräusche und Druckverlust größer.' }
+    ],
+    // ---- Dreisatz & Prozent ----
+    'rechnen/dreisatz': [
+      { b: 'Je mehr, desto mehr', t: 'Wenn mit der Menge auch der andere Wert steigt. 3 Stück kosten 12 €, dann kosten 5 Stück 20 €.' },
+      { b: 'Je mehr, desto weniger', t: 'Wenn der andere Wert sinkt, wenn die Menge steigt. 2 Monteure brauchen 6 Stunden, dann brauchen 3 Monteure 4 Stunden.' }
+    ],
+    'rechnen/prozent': [
+      { b: 'Grundwert und Prozentsatz', t: 'Der Grundwert ist der Wert, von dem du die Prozente nimmst (100 %). Der Prozentsatz sagt, wie viele Hundertstel davon gemeint sind. 15 % von 250 sind 37,5.' }
+    ],
+    'rechnen/anteil': [
+      { b: 'Anteil', t: 'Wie viel Prozent ein Wert von einem anderen ist. 30 von 120 sind 25 %.' },
+      { b: 'Veränderung', t: 'Um wie viel Prozent ein Wert höher oder niedriger ist als vorher. Von 100 auf 112 sind es 12 % mehr.' },
+      { b: 'Aufschlag und Marge', t: 'Ein Aufschlag wird vom Einkaufspreis gerechnet. Bezieht man den Gewinn auf den Verkaufspreis, heißt das Marge, und die ist immer kleiner als der Aufschlag. Hier rechnest du mit der Veränderung von Einkauf auf Verkauf.' }
+    ],
+    'rechnen/aufschlag': [
+      { b: 'Aufschlag und Rabatt', t: 'Beim Aufschlag wird der Prozentwert auf den Preis addiert, beim Rabatt abgezogen. 100 € plus 12 % sind 112 €. 100 € minus 12 % sind 88 €.' }
+    ],
+    'rechnen/mwst': [
+      { b: 'Netto und Brutto', t: 'Netto ist der Preis ohne Mehrwertsteuer, brutto der Preis mit Mehrwertsteuer. Brutto = Netto × (1 + Steuersatz ÷ 100). Zurück rechnest du, indem du durch diesen Faktor teilst, nicht indem du die Prozente abziehst.' }
     ],
     einheiten: [
       { b: 'bar, mbar, Pa', t: 'Einheiten für den Druck. 1 bar sind 1000 mbar und 100.000 Pa. Manometer zeigen meist bar oder mbar.' },

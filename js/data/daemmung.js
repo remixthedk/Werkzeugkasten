@@ -23,11 +23,11 @@
     ],
     // Einbausituation bei Heizung / Warmwasser
     situationen: [
-      { id: 'normal',  label: 'Normal (Standardfall)', faktor: 1 },
+      { id: 'normal',  label: 'Im Haus, auch Garage (Standard)', faktor: 1 },
       { id: 'durch',   label: 'Wand-/Deckendurchbruch, Kreuzung, Verbindung, Verteiler (½)', faktor: 0.5, ref: 'Nr. 1 a) ee)' },
       { id: 'nutzer',  label: 'Bauteil zwischen beheizten Räumen verschiedener Nutzer (½)', faktor: 0.5, ref: 'Nr. 1 a) ff)' },
       { id: 'boden',   label: 'Wie vorher, im Fußbodenaufbau (6 mm)', fix: 6, ref: 'Nr. 1 a) gg)' },
-      { id: 'aussen',  label: 'An Außenluft grenzend (doppelt)', faktor: 2, ref: 'Nr. 1 a) hh)' }
+      { id: 'aussen',  label: 'Im Freien, Außenwand (doppelt)', faktor: 2, ref: 'Nr. 1 a) hh)' }
     ]
   };
 })();
