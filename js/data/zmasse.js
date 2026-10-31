@@ -3,6 +3,7 @@
 //   z = Abstand von der Mittelachse des Fittings bis zur Anschlagfläche im Fitting (Einstecktiefe enthalten)
 //   l = Maß bis zum äußeren Fittingende (wird nicht abgezogen, dient nur der Gegenprobe: l - z = Einstecktiefe)
 // "Vorgängerversion" = die in der Spalte Z*/L* geführten Werte der älteren Fittingausführung.
+// hinweis (optional): wird in der App unter der Größenauswahl angezeigt.
 (function () {
   'use strict';
   const WK = self.WK;
@@ -57,6 +58,25 @@
           { d: 35, z: 42, l: 68 },
           { d: 42, z: 50, l: 86 },
           { d: 54, z: 65, l: 105 }
+        ]
+      },
+      {
+        id: 'x90', name: 'Prestabo XL Bogen 90°',
+        werte: [
+          { d: 64,   z: 84,  l: 127 },
+          { d: 76.1, z: 99,  l: 149 },
+          { d: 88.9, z: 115, l: 165 },
+          { d: 108,  z: 138, l: 198 }
+        ]
+      },
+      {
+        id: 'x45', name: 'Prestabo XL Bogen 45° (Muffe + Einschubende)',
+        hinweis: 'Das Z-Maß gilt nur für die Pressmuffe. Das Einschubende steckt in einem Fitting, dort gibt es kein Rohr zuzuschneiden. Sitzt am zweiten Ende ein anderer Anschluss, ändere das Z-Maß 2 von Hand.',
+        werte: [
+          { d: 64,   z: 39, l: 82 },
+          { d: 76.1, z: 46, l: 96 },
+          { d: 88.9, z: 52, l: 102 },
+          { d: 108,  z: 61, l: 121 }
         ]
       }
     ]

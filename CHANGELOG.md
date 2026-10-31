@@ -2,6 +2,12 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.1.3] – 2026-10-31
+
+### Neu
+- **Passstücke:** Z-Maße für Viega Prestabo XL (64, 76,1, 88,9, 108 mm): Bogen 90° und Bogen 45° (Pressmuffe + Einschubende, Z gilt für die Muffenseite, Hinweis in der App)
+- Prüfliste, Quelle und Hilfetext aktualisiert
+
 ## [1.1.2] – 2026-10-31
 
 Rohrauswahl nach den Systemen im Betrieb, Z-Maße für Profipress-Bögen.
