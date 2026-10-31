@@ -9,8 +9,8 @@
   WK.data.rohre = {
     werkstoffe: [
       {
-        id: 'mehrschicht', name: 'Mehrschicht (Viega Raxofix)', kurz: 'Raxofix', norm: 'Viega Raxofix, PE-Xc/Al/PE-Xc',
-        hinweis: 'Viega Raxofix (Gebrauchsanleitung Viega). Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand. Nach Händlerangaben zum Wasserinhalt ist der Innen-Ø bei 25, 32 und 63 mm bis zu 0,4 mm größer, bitte bei Bedarf nachmessen.',
+        id: 'mehrschicht', verbund: true, name: 'Mehrschicht (Viega Raxofix)', kurz: 'Raxofix', norm: 'Viega Raxofix und Sanfix Fosta, PE-Xc/Al/PE-Xc',
+        hinweis: 'Viega Raxofix (Gebrauchsanleitung Viega). Das Viega-Rohr Sanfix Fosta hat laut Gebrauchsanleitung dieselben Maße (16 bis 63 mm). Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand. Nach Händlerangaben zum Wasserinhalt ist der Innen-Ø bei 25, 32 und 63 mm bis zu 0,4 mm größer, bitte bei Bedarf nachmessen.',
         rohre: [
           { bez: '16 x 2,2', ad: 16, wand: 2.2 },
           { bez: '20 x 2,8', ad: 20, wand: 2.8 },
@@ -19,6 +19,57 @@
           { bez: '40 x 3,5', ad: 40, wand: 3.5 },
           { bez: '50 x 4,0', ad: 50, wand: 4.0 },
           { bez: '63 x 4,5', ad: 63, wand: 4.5 }
+        ]
+      },
+      {
+        id: 'tigris', verbund: true, name: 'Mehrschicht (Wavin Tigris)', kurz: 'Tigris', norm: 'Wavin Tigris, PE-Xc/Al/HDPE (75 mm: PE-RT/Al/HDPE)',
+        hinweis: 'Wavin Tigris Mehrschicht-Verbundrohr weiß (Technisches Handbuch und Sortimentsübersicht von Wavin). Fittingreihen K5/M5 bis 40 mm, K1/M1 ab 50 mm. Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.',
+        rohre: [
+          { bez: '16 x 2,0',  ad: 16, wand: 2.0 },
+          { bez: '20 x 2,25', ad: 20, wand: 2.25 },
+          { bez: '25 x 2,5',  ad: 25, wand: 2.5 },
+          { bez: '32 x 3,0',  ad: 32, wand: 3.0 },
+          { bez: '40 x 4,0',  ad: 40, wand: 4.0 },
+          { bez: '50 x 4,5',  ad: 50, wand: 4.5 },
+          { bez: '63 x 6,0',  ad: 63, wand: 6.0 },
+          { bez: '75 x 7,5',  ad: 75, wand: 7.5 }
+        ]
+      },
+      {
+        id: 'teceflex', verbund: true, name: 'Mehrschicht (TECEflex)', kurz: 'TECEflex', norm: 'TECEflex Verbundrohr, PE-Xc/Al/PE-RT',
+        hinweis: 'TECEflex Verbundrohr (Technische Information TECE, Ausgaben 2017 und 2024). Die Größe heißt bei TECE 14 bis 63 und ist nicht der Außen-Ø: zum Beispiel Größe 16 hat 17 mm außen. Innen-Ø nach TECE-Angabe.',
+        rohre: [
+          { bez: '14 (15 x 2,6)',  ad: 15, wand: 2.6 },
+          { bez: '16 (17 x 2,75)', ad: 17, wand: 2.75 },
+          { bez: '20 (21 x 3,45)', ad: 21, wand: 3.45 },
+          { bez: '25 (26 x 4,0)',  ad: 26, wand: 4.0 },
+          { bez: '32 (32 x 4,0)',  ad: 32, wand: 4.0 },
+          { bez: '40 (40 x 4,0)',  ad: 40, wand: 4.0 },
+          { bez: '50 (50 x 4,5)',  ad: 50, wand: 4.5 },
+          { bez: '63 (63 x 6,0)',  ad: 63, wand: 6.0 }
+        ]
+      },
+      {
+        id: 'uponor', verbund: true, name: 'Mehrschicht (Uponor MLC / Uni Pipe PLUS)', kurz: 'Uponor MLC', norm: 'Uponor MLC und Uni Pipe PLUS, Mehrschichtverbund',
+        hinweis: 'Nur die Größen, die in Herstellerangabe und Händlerangabe übereinstimmen (16 x 2,0 und 20 x 2,25). Weitere Größen (25 bis 75 mm) sind nicht hinterlegt, sie fehlen mangels zweiter Quelle. Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.',
+        rohre: [
+          { bez: '16 x 2,0',  ad: 16, wand: 2.0 },
+          { bez: '20 x 2,25', ad: 20, wand: 2.25 }
+        ]
+      },
+      {
+        id: 'rautitan', verbund: true, name: 'Mehrschicht (Rehau Rautitan stabil)', kurz: 'Rautitan stabil', norm: 'Rehau Rautitan stabil, PE-X/Al/PE-RT',
+        hinweis: 'Nur die Größen, die in zwei Quellen übereinstimmen (16,2 x 2,6 und 25 x 3,7). Weitere Größen sind nicht hinterlegt. Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.',
+        rohre: [
+          { bez: '16,2 x 2,6', ad: 16.2, wand: 2.6 },
+          { bez: '25 x 3,7',   ad: 25,   wand: 3.7 }
+        ]
+      },
+      {
+        id: 'mepla', verbund: true, name: 'Mehrschicht (Geberit Mepla)', kurz: 'Mepla', norm: 'Geberit Mepla, PE-RT II/Al/PE-RT II',
+        hinweis: 'Nur 20 x 2,5, das in zwei Quellen übereinstimmt (Händler pdod und onninen). Die Rohrgrößen 16, 20, 26, 32, 40, 50, 63 und 75 gibt es laut Geberit, ihre Wandstärken sind nicht hinterlegt (nur eine Quelle). Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.',
+        rohre: [
+          { bez: '20 x 2,5', ad: 20, wand: 2.5 }
         ]
       },
       {
@@ -74,6 +125,23 @@
           { bez: 'DN 65 (2 1/2")', ad: 76.1,  wand: 3.65 },
           { bez: 'DN 80 (3")',     ad: 88.9,  wand: 4.05 },
           { bez: 'DN 100 (4")',    ad: 114.3, wand: 4.5 }
+        ]
+      },
+      {
+        id: 'siederohr', name: 'Stahlrohr, nahtlos (Siederohr)', kurz: 'Siederohr', norm: 'DIN EN 10220 (früher DIN 2448)',
+        hinweis: 'DIN EN 10220, nahtlos, Normalwandstärke je Außen-Ø (Sikla und thyssenkrupp stimmen überein). Zwischenmaße und andere Wandstärken stehen in der Rohrsuche. Maße in mm, Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.',
+        rohre: [
+          { bez: 'DN 15 (21,3 x 2,0)',   ad: 21.3,  wand: 2.0 },
+          { bez: 'DN 20 (26,9 x 2,3)',   ad: 26.9,  wand: 2.3 },
+          { bez: 'DN 25 (33,7 x 2,6)',   ad: 33.7,  wand: 2.6 },
+          { bez: 'DN 32 (42,4 x 2,6)',   ad: 42.4,  wand: 2.6 },
+          { bez: 'DN 40 (48,3 x 2,6)',   ad: 48.3,  wand: 2.6 },
+          { bez: 'DN 50 (60,3 x 2,9)',   ad: 60.3,  wand: 2.9 },
+          { bez: 'DN 65 (76,1 x 2,9)',   ad: 76.1,  wand: 2.9 },
+          { bez: 'DN 80 (88,9 x 3,2)',   ad: 88.9,  wand: 3.2 },
+          { bez: 'DN 100 (114,3 x 3,6)', ad: 114.3, wand: 3.6 },
+          { bez: 'DN 125 (139,7 x 4,0)', ad: 139.7, wand: 4.0 },
+          { bez: 'DN 150 (168,3 x 4,5)', ad: 168.3, wand: 4.5 }
         ]
       }
     ],

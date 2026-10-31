@@ -101,6 +101,19 @@
       SPREIZUNG, VOLUMENSTROM,
       { b: 'W/m²', t: 'Die Wärmeleistung, die pro Quadratmeter Fußboden abgegeben werden soll. Der Wert kommt aus der Heizlastberechnung.' }
     ],
+    'rohrsuche/stahl': [
+      { b: 'Gewinderohr', t: 'Stahlrohr nach DIN EN 10255, an dem man Gewinde schneiden kann. Es hat zu jeder Nennweite (DN) eine feste Wandstärke.' },
+      { b: 'Siederohr', t: 'Nahtloses Stahlrohr nach DIN EN 10220. Es gibt viele Außendurchmesser (auch Zwischenmaße wie 54 oder 57 mm) und zu jedem mehrere Wandstärken. Die dickere Wand erkennst du am Gewicht und an der Schnittkante.' },
+      { b: 'Nennweite DN', t: 'Nur ein Name für die Größe, nicht das gemessene Maß. Ein Rohr DN 50 hat 60,3 mm Außendurchmesser.' },
+      { b: 'Normalwand', t: 'Die Wandstärke, die zu einem Außendurchmesser normalerweise gehört. Es gibt auch dickere und dünnere Rohre mit demselben Außendurchmesser.' },
+      { b: 'Außendurchmesser messen', t: 'Mit dem Messschieber an einer sauberen, unbeschädigten Stelle. Zweimal quer zueinander messen. Rost und Farbe machen das Maß etwas größer.' }
+    ],
+    'rohrsuche/verbund': [
+      { b: 'Verbundrohr', t: 'Ein Rohr aus mehreren Schichten: Kunststoff innen und außen, dazwischen eine dünne Alu-Schicht. Man sieht sie an der Schnittkante als silbernen Ring.' },
+      { b: 'Wandstärke', t: 'Die Dicke der Rohrwand ohne Dämmung oder Schutzrohr. Bei gleichem Außendurchmesser haben die Hersteller verschiedene Wandstärken. Daran unterscheidest du sie.' },
+      { b: 'Größe und Außendurchmesser', t: 'Die Größe auf der Packung ist nicht immer das gemessene Maß. Bei TECE heißt ein Rohr „16“, es misst aber 17 mm außen.' },
+      { b: 'Aufdruck', t: 'Auf dem Rohr steht meist Hersteller, Größe und Wandstärke aufgedruckt. Das ist sicherer als jede Messung.' }
+    ],
     fehlercodes: [
       { b: 'Fehlercode', t: 'Eine Zahl oder ein Buchstabe mit Zahl am Display, zum Beispiel F28. Die Heizung sagt damit, was sie gestoppt hat. Was der Code bedeutet, legt der Hersteller fest, und er ist bei jedem Hersteller und oft bei jedem Gerät anders.' },
       { b: 'Gerätename', t: 'Steht auf dem Typenschild, zum Beispiel „ecoTEC plus“ oder „CGB-2“. Ohne den Namen findet die Suche auch Anleitungen anderer Geräte, bei denen derselbe Code etwas anderes heißt.' },

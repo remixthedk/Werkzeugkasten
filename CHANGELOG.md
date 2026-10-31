@@ -2,6 +2,23 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.15.0] – 2026-10-31
+
+### Neu
+- **Kachel Rohrsuche** (Bereich Rohr): "Welches Rohr habe ich da?" Erst wählen, ob Stahlrohr oder Verbundrohr (Kupfer, C-Stahl und Edelstahl sind genormt und stehen bei den Rohrmaßen). Dann zwei Wege:
+  - **Messen:** Außendurchmesser eintragen, Wandstärke optional, Messgenauigkeit wählen (±0,2 / ±0,5 / ±1 mm). Die App zeigt die passenden Rohre, die besten zuerst, mit Hersteller oder System, Außen-Ø, Wand und Innen-Ø
+  - **Tabelle:** alle Rohre der gewählten Art nach Außendurchmesser sortiert. Filter nach Hersteller/System und nach ungefährem Außen-Ø mit Spanne (±0,5 bis ±3 mm), beide kombinierbar
+- **Stahl-Siederohr** (nahtlos, DIN EN 10220) mit Zwischenmaßen: 34 Außendurchmesser von 21,3 bis 168,3 mm mit allen Wandstärken, Normalwand je DN markiert (*). In der Rohrsuche und als Werkstoff "Stahlrohr, nahtlos (Siederohr)" in Rohrgrößen, Wasserinhalt, Dämmung und Rohrgewicht
+- **Verbundrohre:** Wavin Tigris (16 bis 75), TECEflex (14 bis 63, mit Größenname und Außen-Ø), Uponor (16×2,0 und 20×2,25), Rehau Rautitan stabil (16,2×2,6 und 25×3,7), Geberit Mepla (20×2,5). Viega Sanfix Fosta hat laut Viega dieselben Maße wie Raxofix und steht im Raxofix-Werkstoff
+- Neue Erklärungen "Was bedeutet das?" für beide Fragen
+
+### Geprüft
+- Siederohr: Außen-Ø doppelt (rff, Mannesmann), Normalwand doppelt (Sikla, thyssenkrupp) bis DN 150. Wandreihe aus einer Quelle (rff), Gegenprobe: Gewicht je m = 0,02466 · s · (d − s) stimmt mit der Tabelle
+- Verbundrohre: nur Größen mit mindestens zwei Quellen aufgenommen. Innen-Ø gerechnet
+
+### Nicht aufgenommen (Quelle fehlt)
+- Geschweißte Stahlrohre, Siederohr über DN 150 (193,7 und 219,1 mm: Quellen widersprechen sich), Sanha, Prineto, weitere Größen von Uponor, Rautitan und Mepla (nur eine Quelle)
+
 ## [1.14.0] – 2026-10-31
 
 ### Neu

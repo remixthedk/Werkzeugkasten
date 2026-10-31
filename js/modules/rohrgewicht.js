@@ -6,8 +6,8 @@
   // ---- Rechenlogik (ohne DOM, testbar) ----
   // Dichte des Wassers in kg/l bei 10 °C und 60 °C (wie im Rohr-Check, Geberit-Tabellen)
   const WASSER_KG_L = { 10: 0.9997, 60: 0.9832 };
-  // Dichte der Rohrwerkstoffe in g/cm³. Kupfer 8,94 (EN 1057), unlegierter Stahl 7,85. Nur diese zwei sind hinterlegt.
-  const DICHTE = { kupfer: 8.94, stahl: 7.85 };
+  // Dichte der Rohrwerkstoffe in g/cm³. Kupfer 8,94 (EN 1057), unlegierter Stahl 7,85 (Gewinderohr und Siederohr). Nur diese sind hinterlegt.
+  const DICHTE = { kupfer: 8.94, stahl: 7.85, siederohr: 7.85 };
 
   // Gewicht des leeren Rohrs in kg/m aus Außendurchmesser und Wandstärke (mm). Fläche in mm² × 1 m × Dichte = g/m
   function rohrKgProM({ adMm, wandMm, werkstoff }) {
