@@ -6,18 +6,24 @@ Aktuelle Version: siehe `js/version.js` und [CHANGELOG.md](CHANGELOG.md).
 
 ## Module
 
-Auf der Startseite sind die Module nach Bereichen sortiert. Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie benutze ich es?") mit Erklärung, Schritten und einem Beispiel.
+Auf der Startseite sind die Module nach Bereichen sortiert. Oben gibt es ein Suchfeld, und mit dem Stern auf jeder Kachel (und im Kopf eines geöffneten Moduls) markierst du Favoriten. Sie stehen dann ganz oben. Favoriten werden nur auf dem jeweiligen Gerät im Browser gespeichert.
+
+Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie benutze ich es?") und unten eine aufklappbare Quellenangabe ("Quelle und Prüfstand").
 
 | Bereich | Modul | Was es kann |
 |---|---|---|
-| Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen), Umrechnung auf anderes λ |
-| Rohr & Montage | **Rohrgrößen** | Zoll ↔ DN ↔ mm für Stahl, Kupfer, Edelstahl, Mehrschicht und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
-| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel) mit Z-Maßen, auch aus Längs- und Quermaß |
-| Lüftung & Klima | **Filter-Umrechner** | RLT-Filter alt ↔ neu: EN 779 (G3 bis F9) ↔ ISO 16890 (ePM1, ePM2,5, ePM10), in beide Richtungen, plus Gesamttabelle |
+| Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen). Rohrauswahl erst Material, dann Größe (Stahl, Kupfer, Edelstahl, Viega Raxofix) |
+| Rohr & Montage | **Rohrgrößen** | Zoll ↔ DN ↔ mm für Stahl, Kupfer, Edelstahl, Viega Raxofix und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
+| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel) mit Z-Maßen nach Viega-Definition, auch aus Längs- und Quermaß |
+| Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima. Ein Bereich ohne Modul wird nicht angezeigt.
 
-Geplant (Reihenfolge): Kältemittel-Drucktabelle, Dichtheitsprüfung, danach Gas m³ → kWh, F-Gas, Heizkörper-Umrechnung, Fußbodenheizung, hydraulischer Abgleich, Füllwasser VDI 2035, Abwasser-Gefälle, Trinkwasserhygiene, Rohrdimensionierung, Längenausdehnung, Schellenabstände, Kanal rund ↔ eckig, Luftwechsel.
+### Qualitätsregel
+
+Ein Modul wird nur gebaut, wenn jeder Wert aus mindestens zwei unabhängigen Quellen bestätigt ist und jede Formel auf einem zweiten Rechenweg gegengeprüft wurde. Bei Unklarheit wird das Modul nicht gebaut, sondern gemeldet. Vor jedem Bau wird die Modulliste einzeln freigegeben.
+
+Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Einheiten-Umrechner, Wasserinhalt Rohr, Längenausdehnung, Abwasser-Gefälle, Gas/Brennstoffe in kWh, Kältemittel-Drucktabelle, F-Gas, Dichtheitsprüfung, Ausdehnungsgefäß, Leistung ↔ Volumenstrom, Heizkörper-Umrechnung, Fußbodenheizung, hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Trinkwasserhygiene, Wasserhärte, Warmwasserbedarf, Kanal rund ↔ eckig, Luftwechsel, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
 
 ## Aufbau
 
@@ -40,8 +46,10 @@ Grundregel: Zahlen und Tabellen stehen in `js/data/`, die Rechnung steht im Modu
 
 ## Neues Modul anlegen
 
-1. Datei `js/modules/<name>.js` anlegen. Sie ruft am Ende `WK.register({ id, bereich, hilfe, title, desc, icon, render })` auf. `render()` gibt ein DOM-Element zurück. Als Vorlage taugt `js/modules/passstuecke.js`.
+1. Datei `js/modules/<name>.js` anlegen. Sie ruft am Ende `WK.register({ id, bereich, hilfe, quelle, stichworte, title, desc, icon, render })` auf. `render()` gibt ein DOM-Element zurück. Als Vorlage taugt `js/modules/passstuecke.js`.
    - `bereich`: Kennung eines Bereichs aus `WK.BEREICHE` (`rohr`, `heizung`, `sanitaer`, `lueftung`). Ein neuer Bereich wird in `js/modulliste.js` ergänzt.
+   - `quelle` (**Pflicht**): Liste von Absätzen für "Quelle und Prüfstand" unten im Modul (welche Quellen, was bestätigt ist, was bewusst fehlt).
+   - `stichworte` (optional): Suchbegriffe für das Suchfeld auf der Startseite, zum Beispiel Alltagsnamen wie "isolierung".
    - `hilfe` (**Pflicht**): die aufklappbare Beschreibung `{ wofuer, schritte: [...], beispiel, hinweis }`. Einfache Sprache, Fachbegriffe erklären, ein Beispiel mit echten Zahlen. Die App baut daraus die Karte oben im Modul.
 2. Falls Daten nötig sind: `js/data/<name>.js` anlegen.
 3. In `js/modulliste.js` einen Eintrag mit `id` und allen Dateien ergänzen. Der Service Worker liest diese Liste, die Datei muss nirgends sonst eingetragen werden.
@@ -63,12 +71,32 @@ Grundregel: Zahlen und Tabellen stehen in `js/data/`, die Rechnung steht im Modu
 
 Lokal testen: im Projektordner `python3 -m http.server 8000`, dann `http://localhost:8000` öffnen. (Der Offline-Modus braucht https oder localhost.)
 
-## Datenquellen und Grenzen
+## Prüfliste (Stand 31.10.2026)
 
 Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Prüfbericht und keine Herstellerangabe.
 
-- **Dämmung:** Anlage 8 GEG (Mindestdicken bei λ = 0,035 W/(m·K)), Fassung laut [lxgesetze.de](https://lxgesetze.de/gmodg/AL-8), zuletzt geändert 23.07.2026, sowie [gesetze-im-internet.de](https://www.gesetze-im-internet.de/geg/anlage_8.html). Kälte/Kaltwasser: 9 mm bis 22 mm, 19 mm darüber. Das Gesetz nennt kein Umrechnungsverfahren für andere λ-Werte ("anerkannte Regeln der Technik"). Die App rechnet nach gleichem Wärmedurchgang je Meter (Zylinderformel). Bei halbierten oder verdoppelten Werten wird zuerst der Tabellenwert angepasst und dann umgerechnet. Der Gesetzestext nennt den "Innendurchmesser" der Leitung, die App fragt deshalb den Rohr-Innendurchmesser ab.
-- **Filter:** [Eurovent Recommendation 4/23-2022](https://www.eurovent.eu/wp-content/uploads/eurovent-rec-4-23-selection-of-en-iso-16890-rated-air-filter-classes-fourth-edition-2022-de-web.pdf), Tabelle 5 (Bandbreiten gemessener Abscheidegrade). Eine exakte Umrechnung zwischen EN 779 und ISO 16890 gibt es nicht. G3/G4 sind ISO Coarse, dafür gibt es keine ePM-Werte.
-- **Rohrgrößen:** gängige Normmaße (DIN EN 10255, DIN EN 1057, DIN EN 10312, ISO 7-1). Wandstärken bei Mehrschichtrohr hängen vom Hersteller ab und sind deshalb nicht hinterlegt.
-- **Passstücke:** reine Geometrie. Z-Maße kommen aus dem Herstellerkatalog.
-- **Schrift:** Barlow und Barlow Condensed, SIL Open Font License, Lizenztext in `fonts/LICENSE-Barlow.txt`.
+| Modul | Wert | Prüfstand | Quellen |
+|---|---|---|---|
+| Dämmung | Mindestdicken 20 / 30 / = Innen-Ø / 100 mm, ½ bei Durchbruch und Nutzertrennung, 6 mm Fußboden, ×2 Außenluft, Kälte 9 / 19 mm | bestätigt, gleiche Werte in allen Fassungen | Anlage 8 GEG: gesetze-im-internet.de, buzer.de, lxgesetze.de |
+| Dämmung | Bezug auf Innendurchmesser | bestätigt | Gesetzestext Anlage 8 |
+| Rohrgrößen | Stahl EN 10255 mittelschwer, DN 6 bis 100 | bestätigt (Wandstärken je nach Quelle auf 0,05 mm anders gerundet) | Sikla, zickwolff.de, Wikipedia |
+| Rohrgrößen | Rohrgewinde ISO 7-1, Außen-Ø | bestätigt | REMS, Wikipedia |
+| Rohrgrößen | Zoll in mm (25,4) | exakt | Definition |
+| Rohrgrößen | Raxofix 16×2,2 bis 63×4,5 | bestätigt (Viega-Anleitung, Prospekt für 20×2,8, Händlerdaten). Innen-Ø gerechnet; Wasserinhalt laut Händler weicht bei 25, 32, 63 mm um bis zu 0,4 mm im Innen-Ø ab, im Modul vermerkt | Viega Gebrauchsanleitung Raxofix, Viega Prospekt, lemu.dk |
+| Rohrgrößen | Kupfer und Edelstahl Außen-Ø, Edelstahl DN | bestätigt | Sikla, Viega, zickwolff.de |
+| Filter | Spannen M5 bis F9 | Tabelle bestätigt (gleich in drei Ausgaben, aber eine Primärquelle), deshalb nur Tabelle ohne Umrechnung | Eurovent 4/23 (2018, 2022), EMW |
+| Passstücke | Geometrie | bestätigt, zweiter Rechenweg | Omni Calculator, eigene Gegenrechnung |
+| Passstücke | Z-Maß-Definition (Fittingmitte bis Rohranschlag, Einstecktiefe enthalten) | bestätigt anhand der Viega-Maßzeichnung (Profipress-Bogen 90°, Z = 16 mm bei d 15, zusätzlich auf der Viega-Produktseite gefunden) | Viega-Online-Katalog |
+
+### Bewusst nicht gebaut oder entfernt
+
+- **Umrechnung auf anderes λ (Dämmung):** Das Gesetz nennt kein Verfahren ("anerkannte Regeln der Technik"). Die Formel (Zylinderformel) weicht von Herstellertabellen (Uponor, λ 0,040) um bis zu 1 mm ab. Die Rechenfunktion liegt noch in `js/modules/daemmung.js`, die Oberfläche zeigt sie nicht. Einschalten erst mit einer belegten Quelle.
+- **Filter-Umrechnung alt ↔ neu:** Es gibt keine exakte Umrechnung (Eurovent, Systemair). Hersteller nennen abweichende Spannen ohne Quelle.
+- **Wandstärken Kupfer und Edelstahl:** je Außendurchmesser mehrere Ausführungen (EN 1057: zum Beispiel 28×1 und 28×1,5). Der Anwender gibt die Wandstärke selbst ein.
+- **Mehrschichtrohr allgemein:** Größen unterscheiden sich je Hersteller (Uponor, Geberit, Viega). Hinterlegt ist nur Viega Raxofix.
+- **Feste Z-Maß-Werte:** je Fitting und System verschieden. Sie kommen aus dem Viega-Online-Katalog. Eine Tabelle käme erst nach Einzelprüfung.
+- Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
+
+## Schrift
+
+Barlow und Barlow Condensed, SIL Open Font License, Lizenztext in `fonts/LICENSE-Barlow.txt`.

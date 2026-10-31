@@ -87,8 +87,42 @@
           h('ol', {}, x.schritte.map(s => h('li', {}, s))),
           x.beispiel ? [h('h3', {}, 'Beispiel'), h('p', {}, x.beispiel)] : null,
           x.hinweis ? h('p', { class: 'note' }, x.hinweis) : null));
+    },
+    // Aufklappbare Quellenangabe unten im Modul. lines: Liste von Absätzen
+    quelle(lines) {
+      if (!lines || !lines.length) return null;
+      return h('details', { class: 'quelle' },
+        h('summary', {}, 'Quelle und Prüfstand'),
+        lines.map(l => h('p', {}, l)));
     }
   };
+
+  // ---- Favoriten (nur auf diesem Gerät, im Browser gespeichert) -------------
+  const FAV_KEY = 'wk-favoriten';
+  let favs = [];
+  try {
+    const v = JSON.parse(localStorage.getItem(FAV_KEY));
+    if (Array.isArray(v)) favs = v.filter(x => typeof x === 'string');
+  } catch (e) { /* Speicher gesperrt: Favoriten gelten dann nur bis zum Neuladen */ }
+  const istFav = id => favs.includes(id);
+  function favUmschalten(id) {
+    favs = istFav(id) ? favs.filter(x => x !== id) : [...favs, id];
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch (e) { /* siehe oben */ }
+  }
+  const STERN = '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="FILL"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>';
+  const sternSvg = an => STERN.replace('FILL', an ? 'currentColor' : 'none');
+  const favLabel = (m, an) => m.title + (an ? ': aus Favoriten entfernen' : ': zu Favoriten hinzufügen');
+  function sternKnopf(m, nachher) {
+    const an = istFav(m.id);
+    return h('button', {
+      type: 'button', class: 'star' + (an ? ' on' : ''), 'aria-pressed': an ? 'true' : 'false',
+      'aria-label': favLabel(m, an), html: sternSvg(an),
+      onclick: () => { favUmschalten(m.id); nachher(); }
+    });
+  }
+  // Suche: Kleinschreibung, Umlaute und ae/oe/ue gleich behandeln ("daemmung" findet "Dämmung")
+  const falte = s => String(s).toLowerCase().replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u')
+    .replace(/ß/g, 'ss').replace(/ae/g, 'a').replace(/oe/g, 'o').replace(/ue/g, 'u');
 
   // ---- Module laden --------------------------------------------------------
   function loadScript(src) {
@@ -126,31 +160,73 @@
     title.textContent = 'Werkzeugkasten';
     back.hidden = true;
     document.title = 'Werkzeugkasten';
-    const kachel = m => h('a', { class: 'card', href: '#/' + m.id },
-      h('span', { class: 'ico', html: m.icon }),
-      h('strong', {}, m.title),
-      h('small', {}, m.desc));
-    const bereiche = WK.BEREICHE.map(b => ({ b, mods: WK.modules.filter(m => m.bereich === b.id) }));
-    const ohne = WK.modules.filter(m => !WK.BEREICHE.some(b => b.id === m.bereich));
-    if (ohne.length) bereiche.push({ b: { id: 'weitere', title: 'Weitere' }, mods: ohne });
-    // replaceChildren nimmt nur Elemente oder Text: kein null, keine Listen
+    favKnopf(null);
+    const suche = h('input', {
+      type: 'search', class: 'search', placeholder: 'Modul suchen', autocomplete: 'off', 'aria-label': 'Modul suchen'
+    });
+    const liste = h('div');
+
+    function zeichne() {
+      const worte = falte(suche.value.trim()).split(/\s+/).filter(Boolean);
+      const passt = m => {
+        const text = falte([m.title, m.desc, m.stichworte || ''].join(' '));
+        return worte.every(w => text.includes(w));
+      };
+      const kachel = m => h('div', { class: 'tile' },
+        h('a', { class: 'card', href: '#/' + m.id },
+          h('span', { class: 'ico', html: m.icon }),
+          h('strong', {}, m.title),
+          h('small', {}, m.desc)),
+        sternKnopf(m, zeichne));
+      const bereiche = WK.BEREICHE.map(b => ({ b, mods: WK.modules.filter(m => m.bereich === b.id) }));
+      const ohne = WK.modules.filter(m => !WK.BEREICHE.some(b => b.id === m.bereich));
+      if (ohne.length) bereiche.push({ b: { id: 'weitere', title: 'Weitere' }, mods: ohne });
+      const favMods = favs.map(id => WK.modules.find(m => m.id === id)).filter(Boolean);
+      const gruppen = [
+        { b: { id: 'favoriten', title: 'Favoriten' }, mods: favMods },
+        ...bereiche
+      ].map(x => ({ b: x.b, mods: x.mods.filter(passt) })).filter(x => x.mods.length);
+      // replaceChildren nimmt nur Elemente oder Text: kein null, keine Listen
+      liste.replaceChildren(...(gruppen.length
+        ? gruppen.map(x =>
+          h('section', { class: 'bereich', 'data-bereich': x.b.id },
+            h('h2', { class: 'sect' }, x.b.title),
+            h('div', { class: 'grid' }, x.mods.map(kachel))))
+        : [WK.ui.note('Keine Treffer.')]));
+    }
+    suche.addEventListener('input', zeichne);
+    zeichne();
+
     view.replaceChildren(...[
-      h('p', { class: 'lead' }, 'Rechner und Nachschlagetabellen für die Baustelle.'),
-      ...bereiche.filter(x => x.mods.length).map(x =>
-        h('section', { class: 'bereich', 'data-bereich': x.b.id },
-          h('h2', { class: 'sect' }, x.b.title),
-          h('div', { class: 'grid' }, x.mods.map(kachel)))),
+      h('p', { class: 'lead' }, 'Rechner und Nachschlagetabellen für die Baustelle. Mit dem Stern markierst du Favoriten, sie stehen dann oben.'),
+      suche,
+      liste,
       failedModules.length
         ? WK.ui.note('Nicht geladen (offline und noch nicht zwischengespeichert): ' + failedModules.join(', '), 'warn')
         : null
     ].filter(Boolean));
   }
 
+  // Stern oben rechts im Kopf, solange ein Modul offen ist
+  const favBtn = document.getElementById('fav');
+  function favKnopf(m) {
+    if (!favBtn) return;
+    if (!m) { favBtn.hidden = true; return; }
+    const an = istFav(m.id);
+    favBtn.hidden = false;
+    favBtn.classList.toggle('on', an);
+    favBtn.setAttribute('aria-pressed', an ? 'true' : 'false');
+    favBtn.setAttribute('aria-label', favLabel(m, an));
+    favBtn.innerHTML = sternSvg(an);
+    favBtn.onclick = () => { favUmschalten(m.id); favKnopf(m); };
+  }
+
   function modulePage(m) {
     title.textContent = m.title;
     back.hidden = false;
+    favKnopf(m);
     document.title = m.title + ' – Werkzeugkasten';
-    view.replaceChildren(...[WK.ui.help(m.hilfe), m.render()].filter(Boolean));
+    view.replaceChildren(...[WK.ui.help(m.hilfe), m.render(), WK.ui.quelle(m.quelle)].filter(Boolean));
   }
 
   function route() {

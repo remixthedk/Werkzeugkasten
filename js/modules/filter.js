@@ -1,85 +1,47 @@
-// Modul: Filter-Umrechner (EN 779 <-> ISO 16890). Daten: js/data/filter.js
+// Modul: Filterklassen (EN 779 und ISO 16890 nach Eurovent 4/23). Daten: js/data/filter.js
+// Reine Tabelle, keine Umrechnung: Es gibt keine exakte Umrechnung zwischen den beiden Normen.
 (function () {
   'use strict';
   const WK = self.WK;
-  const FRAKTIONEN = { epm1: 'ePM1', epm25: 'ePM2,5', epm10: 'ePM10' };
 
-  // ---- Rechenlogik (ohne DOM, testbar) ----
-  function altZuNeu(alt) {
+  // ---- Logik (ohne DOM, testbar) ----
+  // Zeile der Tabelle für eine alte Klasse
+  function zeile(alt) {
     const d = WK.data.filter;
     const k = d.klassen.find(x => x.alt === alt);
     if (k) return { typ: 'epm', alt, werte: { epm1: k.epm1, epm25: k.epm25, epm10: k.epm10 } };
     if (d.grob.includes(alt)) return { typ: 'coarse', alt };
     return null;
   }
-
-  // Alle alten Klassen, deren Bandbreite den Wert (in %) für die gewählte Fraktion enthält
-  function neuZuAlt(fraktion, prozent) {
-    const d = WK.data.filter;
-    if (!(fraktion in FRAKTIONEN) || !(prozent >= 0 && prozent <= 100)) return null;
-    return d.klassen.filter(k => prozent >= k[fraktion][0] && prozent <= k[fraktion][1]).map(k => k.alt);
-  }
-  WK.calc.filter = { altZuNeu, neuZuAlt };
+  WK.calc.filter = { zeile };
 
   // ---- Oberfläche ----
   const bereich = r => r[0] + '–' + r[1] + ' %';
-  const HINWEIS = 'Richtwerte, keine exakte Umrechnung (EN 779 misst bei 0,4 µm, ISO 16890 nach Partikelgrößen). ' +
-    'Welche ePM-Gruppe auf dem Filter steht, entscheidet der Prüfbericht des Herstellers (bei F7 z. B. ePM1 oder ePM2,5).';
 
   function render() {
     const { h, ui } = WK;
     const d = WK.data.filter;
     const out = h('div');
 
-    const selAlt = ui.select('Alte Klasse (EN 779)',
+    const sel = ui.select('Klasse nach EN 779 (alt)',
       [...d.grob, ...d.klassen.map(k => k.alt)].map(a => ({ value: a, label: a })), 'F7');
-    const selFr = ui.select('Neue Messgröße (ISO 16890)',
-      Object.entries(FRAKTIONEN).map(([v, l]) => ({ value: v, label: l })), 'epm1');
-    const pct = ui.num('Abscheidegrad', { unit: '%', value: '60' });
-    const boxAlt = h('div', {}, selAlt.el);
-    const boxNeu = h('div', {}, selFr.el, pct.el);
-    let mode = 'alt';
 
     function update() {
-      boxAlt.hidden = mode !== 'alt';
-      boxNeu.hidden = mode !== 'neu';
-      if (mode === 'alt') {
-        const r = altZuNeu(selAlt.get());
-        if (r.typ === 'coarse') {
-          out.replaceChildren(
-            ui.result([{ k: r.alt + ' entspricht', v: 'ISO Coarse', big: true }]),
-            ui.note('Grobfilter: ISO 16890 gibt hier einen Grobabscheidegrad an, keine ePM-Werte.'));
-        } else {
-          out.replaceChildren(
-            ui.result([
-              { k: r.alt + ' entspricht ca.', v: '', big: true },
-              { k: 'ePM1', v: bereich(r.werte.epm1) },
-              { k: 'ePM2,5', v: bereich(r.werte.epm25) },
-              { k: 'ePM10', v: bereich(r.werte.epm10) }
-            ]));
-        }
+      const r = zeile(sel.get());
+      if (r.typ === 'coarse') {
+        out.replaceChildren(
+          ui.result([{ k: r.alt, v: 'ISO Coarse', big: true }]),
+          ui.note('Grobfilter: ISO 16890 gibt hier einen Grobabscheidegrad an, keine ePM-Werte.'));
       } else {
-        const p = pct.get();
-        const hits = neuZuAlt(selFr.get(), p);
-        if (hits === null) {
-          out.replaceChildren(ui.note('Bitte einen Wert zwischen 0 und 100 % eingeben.', 'warn'));
-        } else if (!hits.length) {
-          out.replaceChildren(ui.note('Kein Treffer: Der Wert liegt außerhalb der Bandbreiten der Tabelle (M5 bis F9).', 'warn'));
-        } else {
-          const fr = selFr.get();
-          out.replaceChildren(ui.result([
-            { k: 'Passt zu (EN 779)', v: hits.join(', '), big: true },
-            ...hits.map(a => ({ k: a + ' · ' + FRAKTIONEN[fr], v: bereich(d.klassen.find(k => k.alt === a)[fr]) }))
-          ]));
-        }
+        out.replaceChildren(ui.result([
+          { k: r.alt + ' laut Eurovent-Tabelle', v: '', big: true },
+          { k: 'ePM1', v: bereich(r.werte.epm1) },
+          { k: 'ePM2,5', v: bereich(r.werte.epm25) },
+          { k: 'ePM10', v: bereich(r.werte.epm10) }
+        ]));
       }
     }
-
-    const tabs = ui.tabs([{ value: 'alt', label: 'Alt → Neu' }, { value: 'neu', label: 'Neu → Alt' }],
-      v => { mode = v; update(); });
-    selAlt.select.addEventListener('change', update);
-    selFr.select.addEventListener('change', update);
-    pct.input.addEventListener('input', update);
+    sel.select.addEventListener('change', update);
 
     const tabelle = ui.table(['EN 779', 'ePM1', 'ePM2,5', 'ePM10'], [
       [d.grob.join(' / '), 'ISO Coarse', '–', '–'],
@@ -87,8 +49,9 @@
     ]);
 
     const root = h('div', {},
-      tabs.el,
-      ui.panel(null, boxAlt, boxNeu, out, ui.note(HINWEIS)),
+      ui.panel(null, sel.el, out,
+        ui.note('Keine exakte Umrechnung: Die Spannen zeigen, in welchem Bereich gemessene Abscheidegrade von Filtern der alten Klasse lagen. ' +
+          'Welche ePM-Werte ein Filter wirklich hat, steht im Prüfbericht oder Datenblatt des Herstellers.')),
       ui.panel('Gesamttabelle', tabelle, ui.note('Quelle: ' + d.quelle + ' (Bandbreiten gemessener Abscheidegrade).')));
     update();
     return root;
@@ -97,19 +60,25 @@
   WK.register({
     id: 'filter',
     bereich: 'lueftung',
+    stichworte: 'f7 m5 m6 f8 f9 g4 epm ep m1 iso 16890 en 779 rlt luftfilter eurovent',
     hilfe: {
-      wofuer: 'Dein alter Luftfilter hat eine Klasse wie F7 oder M6. Neue Filter werden nach ISO 16890 angegeben, zum Beispiel ePM1 60 %. Hier siehst du, welche alte Klasse zu welcher neuen passt, und umgekehrt.',
+      wofuer: 'Dein alter Luftfilter hat eine Klasse wie F7 oder M6. Neue Filter werden nach ISO 16890 angegeben, zum Beispiel ePM1 60 %. Hier siehst du, in welchem Bereich die neuen Werte bei einer alten Klasse liegen.',
       schritte: [
-        'Oben "Alt → Neu" wählen, wenn du die alte Klasse kennst. Sie steht auf dem Filterrahmen oder dem Lieferschein.',
-        'Klasse auswählen, zum Beispiel F7. Du siehst, welche Abscheidegrade dazu passen.',
-        'Für die andere Richtung "Neu → Alt" wählen: Messgröße (ePM1, ePM2,5 oder ePM10) wählen und den Prozentwert eintippen. Du siehst, welche alten Klassen dazu passen können.',
-        'Ganz unten steht die Gesamttabelle zum Nachschauen.'
+        'Alte Klasse auswählen. Sie steht auf dem Filterrahmen oder dem Lieferschein.',
+        'Darunter siehst du die ePM1-, ePM2,5- und ePM10-Spannen dazu.',
+        'Ganz unten steht die Gesamttabelle aller Klassen zum Nachschauen.',
+        'Beim Nachbestellen suchst du einen neuen Filter, dessen Prüfbericht in diesem Bereich liegt.'
       ],
-      beispiel: 'Alter Filter F7. Das passt zu ePM1 40–65 % oder ePM2,5 65–75 %. Beim Nachbestellen suchst du einen neuen Filter, dessen Prüfbericht in diesem Bereich liegt.',
-      hinweis: 'Das sind Richtwerte, keine genaue Umrechnung. Entscheidend ist das Datenblatt des Herstellers.'
+      beispiel: 'Alter Filter F7: ePM1 40–65 %, ePM2,5 65–75 %, ePM10 80–90 %.',
+      hinweis: 'Das ist keine genaue Umrechnung. Entscheidend ist das Datenblatt des Herstellers.'
     },
-    title: 'Filter-Umrechner',
-    desc: 'RLT-Filter: F7, M5 & Co. alt ↔ ISO 16890 (ePM)',
+    quelle: [
+      'Eurovent Recommendation 4/23-2022 (4. Ausgabe), Tabelle 5. Dieselben Spannen stehen in der 2. Ausgabe (2018) und beim EMW (Bezug auf Eurovent 4/23:2020).',
+      'Eine exakte Umrechnung gibt es laut Eurovent und Systemair nicht. Einzelne Hersteller nennen leicht abweichende Spannen ohne Quelle, sie sind hier nicht übernommen.',
+      'G3 und G4 sind ISO Coarse, dafür gibt es keine ePM-Werte.'
+    ],
+    title: 'Filterklassen',
+    desc: 'RLT-Filter: EN 779 und ISO 16890 im Vergleich',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>',
     render
   });

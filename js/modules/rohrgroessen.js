@@ -59,11 +59,15 @@
         text = 'Außendurchmesser des Gewindes (R/Rp nach ISO 7-1). Das Rohr selbst hat den Außen-Ø aus der Stahlrohr-Tabelle.';
       } else {
         const w = R.werkstoffe.find(x => x.id === sel.get());
-        head = ['Größe', 'Außen-Ø', 'Wand', 'Innen-Ø'];
-        rows = w.rohre.map(r => [
-          r.bez, fmt(r.ad, 1), r.wand ? fmt(r.wand, 2) : '–', r.wand ? fmt(r.ad - 2 * r.wand, 1) : '–'
-        ]);
-        text = w.norm + (w.rohre.some(r => !r.wand) ? '. Wandstärke je Hersteller unterschiedlich, deshalb kein Innen-Ø.' : '. Maße in mm, Richtwerte.');
+        if (w.nurAussen) {
+          const mitDn = w.rohre.some(r => r.dn);
+          head = ['Außen-Ø', ...(mitDn ? ['DN'] : [])];
+          rows = w.rohre.map(r => [fmt(r.ad, 1) + ' mm', ...(mitDn ? [r.dn] : [])]);
+        } else {
+          head = ['Größe', 'Außen-Ø', 'Wand', 'Innen-Ø'];
+          rows = w.rohre.map(r => [r.bez, fmt(r.ad, 1), fmt(r.wand, 2), fmt(r.ad - 2 * r.wand, 1)]);
+        }
+        text = w.hinweis;
       }
       if (nd) rows = rows.filter(r => norm(r.join(' ')).includes(nd));
       tab.replaceChildren(rows.length ? ui.table(head, rows) : ui.note('Keine Treffer.'));
@@ -106,16 +110,23 @@
     id: 'rohrgroessen',
     bereich: 'rohr',
     hilfe: {
-      wofuer: 'Rohrmaße nachschlagen: Welchen Außen- und Innendurchmesser hat DN 25, oder ein Kupferrohr 28 × 1,5? Dazu gibt es einen Umrechner von Zoll in Millimeter und zurück.',
+      wofuer: 'Rohrmaße nachschlagen: Welchen Außen- und Innendurchmesser hat DN 25, oder ein Raxofix-Rohr 25 × 2,7? Dazu gibt es einen Umrechner von Zoll in Millimeter und zurück.',
       schritte: [
-        'Werkstoff wählen: Stahl, Kupfer, Edelstahl, Mehrschicht oder Rohrgewinde.',
+        'Werkstoff wählen: Stahl, Kupfer, Edelstahl, Mehrschicht (Viega Raxofix) oder Rohrgewinde.',
         'In der Liste nachschauen oder oben im Suchfeld tippen, zum Beispiel 28 oder DN 25.',
-        'Die Spalten zeigen Außendurchmesser, Wandstärke und Innendurchmesser in Millimetern.',
+        'Bei Stahl und Raxofix zeigen die Spalten Außendurchmesser, Wandstärke und Innendurchmesser in Millimetern. Bei Kupfer und Edelstahl nur den Außendurchmesser (und bei Edelstahl die DN), weil die Wandstärke je Rohr verschieden ist.',
         'Zoll in Millimeter: unten den Zollwert eintippen, zum Beispiel 1 1/4 oder 0,75. Oder Millimeter eintippen und den Zollwert ablesen.'
       ],
       beispiel: 'Stahlrohr DN 25 (1 Zoll): Außendurchmesser 33,7 mm, Wand 3,25 mm, Innendurchmesser 27,2 mm. Und 1 1/4 Zoll sind 31,75 mm.',
       hinweis: 'Beim Gewinde ist der Zollwert nur der Name: Ein 1/2-Zoll-Gewinde hat 20,955 mm Außendurchmesser, nicht 12,7 mm.'
     },
+    quelle: [
+      'Stahl DIN EN 10255 mittelschwer (Maße und DN-Zuordnung): Sikla, zickwolff.de und Wikipedia (Gewinderohr), übereinstimmend.',
+      'Rohrgewinde ISO 7-1: REMS-Gewindetabelle und Wikipedia (British Standard Pipe), identische Werte. Zoll in mm: 1" = 25,4 mm exakt.',
+      'Raxofix (Viega): Außen-Ø × Wand aus der Viega-Gebrauchsanleitung, 20 × 2,8 zusätzlich im Viega-Prospekt, alle sieben Größen bei einem Händler (lemu.dk). Innen-Ø gerechnet.',
+      'Kupfer und Edelstahl: nur Außendurchmesser (und DN bei Edelstahl, Viega und zickwolff.de). Wandstärken gibt es je Außendurchmesser in mehreren Ausführungen, sie sind deshalb nicht hinterlegt.'
+    ],
+    stichworte: 'zoll dn mm rohr kupfer edelstahl stahl raxofix mehrschicht gewinde umrechnen zollmaß',
     title: 'Rohrgrößen',
     desc: 'Zoll ↔ DN ↔ mm, Außen- und Innen-Ø je Werkstoff',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg>',

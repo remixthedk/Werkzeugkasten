@@ -2,6 +2,29 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.1.1] – 2026-10-31
+
+Prüfdurchgang der bestehenden Module, Favoriten, Suche, getrennte Rohrauswahl.
+
+### Neu
+- **Favoriten:** Stern auf jeder Kachel und im Kopf eines geöffneten Moduls. Favoriten stehen oben auf der Startseite und bleiben auf dem Gerät gespeichert
+- **Suchfeld** auf der Startseite (findet auch Alltagsbegriffe und "daemmung" für Dämmung)
+- **Quelle und Prüfstand** unten in jedem Modul (aufklappbar)
+- **Dämmung:** Rohrauswahl erst Material, dann Größe. Bei Kupfer und Edelstahl wird die Wandstärke eingegeben, der Innendurchmesser daraus gerechnet
+- **Viega Raxofix** als Mehrschichtrohr (16×2,2 bis 63×4,5)
+- README: Qualitätsregel, Prüfliste mit Quellen, Liste der bewusst nicht gebauten Funktionen
+
+### Geändert
+- **Filter-Umrechner wird zur Tabelle "Filterklassen":** nur noch die Eurovent-Spannen, keine Umrechnung alt ↔ neu (es gibt keine exakte Umrechnung)
+- **Dämmung:** Umrechnung auf anderes λ ausgeblendet, weil das Gesetz kein Verfahren nennt und die Formel nicht belegt ist. Die Werte gelten für λ 0,035
+- **Rohrgrößen:** Kupfer und Edelstahl zeigen nur noch den Außendurchmesser (Edelstahl mit DN), weil die Wandstärken je Ausführung verschieden sind
+- **Passstücke:** Z-Maß nach der Viega-Maßzeichnung erklärt (Fittingmitte bis Anschlagfläche im Fitting, Einstecktiefe enthalten), mit Hinweis auf den Viega-Online-Katalog
+- Tabellenköpfe nicht mehr in Großbuchstaben (richtig: ePM1 statt EPM1)
+
+### Entfernt
+- Allgemeine Mehrschichtrohr-Liste (Größen waren nur von Geberit, Hersteller unterscheiden sich)
+- Wandstärken bei Kupfer (28×1 und 28×1,5 existieren beide) und Edelstahl (keine zweite Quelle)
+
 ## [1.1.0] – 2026-10-31
 
 Neues Design, Bereiche und Beschreibungen.

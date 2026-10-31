@@ -1,4 +1,4 @@
-// Daten für den Filter-Umrechner (nur Daten, keine Logik).
+// Daten für die Filterklassen-Tabelle (nur Daten, keine Logik).
 // Quelle: Eurovent Recommendation 4/23-2022 (4. Ausgabe), Tabelle 5.
 // Bandbreiten der gemessenen durchschnittlichen Abscheidegrade in % je ISO-16890-Fraktion.
 // Das ist ein Anhaltspunkt, keine exakte Umrechnung. Maßgeblich ist der Prüfbericht des Herstellers.
