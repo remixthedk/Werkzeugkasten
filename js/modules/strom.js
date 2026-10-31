@@ -32,17 +32,29 @@
     else return null;
     return { u: U, i: I, r: Rw, p: U * I };
   }
-  WK.calc.strom = { strom, leistung, ohm };
+  // Trafo oder Netzteil: P_ein = P_aus ÷ η, Strom = Leistung ÷ Spannung auf jeder Seite (Leistungsfaktor 1).
+  // seite: 'aus' (Leistung gilt für den Ausgang, zum Beispiel Typenschild Netzteil) oder 'ein' (Leistung gilt für den Eingang).
+  // eta: Wirkungsgrad als Zahl 0 bis 1, null = ohne Verluste.
+  function trafo({ u1, u2, p, seite, eta }) {
+    const e = eta == null ? 1 : eta;
+    if (!(u1 > 0 && u2 > 0 && p > 0) || !(e > 0 && e <= 1) || (seite !== 'aus' && seite !== 'ein')) return null;
+    const pAus = seite === 'aus' ? p : p * e;
+    const pEin = seite === 'aus' ? p / e : p;
+    return { pEin, pAus, verlust: pEin - pAus, iEin: pEin / u1, iAus: pAus / u2, uebersetzung: u1 / u2 };
+  }
+  WK.calc.strom = { strom, leistung, ohm, trafo };
 
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
-    { id: 'strom', frage: 'Wie viel Strom zieht mein Gerät?', klein: 'Aus der Leistung in kW, zum Beispiel Heizstab oder Durchlauferhitzer',
+    { id: 'strom', frage: 'Wie viel Strom zieht mein Gerät?', stichwort: 'kW → Ampere', klein: 'Aus der Leistung in kW, zum Beispiel Heizstab oder Durchlauferhitzer',
       icon: SVG('<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>') },
-    { id: 'leistung', frage: 'Wie viel Leistung hat mein Gerät bei diesem Strom?', klein: 'Aus der Stromstärke in Ampere',
+    { id: 'leistung', frage: 'Wie viel Leistung hat mein Gerät bei diesem Strom?', stichwort: 'Ampere → kW', klein: 'Aus der Stromstärke in Ampere',
       icon: SVG('<path d="M4 19V9M10 19V5M16 19v-7M21 19H3"/>') },
-    { id: 'ohm', frage: 'Wie hängen Spannung, Strom und Widerstand zusammen?', klein: 'Ohmsches Gesetz: U = R · I, zum Beispiel Heizstab nachmessen',
-      icon: SVG('<path d="M3 12h4l2-5 3 10 2-5h7"/>') }
+    { id: 'ohm', frage: 'Wie hängen Spannung, Strom und Widerstand zusammen?', stichwort: 'Ohm', klein: 'Ohmsches Gesetz: U = R · I, zum Beispiel Heizstab nachmessen',
+      icon: SVG('<path d="M3 12h4l2-5 3 10 2-5h7"/>') },
+    { id: 'trafo', frage: 'Wie viel Strom fließt vor und hinter meinem Trafo oder Netzteil?', stichwort: 'Trafo, Netzteil', klein: 'Zum Beispiel 230 V auf 12 V bei 70 W',
+      icon: SVG('<circle cx="9" cy="12" r="4"/><circle cx="15" cy="12" r="4"/><path d="M2 12h3M19 12h3"/>') }
   ];
   const NETZ = [
     { value: 'dreh', label: 'Drehstrom 400 V (3 Phasen)', u: '400' },
@@ -51,7 +63,7 @@
 
   function render() {
     const { h, ui, fmt } = WK;
-    const S = { netz: 'dreh', u: '400', cos: '1', kw: '21', a: '16', ohm: { gesucht: 'i', u: '230', i: '8,7', r: '26,5' } };
+    const S = { netz: 'dreh', u: '400', cos: '1', kw: '21', a: '16', ohm: { gesucht: 'i', u: '230', i: '8,7', r: '26,5' }, trafo: { u1: '230', u2: '12', p: '70', eta: '', seite: 'aus' } };
     const root = h('div');
     const feld = (label, key, o = {}, store = S) => {
       const f = ui.num(label, { value: store[key], ...o });
@@ -63,7 +75,7 @@
         h('p', { class: 'lead' }, 'Was willst du wissen?'),
         h('div', { class: 'wahl' }, FRAGEN.map(q => h('button', { type: 'button', onclick: () => zeigeFrage(q.id) },
           h('span', { class: 'ico', html: q.icon }),
-          h('span', {}, h('strong', {}, q.frage), h('small', {}, q.klein))))));
+          h('span', {}, q.stichwort ? h('span', { class: 'tag' }, q.stichwort) : null, h('strong', {}, q.frage), h('small', {}, q.klein))))));
     }
 
     function zeigeOhm(q) {
@@ -100,9 +112,48 @@
       update();
     }
 
+    function zeigeTrafo(q) {
+      const out = h('div');
+      const zurueck = h('button', { type: 'button', class: 'zurueck', onclick: zeigeMenu }, '‹ Andere Frage');
+      const begriffe = WK.ui.begriffe('strom/trafo');
+      const T = S.trafo;
+      const f1 = feld('Spannung am Eingang', 'u1', { unit: 'V', hint: 'Netzseite, an der Steckdose 230 V' }, T);
+      const f2 = feld('Spannung am Ausgang', 'u2', { unit: 'V', hint: 'Steht auf dem Trafo oder Netzteil' }, T);
+      const seite = ui.select('Die Leistung gilt für', [
+        { value: 'aus', label: 'den Ausgang (Typenschild Netzteil)' },
+        { value: 'ein', label: 'den Eingang (aufgenommene Leistung)' }
+      ], T.seite);
+      const fp = feld('Leistung', 'p', { unit: 'W', hint: 'Zum Beispiel 70 W' }, T);
+      const fe = feld('Wirkungsgrad (nur wenn bekannt)', 'eta', { unit: '%', hint: 'Leer lassen: Die App rechnet ohne Verluste. Steht manchmal im Datenblatt.' }, T);
+      const update = () => {
+        const roh = fe.f.input.value.trim();
+        const eta = roh === '' ? null : fe.f.get() / 100;
+        if (eta != null && !(eta > 0 && eta <= 1)) { out.replaceChildren(ui.note('Wirkungsgrad zwischen 1 und 100 % eingeben, oder das Feld leer lassen.', 'warn')); return; }
+        const u1 = f1.f.get(), u2 = f2.f.get(), p = fp.f.get();
+        const r = trafo({ u1, u2, p, seite: seite.get(), eta });
+        if (!r) { out.replaceChildren(ui.note('Beide Spannungen und die Leistung eingeben, jeweils größer als 0.', 'warn')); return; }
+        const rows = [
+          { k: 'Strom am Eingang (' + fmt(u1, 0) + ' V)', v: fmt(r.iEin, 2) + ' A', big: true },
+          { k: 'Strom am Ausgang (' + fmt(u2, 0) + ' V)', v: fmt(r.iAus, 2) + ' A', big: true },
+          { k: 'Leistung am Eingang', v: fmt(r.pEin, 1) + ' W' },
+          { k: 'Leistung am Ausgang', v: fmt(r.pAus, 1) + ' W' }
+        ];
+        if (r.verlust > 0.0001) rows.push({ k: 'Verlust (Wärme)', v: fmt(r.verlust, 1) + ' W' });
+        rows.push({ k: 'Spannung Eingang ÷ Ausgang', v: fmt(r.uebersetzung, 1) + ' : 1' });
+        out.replaceChildren(ui.result(rows),
+          ui.note('Rechnung: ' + fmt(r.pEin, 1) + ' W ÷ ' + fmt(u1, 0) + ' V = ' + fmt(r.iEin, 2) + ' A am Eingang, ' + fmt(r.pAus, 1) + ' W ÷ ' + fmt(u2, 0) + ' V = ' + fmt(r.iAus, 2) + ' A am Ausgang.'),
+          ui.note('Der Trafo ändert die Spannung, nicht die Leistung. Auf der Seite mit der kleinen Spannung fließt der große Strom: Leitung und Absicherung dort darauf auslegen. Das legt die Elektrofachkraft fest.'));
+      };
+      seite.select.addEventListener('change', () => { T.seite = seite.get(); update(); });
+      f1.bind(update); f2.bind(update); fp.bind(update); fe.bind(update);
+      root.replaceChildren(zurueck, h('h2', { class: 'frage' }, q.frage), begriffe, ui.panel(null, f1.f.el, f2.f.el, seite.el, fp.f.el, fe.f.el), ui.panel('Ergebnis', out));
+      update();
+    }
+
     function zeigeFrage(id) {
       const q = FRAGEN.find(x => x.id === id);
       if (id === 'ohm') { zeigeOhm(q); return; }
+      if (id === 'trafo') { zeigeTrafo(q); return; }
       const out = h('div');
       const zurueck = h('button', { type: 'button', class: 'zurueck', onclick: zeigeMenu }, '‹ Andere Frage');
       const begriffe = WK.ui.begriffe('strom/' + id);
@@ -153,25 +204,26 @@
     id: 'strom',
     bereich: 'allgemein',
     hilfe: {
-      wofuer: 'Rechnet zwischen Leistung in kW und Strom in Ampere, bei Drehstrom (400 V) und Wechselstrom (230 V). Dazu das Ohmsche Gesetz (Spannung, Strom, Widerstand). Praktisch für Heizstab, Durchlauferhitzer, Pumpe oder Lüfter.',
+      wofuer: 'Rechnet zwischen Leistung in kW und Strom in Ampere, bei Drehstrom (400 V) und Wechselstrom (230 V). Dazu das Ohmsche Gesetz (Spannung, Strom, Widerstand) und der Strom vor und hinter einem Trafo oder Netzteil. Praktisch für Heizstab, Durchlauferhitzer, Pumpe oder Lüfter.',
       schritte: [
         'Oben tippst du auf die Frage, die du beantwortet haben willst.',
         'Wähle den Anschluss: Drehstrom 400 V oder Wechselstrom 230 V. Die Spannung füllt sich von selbst.',
         'Trag die Leistung (oder den Strom) ein. Den Leistungsfaktor lässt du bei 1, außer bei Motoren und Pumpen: Dort steht er auf dem Typenschild.',
         'Das Ergebnis steht groß darunter, mit der Rechnung in einer Zeile.'
       ],
-      beispiel: 'Durchlauferhitzer 21 kW an 400 V Drehstrom: 30,3 A in jedem der drei Außenleiter. Ein Wasserkocher mit 2 kW an 230 V: 8,7 A. Ohm: Heizstab mit 26,5 Ω an 230 V zieht 8,7 A.',
+      beispiel: 'Durchlauferhitzer 21 kW an 400 V Drehstrom: 30,3 A in jedem der drei Außenleiter. Ein Wasserkocher mit 2 kW an 230 V: 8,7 A. Ohm: Heizstab mit 26,5 Ω an 230 V zieht 8,7 A. Netzteil 230 V auf 12 V mit 70 W: 0,30 A am Eingang, 5,83 A am Ausgang.',
       hinweis: 'Sicherung und Kabelquerschnitt legt die Elektrofachkraft fest. Die App rechnet nur Leistung und Strom um.'
     },
     quelle: [
       'Formeln: Wechselstrom I = P ÷ (U · cos φ), Drehstrom I = P ÷ (√3 · U · cos φ). Drei Quellen stimmen überein: atek.de (15 kW, 400 V, cos φ 0,86 gleich 25,18 A), sanier.de (Wasserkocher 2000 W, 230 V gleich 8,7 A) und Omni Calculator (1492 W, 230 V, cos φ 0,85, Wirkungsgrad 95 % gleich 4,638 A im Drehstrom). Alle Beispiele sind im Test nachgerechnet.',
       'Ein Beispiel bei atek.de stimmt nicht mit der eigenen Formel überein (7,5 kW, 400 V, cos φ 0,85: Artikel 14 A, Formel 12,7 A). Die Formel ist maßgeblich, das Beispiel wurde nicht übernommen.',
       'Ohmsches Gesetz: U = R · I, I = U ÷ R, R = U ÷ I, Leistung P = U · I = I² · R = U² ÷ R (engineeringtoolbox.com, Rechenbeispiel 12 V an 18 Ω gleich 0,67 A und 8 W). Zweite Quelle redcrab-software.com (230 V, 4,5 A gleich 51,1 Ω). Zweiter Rechenweg im Test: Leistung aus U²/R, I²R und U·I stimmen überein, und 2 kW an 230 V gleich 26,45 Ω und 8,7 A wie bei sanier.de.',
-      'Nicht enthalten: Sicherung, Kabelquerschnitt, Spannungsabfall, Anlaufstrom von Motoren und Wirkungsgrad. Bei Motoren und Pumpen steht auf dem Typenschild oft die abgegebene Leistung, die aufgenommene ist höher.'
+      'Trafo: Leistung am Eingang = Leistung am Ausgang bei verlustfreiem Trafo, U₁ · I₁ = U₂ · I₂ (studyflix.de, lernhelfer.de). Wirkungsgrad η = P Ausgang ÷ P Eingang, also P Eingang = P Ausgang ÷ η (studyflix.de). Zweiter Rechenweg im Test: Strom über das Spannungsverhältnis, I₂ = I₁ · U₁ ÷ U₂ bei η = 1. Einen Standardwert für den Wirkungsgrad gibt die App nicht vor, er wird selbst eingetragen.',
+      'Nicht enthalten: Sicherung, Kabelquerschnitt, Spannungsabfall, Anlaufstrom von Motoren, Scheinleistung (VA) bei Trafos und ein Vorgabewert für den Wirkungsgrad. Bei Motoren und Pumpen steht auf dem Typenschild oft die abgegebene Leistung, die aufgenommene ist höher.'
     ],
-    stichworte: 'ohm widerstand volt spannung ohmsches gesetz strom ampere kw kilowatt watt drehstrom wechselstrom 400v 230v leistung heizstab durchlauferhitzer pumpe motor elektro cos phi sicherung anschlusswert stromstärke',
+    stichworte: 'trafo transformator netzteil 12v 24v wirkungsgrad ohm widerstand volt spannung ohmsches gesetz strom ampere kw kilowatt watt drehstrom wechselstrom 400v 230v leistung heizstab durchlauferhitzer pumpe motor elektro cos phi sicherung anschlusswert stromstärke',
     title: 'Strom: kW ↔ Ampere',
-    desc: 'Leistung und Stromstärke umrechnen',
+    desc: 'Leistung und Strom, Ohmsches Gesetz, Trafo und Netzteil',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg>',
     render
   });

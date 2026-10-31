@@ -194,6 +194,11 @@
       { b: 'Widerstand (Ω)', t: 'Wie stark ein Bauteil den Strom bremst, angegeben in Ohm. Ein Heizstab ist im Kern ein Widerstand. Du kannst ihn mit dem Messgerät bei ausgeschaltetem Gerät messen.' },
       { b: 'Leistung', t: 'Spannung mal Strom ergibt die Leistung in Watt. Die App zeigt sie dazu an.' }
     ],
+    'strom/trafo': [
+      { b: 'Trafo und Netzteil', t: 'Sie wandeln eine Spannung in eine andere um, zum Beispiel 230 V in 12 V. Die Leistung bleibt dabei gleich, abzüglich der Verluste. Weil Leistung = Spannung mal Strom ist, fließt bei kleiner Spannung ein großer Strom.' },
+      { b: 'Wirkungsgrad', t: 'Wie viel von der aufgenommenen Leistung am Ausgang ankommt. Der Rest wird zu Wärme. Bei 85 % kommen von 100 W am Eingang 85 W am Ausgang an. Ohne Angabe rechnet die App ohne Verluste.' },
+      { b: 'Eingang und Ausgang', t: 'Der Eingang hängt am Netz (230 V), der Ausgang versorgt das Gerät (zum Beispiel 12 V). Auf dem Typenschild eines Netzteils steht meist die Leistung am Ausgang.' }
+    ],
     'strom/leistung': [
       { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Der Strom wird je Außenleiter angegeben.' },
       { b: 'Leistungsfaktor cos φ', t: 'Er sagt, wie viel von der aufgenommenen Leistung wirklich genutzt wird. Heizstäbe und Durchlauferhitzer haben 1. Bei Motoren und Pumpen steht er auf dem Typenschild.' }

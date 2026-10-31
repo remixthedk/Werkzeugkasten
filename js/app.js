@@ -118,7 +118,7 @@
   WK.gruppe = function (g) {
     const subs = g.fragen.map(f => WK.modules.find(m => m.id === f.modul));
     g.fragen.forEach((f, i) => { if (subs[i]) { subs[i].versteckt = true; WK.ersatz[f.modul] = g.id; } });
-    const stich = [g.stichworte || '', ...subs.filter(Boolean).map(m => [m.title, m.desc, m.stichworte || ''].join(' '))].join(' ');
+    const stich = [g.stichworte || '', ...g.fragen.map(f => f.stichwort || ''), ...subs.filter(Boolean).map(m => [m.title, m.desc, m.stichworte || ''].join(' '))].join(' ');
 
     function render() {
       const root = h('div');
@@ -149,7 +149,7 @@
             const m = WK.modules.find(x => x.id === f.modul);
             return h('button', { type: 'button', onclick: () => frage(f) },
               h('span', { class: 'ico', html: f.icon || (m && m.icon) || '' }),
-              h('span', {}, h('strong', {}, f.frage), f.klein ? h('small', {}, f.klein) : null));
+              h('span', {}, f.stichwort ? h('span', { class: 'tag' }, f.stichwort) : null, h('strong', {}, f.frage), f.klein ? h('small', {}, f.klein) : null));
           })));
         try { window.scrollTo(0, 0); } catch (e) { /* ohne Fenster egal */ }
       }

@@ -42,15 +42,15 @@
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
-    { id: 'dreisatz', frage: 'Wie viel ist es bei einer anderen Menge?', klein: 'Dreisatz, zum Beispiel: 3 Stück kosten 12 €, was kosten 5?',
+    { id: 'dreisatz', frage: 'Wie viel ist es bei einer anderen Menge?', stichwort: 'Dreisatz', klein: 'Dreisatz, zum Beispiel: 3 Stück kosten 12 €, was kosten 5?',
       icon: SVG('<path d="M4 7h6M4 12h6M4 17h6"/><path d="M14 7h6M14 12h6"/><path d="M17 15v4M15 17h4"/>') },
-    { id: 'prozent', frage: 'Wie viel sind … Prozent von einem Wert?', klein: 'Zum Beispiel 15 % von 250',
+    { id: 'prozent', frage: 'Wie viel sind … Prozent von einem Wert?', stichwort: 'Prozent von', klein: 'Zum Beispiel 15 % von 250',
       icon: SVG('<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>') },
-    { id: 'anteil', frage: 'Wie viel Prozent sind das?', klein: 'Anteil oder Veränderung, zum Beispiel Aufschlag von EK auf VK',
+    { id: 'anteil', frage: 'Wie viel Prozent sind das?', stichwort: 'Prozentanteil', klein: 'Anteil oder Veränderung, zum Beispiel Aufschlag von EK auf VK',
       icon: SVG('<path d="M12 3v9h9"/><circle cx="12" cy="12" r="9"/>') },
-    { id: 'aufschlag', frage: 'Wie hoch ist ein Preis mit Aufschlag oder Rabatt?', klein: 'Zum Beispiel 100 € plus 12 % Aufschlag',
+    { id: 'aufschlag', frage: 'Wie hoch ist ein Preis mit Aufschlag oder Rabatt?', stichwort: 'Aufschlag, Rabatt', klein: 'Zum Beispiel 100 € plus 12 % Aufschlag',
       icon: SVG('<path d="M12 5v14M5 12h14"/>') },
-    { id: 'mwst', frage: 'Wie hoch ist ein Preis mit oder ohne Mehrwertsteuer?', klein: 'Netto in brutto und zurück',
+    { id: 'mwst', frage: 'Wie hoch ist ein Preis mit oder ohne Mehrwertsteuer?', stichwort: 'Mehrwertsteuer', klein: 'Netto in brutto und zurück',
       icon: SVG('<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>') }
   ];
 
@@ -70,7 +70,7 @@
         h('p', { class: 'lead' }, 'Was willst du wissen?'),
         h('div', { class: 'wahl' }, FRAGEN.map(q => h('button', { type: 'button', onclick: () => zeigeFrage(q.id) },
           h('span', { class: 'ico', html: q.icon }),
-          h('span', {}, h('strong', {}, q.frage), h('small', {}, q.klein))))));
+          h('span', {}, q.stichwort ? h('span', { class: 'tag' }, q.stichwort) : null, h('strong', {}, q.frage), h('small', {}, q.klein))))));
     }
 
     function zeigeFrage(id) {
@@ -190,7 +190,7 @@
       'Dreisatz und Prozentrechnung sind reine Rechenregeln (Grundwert, Prozentwert, Prozentsatz), keine Normwerte. Jede Rechnung wird in den Tests mit der Umkehrrechnung geprüft.',
       'Nicht enthalten: Steuerberatung, Skonto und Kalkulation mit Zuschlägen auf mehreren Stufen. Der Steuersatz wird nicht vorgegeben.'
     ],
-    stichworte: 'dreisatz prozent prozentrechnung aufschlag rabatt skonto mehrwertsteuer mwst netto brutto marge kalkulation einkauf verkauf anteil',
+    stichworte: 'prozentanteil dreisatz prozent prozentrechnung aufschlag rabatt skonto mehrwertsteuer mwst netto brutto marge kalkulation einkauf verkauf anteil',
     title: 'Dreisatz & Prozent',
     desc: 'Dreisatz, Prozent, Aufschlag, MwSt',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>',

@@ -61,15 +61,15 @@
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
-    { id: 'rund', frage: 'Welcher runde Kanal ersetzt meinen eckigen Kanal?', klein: 'Zum Beispiel 300 × 200 mm',
+    { id: 'rund', frage: 'Welcher runde Kanal ersetzt meinen eckigen Kanal?', stichwort: 'Eckig → rund', klein: 'Zum Beispiel 300 × 200 mm',
       icon: SVG('<circle cx="12" cy="12" r="8"/><path d="M8 8h8v8H8z"/>') },
-    { id: 'eckig', frage: 'Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt?', klein: 'Du gibst eine Seite vor',
+    { id: 'eckig', frage: 'Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt?', stichwort: 'Rund → eckig', klein: 'Du gibst eine Seite vor',
       icon: SVG('<rect x="4" y="7" width="16" height="10" rx="1"/><circle cx="12" cy="12" r="3"/>') },
-    { id: 'tempo', frage: 'Wie schnell strömt die Luft in meinem Kanal?', klein: 'Aus Luftmenge und Kanalgröße',
+    { id: 'tempo', frage: 'Wie schnell strömt die Luft in meinem Kanal?', stichwort: 'Luftgeschwindigkeit', klein: 'Aus Luftmenge und Kanalgröße',
       icon: SVG('<path d="M3 9h12M12 5l4 4-4 4"/><path d="M21 15H9M12 11l-4 4 4 4"/>') },
-    { id: 'menge', frage: 'Wie viel Luft muss die Lüftung fördern?', klein: 'Aus Raumgröße und gewünschtem Luftwechsel',
+    { id: 'menge', frage: 'Wie viel Luft muss die Lüftung fördern?', stichwort: 'Luftmenge', klein: 'Aus Raumgröße und gewünschtem Luftwechsel',
       icon: SVG('<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M7 12h6M11 9l3 3-3 3"/>') },
-    { id: 'wechsel', frage: 'Wie oft wird die Luft im Raum pro Stunde getauscht?', klein: 'Aus Luftmenge und Raumgröße',
+    { id: 'wechsel', frage: 'Wie oft wird die Luft im Raum pro Stunde getauscht?', stichwort: 'Luftwechsel', klein: 'Aus Luftmenge und Raumgröße',
       icon: SVG('<path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v4h-4"/>') }
   ];
 
@@ -87,7 +87,7 @@
         h('p', { class: 'lead' }, 'Was willst du wissen?'),
         h('div', { class: 'wahl' }, FRAGEN.map(q => h('button', { type: 'button', onclick: () => zeigeFrage(q.id) },
           h('span', { class: 'ico', html: q.icon }),
-          h('span', {}, h('strong', {}, q.frage), h('small', {}, q.klein))))));
+          h('span', {}, q.stichwort ? h('span', { class: 'tag' }, q.stichwort) : null, h('strong', {}, q.frage), h('small', {}, q.klein))))));
     }
 
     function zeigeFrage(id) {
@@ -228,7 +228,7 @@
       'Luftwechsel n = Luftmenge (m³/h) ÷ Raumvolumen (m³), Einheit 1/h: Baunetzwissen (Definition) und Greenox (Formel und Beispiel 100 m³ × 2 je Stunde = 200 m³/h). Raumvolumen = Fläche × Höhe. Richtwerte je Raumtyp sind nicht hinterlegt, weil die Quellen sich widersprechen. Der Zielwert ist Eingabe.',
       'Nicht enthalten: Normgrößen der runden Kanäle, zulässige Geschwindigkeiten und Druckverlust je Meter (hängen von Norm, Einsatz und Rauheit ab), flache Ovalrohre.'
     ],
-    stichworte: 'luftwechsel luftwechselrate luftmenge raumvolumen lüftung lüftungskanal wickelfalz spiro rechteckkanal rund eckig äquivalent gleichwertiger durchmesser querschnitt luftgeschwindigkeit volumenstrom luft m³/h rechteck',
+    stichworte: 'luftgeschwindigkeit luftwechsel luftwechselrate luftmenge raumvolumen lüftung lüftungskanal wickelfalz spiro rechteckkanal rund eckig äquivalent gleichwertiger durchmesser querschnitt luftgeschwindigkeit volumenstrom luft m³/h rechteck',
     title: 'Luftkanal & Luftwechsel',
     desc: 'Kanal rund ↔ eckig, Geschwindigkeit, Luftwechsel',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="10" rx="1"/><circle cx="18" cy="12" r="3.5"/></svg>',

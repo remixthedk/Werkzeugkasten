@@ -2,6 +2,15 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.13.0] – 2026-10-31
+
+### Neu
+- **Strom: Trafo und Netzteil.** Vierte Frage "Wie viel Strom fließt vor und hinter meinem Trafo oder Netzteil?": Spannung Eingang und Ausgang, Leistung (für Ausgang oder Eingang wählbar) und optional der Wirkungsgrad. Ergebnis: Strom auf beiden Seiten, Leistung auf beiden Seiten, Verlust und Spannungsverhältnis. Beispiel 230 V auf 12 V mit 70 W: 0,3 A am Eingang, 5,83 A am Ausgang. Der Wirkungsgrad wird von Hand eingetragen, ohne Eintrag wird ohne Verluste gerechnet
+- **Stichwörter an jeder Frage.** Über jedem Fragesatz steht ein kleines Stichwort (zum Beispiel ROHRISOLIEREN, DRUCKVERLUST, OHM) für alle, die nicht den ganzen Satz lesen wollen. Gilt für alle Auswahlseiten (Rohr, Kältemittel, Wärme & Wasser, Strom, Luftkanal, Dreisatz & Prozent und die Sammelkacheln). Die Stichwörter werden auch von der Suche gefunden
+
+### Geprüft
+- Trafo: Formeln mit zwei Quellen (studyflix.de, lernhelfer.de). Gegenprobe im Test: U₁·I₁ = U₂·I₂ und Wirkungsgrad aus P Ausgang ÷ P Eingang. Kein Vorgabewert für den Wirkungsgrad, weil dafür keine belegten Werte vorliegen
+
 ## [1.12.0] – 2026-10-31
 
 ### Neu
