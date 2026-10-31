@@ -112,6 +112,7 @@ Grundregel: Zahlen und Tabellen stehen in `js/data/`, die Rechnung steht im Modu
 2. Im Repo **Settings → Pages**: Source "Deploy from a branch", Branch `main`, Ordner `/ (root)`.
 3. Nach kurzer Wartezeit ist die App unter `https://<benutzer>.github.io/<repo>/` erreichbar.
 4. Am Handy im Browser öffnen und "Zum Startbildschirm hinzufügen" bzw. "App installieren" wählen.
+   Zeigt Chrome fälschlich "App schon installiert" / "App nicht gefunden": seit 1.17.1 hat die App eine neue Kennung (`id`/`start_url` = `index.html`). Hilft das nicht, im Chrome-Menü "Verknüpfung erstellen" wählen. Websitedaten von `github.io` nicht löschen, die Stundenapp teilt sich diese Adresse.
 
 Lokal testen: im Projektordner `python3 -m http.server 8000`, dann `http://localhost:8000` öffnen. (Der Offline-Modus braucht https oder localhost.)
 

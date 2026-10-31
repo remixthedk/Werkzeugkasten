@@ -2,6 +2,12 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.17.1] – 2026-10-31
+
+### Behoben
+- **Installation auf Android (Chrome):** Manche Handys zeigten "App schon installiert" und beim Antippen "App nicht gefunden", obwohl nie installiert wurde. Die App hat jetzt eine neue Kennung (`id` und `start_url` im Manifest zeigen auf `index.html`, wie bei der Stundenapp). Chrome behandelt sie damit als neue App und ignoriert den alten Eintrag. Nicht zusätzlich getestet auf einem echten Gerät, daher bitte Rückmeldung
+- Hinweis: Nach dem Update Seite einmal neu laden bzw. Chrome schließen und neu öffnen, dann im Menü nach "App installieren" schauen
+
 ## [1.17.0] – 2026-10-31
 
 ### Neu
