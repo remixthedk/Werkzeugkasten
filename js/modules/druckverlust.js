@@ -106,6 +106,7 @@
         ui.result(rows),
         r.v > 5 ? ui.note('Über 5 m/s: höher als die Obergrenze für Verbrauchsleitungen.', 'warn')
           : r.v > 2 ? ui.note('Über 2 m/s: Für Hausanschlussleitungen nicht zulässig. Bei Verbrauchsleitungen sind je nach Armaturen bis 5 m/s möglich (DIN 1988-300, laut SBZ-Artikel).') : null,
+        !w && art.get() === 'glatt' ? ui.note('Verzinkter Stahl (zum Beispiel Prestabo) ist innen rauer als Kupfer. Dafür gilt diese Rechnung nicht, der Druckverlust liegt dort höher. Bei Stahlrohr die Tabelle des Herstellers nehmen.') : null,
         r.uebergang ? ui.note('Die Strömung liegt im Übergangsbereich (Re 2300 bis 4000), der Wert ist unsicherer.') : null,
         ui.note('Gerechnet wird nur das gerade Rohr. Bögen, Ventile, Zähler und die Armatur selbst kommen dazu. Es muss am Ende genug Fließdruck an der Armatur ankommen.'),
         w && w.id === 'mehrschicht'
@@ -147,7 +148,7 @@
     id: 'druckverlust',
     bereich: 'rohr',
     hilfe: {
-      wofuer: 'Reicht mein Rohr für die Wassermenge? Du siehst, wie schnell das Wasser im Rohr fließt und wie viel Druck auf dem Weg verloren geht.',
+      wofuer: 'Wie viel Druck geht in meinem Rohr verloren? Du siehst, wie schnell das Wasser im Rohr fließt und wie viel Druck auf dem Weg verloren geht.',
       schritte: [
         'Rohrmaterial und Größe wählen (Raxofix oder Kupfer). Oder "Innendurchmesser selbst eingeben" lassen und das Maß innen im Rohr eintippen, dann noch die Rohrart wählen.',
         'Wassermenge in Litern pro Minute eintippen. Sie steht im Datenblatt der Armatur oder des Geräts.',

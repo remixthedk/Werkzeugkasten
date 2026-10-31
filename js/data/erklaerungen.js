@@ -51,7 +51,7 @@
     ],
     'rohr/daemmung': [
       { b: 'GEG', t: 'Das Gebäudeenergiegesetz schreibt vor, wie dick die Dämmung von Rohren für Heizung und Warmwasser mindestens sein muss, damit wenig Wärme verloren geht.' },
-      { b: 'Einbausituation', t: 'Die Mindestdicke hängt davon ab, wo das Rohr liegt. "Im Haus" ist der Standardfall, auch im unbeheizten Keller oder in der geschlossenen Garage. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, im Freien (Außenwand, Hof, offener Carport) die doppelte. Frostschutz ist eine eigene Entscheidung, das Gesetz regelt nur die Mindestdämmung.' },
+      { b: 'Einbausituation', t: 'Die Mindestdicke hängt davon ab, wo das Rohr liegt. "Im Haus" ist der Standardfall, auch im unbeheizten Keller oder in der geschlossenen Garage. Im Wand- oder Deckendurchbruch, bei Leitungskreuzungen sowie an Verbindungsstellen und Verteilern gilt die halbe Dicke, im Freien (Außenwand, Hof, offener Carport) die doppelte. Frostschutz ist eine eigene Entscheidung, das Gesetz regelt nur die Mindestdämmung.' },
       { b: 'Wärmeleitfähigkeit λ', t: 'Die angezeigten Dicken gelten für einen Dämmstoff mit λ 0,035 W/(m·K). Den Wert findest du auf der Verpackung oder im Datenblatt des Dämmstoffs.' },
       INNEN
     ],
@@ -61,12 +61,14 @@
     'kaelte/ueber': [
       { b: 'Überhitzung', t: 'Das Kältemittel verdampft im Verdampfer. Die Überhitzung sagt, wie viel wärmer das Gas am Ende der Saugleitung ist als die Temperatur, bei der es verdampft ist. Sie wird in Kelvin angegeben. Ist sie zu klein, kann noch flüssiges Kältemittel in den Verdichter gelangen. Ist sie zu groß, wird der Verdampfer nicht gut genutzt.' },
       { b: 'So gehst du vor', t: '1. Kältemittel wählen. 2. Druck am Manometer der Saugseite (Niederdruck) ablesen. 3. Temperatur mit dem Anlegefühler an der Saugleitung messen. Die App sucht die Verdampfungstemperatur zum Druck und zieht sie von deiner Messung ab.' },
-      KELVIN, UEBERDRUCK, TYPENSCHILD
+      KELVIN, UEBERDRUCK, TYPENSCHILD,
+      { b: 'Taupunkt', t: 'Die Temperatur, bei der das Kältemittel bei diesem Druck gerade ganz gasförmig ist. Dein Messwert an der Saugleitung minus dieser Temperatur ergibt die Überhitzung.' }
     ],
     'kaelte/unter': [
       { b: 'Unterkühlung', t: 'Im Verflüssiger wird das Gas wieder flüssig. Die Unterkühlung sagt, wie viel kälter die Flüssigkeit am Ausgang ist als die Temperatur, bei der sie flüssig geworden ist. Sie zeigt, dass das Kältemittel vollständig flüssig zum Expansionsventil kommt.' },
       { b: 'So gehst du vor', t: '1. Kältemittel wählen. 2. Druck am Manometer der Hochdruckseite ablesen. 3. Temperatur mit dem Anlegefühler an der Flüssigkeitsleitung messen. Die App sucht die Verflüssigungstemperatur zum Druck und zieht deine Messung davon ab.' },
-      KELVIN, UEBERDRUCK, TYPENSCHILD
+      KELVIN, UEBERDRUCK, TYPENSCHILD,
+      { b: 'Siedepunkt', t: 'Die Temperatur, bei der das Kältemittel bei diesem Druck gerade ganz flüssig ist. Diese Temperatur minus deinem Messwert an der Flüssigkeitsleitung ergibt die Unterkühlung.' }
     ],
     // ---- Wärme & Wasser ----
     'waerme/erwaermen': [
@@ -118,11 +120,13 @@
     // ---- Luftkanal ----
     'kanal/rund': [
       { b: 'Gleichwertiger Durchmesser', t: 'Ein runder und ein eckiger Kanal sind gleichwertig, wenn bei gleicher Luftmenge gleich viel Druck verloren geht. Der Querschnitt ist dabei nicht gleich groß: Der runde Kanal hat etwas weniger Querschnittsfläche als der eckige, weil die Luft im eckigen Kanal mehr Reibung hat.' },
-      { b: 'Seitenverhältnis', t: 'Das Verhältnis der langen zur kurzen Seite. Ein Kanal 300 × 200 mm hat 1,5 : 1. Je flacher der Kanal, desto mehr Reibung hat die Luft.' }
+      { b: 'Seitenverhältnis', t: 'Das Verhältnis der langen zur kurzen Seite. Ein Kanal 300 × 200 mm hat 1,5 : 1. Je flacher der Kanal, desto mehr Reibung hat die Luft.' },
+      { b: 'Querschnitt', t: 'Die Fläche, durch die die Luft strömt, in cm². Bei gleichem Druckverlust braucht der runde Kanal etwas weniger Fläche als der eckige.' }
     ],
     'kanal/eckig': [
       { b: 'Gleichwertiger Durchmesser', t: 'Ein runder und ein eckiger Kanal sind gleichwertig, wenn bei gleicher Luftmenge gleich viel Druck verloren geht. Der Querschnitt ist dabei nicht gleich groß.' },
-      { b: 'Eine Seite vorgeben', t: 'Ein eckiger Kanal hat zwei Seiten. Eine davon gibst du vor, meist die Höhe, weil sie durch die Decke oder den Einbauort begrenzt ist. Die App rechnet die andere aus.' }
+      { b: 'Eine Seite vorgeben', t: 'Ein eckiger Kanal hat zwei Seiten. Eine davon gibst du vor, meist die Höhe, weil sie durch die Decke oder den Einbauort begrenzt ist. Die App rechnet die andere aus.' },
+      { b: 'Querschnitt', t: 'Die Fläche, durch die die Luft strömt, in cm². Bei gleichem Druckverlust braucht der runde Kanal etwas weniger Fläche als der eckige.' }
     ],
     'kanal/tempo': [
       { b: 'Luftmenge (Volumenstrom)', t: 'Wie viel Luft in einer Stunde durch den Kanal strömt, in m³/h. Sie steht im Lüftungskonzept oder auf dem Gerät. 1 m³/h sind etwa 0,28 l/s.' },
@@ -138,6 +142,47 @@
       { b: 'Raumvolumen', t: 'Wie viel Luft in den Raum passt: Grundfläche mal Raumhöhe, in m³.' }
     ],
     // ---- Strom ----
+    // ---- Einheiten und Brennstoff: je Frage eigene Erklärung ----
+    'k-einheiten/druck': [
+      { b: 'bar, mbar, Pa', t: 'Einheiten für den Druck. 1 bar sind 1000 mbar und 100.000 Pa. Manometer zeigen meist bar oder mbar.' },
+      { b: 'mWS', t: 'Meter Wassersäule: der Druck, den eine 1 m hohe Wassersäule unten ausübt. 10 mWS sind etwa 1 bar.' }
+    ],
+    'k-einheiten/leistung': [
+      { b: 'kW und BTU/h', t: 'Beides sind Einheiten für Leistung. Heizgeräte werden in kW angegeben, Klimageräte oft in BTU/h. Die Tabelle zeigt alle Einheiten auf einmal.' },
+      { b: 'kcal/h', t: 'Eine ältere Einheit für Leistung. 860 kcal/h sind etwa 1 kW.' }
+    ],
+    'k-einheiten/energie': [
+      { b: 'kWh', t: 'Kilowattstunde: die Einheit, in der Energie abgerechnet wird. 1 kWh sind 3,6 MJ.' },
+      { b: 'kcal und BTU', t: 'Ältere beziehungsweise amerikanische Einheiten für Energie. 1 kWh sind etwa 860 kcal.' }
+    ],
+    'k-einheiten/durchfluss': [
+      { b: 'l/s, l/min, m³/h', t: 'Wie viel Wasser oder Luft in einer bestimmten Zeit durch die Leitung fließt. 1 m³/h sind etwa 16,7 l/min und 0,28 l/s.' }
+    ],
+    'k-einheiten/temperatur': [
+      { b: 'Kelvin (K)', t: 'Die Skala der Physik: 0 °C sind 273,15 K. Für Temperaturunterschiede (zum Beispiel die Spreizung) gilt: 1 K ist genau so groß wie 1 °C.' },
+      { b: '°F', t: 'Fahrenheit, in den USA üblich. 20 °C sind 68 °F.' }
+    ],
+    'k-brennstoffe/gas': [
+      { b: 'Zustandszahl', t: 'Sie rechnet das Gasvolumen vom Zähler auf das Volumen bei Normbedingungen um, weil Gas sich mit Druck und Temperatur ausdehnt. Sie liegt meist knapp unter 1 und steht auf der Gasrechnung.' },
+      { b: 'Brennwert', t: 'Die Energie, die in 1 m³ Gas steckt, in kWh. Der Abrechnungsbrennwert unterscheidet sich je Versorger und steht auf der Gasrechnung.' },
+      { b: 'kWh', t: 'Kilowattstunde: die Einheit, in der Energie abgerechnet wird.' }
+    ],
+    'k-brennstoffe/sonst': [
+      { b: 'Energiegehalt', t: 'Wie viel Energie in einem Liter oder Kilogramm Brennstoff steckt, in kWh. Er steht auf dem Lieferschein oder im Datenblatt und unterscheidet sich je Brennstoff und Lieferung.' },
+      { b: 'Heizwert und Brennwert', t: 'Der Brennwert enthält zusätzlich die Wärme aus dem Wasserdampf der Abgase, der Heizwert nicht. Nimm den Wert, der auf deinem Lieferschein steht.' },
+      { b: 'kWh', t: 'Kilowattstunde: die Einheit, in der Energie abgerechnet wird.' }
+    ],
+    // ---- Wärme & Wasser, übrige Fragen ----
+    'waerme/gewicht': [
+      { b: 'Dichte', t: 'Wie schwer ein Liter Wasser ist. Kaltes Wasser wiegt etwas mehr als warmes: 1 Liter bei 10 °C 0,9997 kg, bei 60 °C 0,9832 kg.' }
+    ],
+    'waerme/gas': [
+      { b: 'Kondenswasser', t: 'Bei der Verbrennung von Erdgas entsteht Wasserdampf. Im Brennwertkessel kondensiert ein Teil davon zu Wasser, das abgeleitet werden muss.' }
+    ],
+    'waerme/stoffe': [
+      { b: 'Wärmekapazität c', t: 'Wie viel Energie 1 kg eines Stoffs braucht, um 1 K wärmer zu werden. Je höher c, desto mehr Energie speichert der Stoff. Wasser speichert viel, Kupfer wenig.' },
+      { b: 'Dichte', t: 'Wie schwer ein Kubikmeter des Stoffs ist, in kg/m³.' }
+    ],
     'strom/strom': [
       { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Bei Drehstrom verteilt sich die Leistung auf drei Leiter, der Strom je Leiter ist deshalb kleiner.' },
       { b: 'Leistungsfaktor cos φ', t: 'Er sagt, wie viel von der aufgenommenen Leistung wirklich genutzt wird. Heizstäbe und Durchlauferhitzer haben 1. Bei Motoren und Pumpen liegt er darunter und steht auf dem Typenschild. Je kleiner er ist, desto mehr Strom fließt bei gleicher Leistung.' },

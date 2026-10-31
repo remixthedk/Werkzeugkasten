@@ -41,6 +41,8 @@
         h('span', { class: 'lbl' }, label),
         h('span', { class: 'inp' }, input, o.unit ? h('span', { class: 'unit' }, o.unit) : null),
         o.hint ? h('small', { class: 'hint' }, o.hint) : null);
+      // Vorbelegte Beispielwerte: beim Antippen markieren, dann überschreibt die erste Eingabe den Wert
+      input.addEventListener('focus', () => setTimeout(() => { try { input.select(); } catch (e) { /* egal */ } }, 0));
       return { el, input, get: () => WK.parse(input.value), set: v => { input.value = v; } };
     },
     select(label, options, value) {
@@ -292,7 +294,7 @@
     zeichne();
 
     view.replaceChildren(...[
-      h('p', { class: 'lead' }, 'Rechner und Nachschlagetabellen für die Baustelle. Mit dem Stern markierst du Favoriten, sie stehen dann oben.'),
+      h('p', { class: 'lead' }, 'Rechner und Nachschlagetabellen für die Baustelle. Mit dem Stern markierst du Favoriten, sie stehen dann oben. Die Felder sind mit Beispielwerten gefüllt: antippen und überschreiben.'),
       suche,
       liste,
       failedModules.length

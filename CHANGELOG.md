@@ -2,6 +2,23 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.11.0] – 2026-10-31
+
+Bedienung und Verständlichkeit nach einer Prüfung aller Bildschirme. Keine Rechnung hat sich geändert.
+
+### Geändert
+- **Passstücke:** Ohne Z-Maß zeigt das große Ergebnis "Länge Mitte zu Mitte" und einen Hinweis, dass die Zuschnittlänge noch fehlt. Vorher stand dort "Zuschnittlänge" mit dem Wert Mitte zu Mitte
+- **Erklärungen passen zur Frage:** Einheiten (je Druck, Leistung, Energie, Durchfluss, Temperatur eigene Erklärung) und Brennstoff (Gas und Öl/Pellets getrennt). Neu bei Wärme & Wasser (Gewicht, Wasser aus Gas, Stoffwerte), Taupunkt und Siedepunkt bei Überhitzung und Unterkühlung, Querschnitt beim Luftkanal
+- **Rohr-Check:** Die Frage heißt jetzt "Wie viel Druck geht in meinem Rohr verloren?", weil die App kein Urteil "reicht" fällt
+- **Gefälle:** "Wie tief liegt mein Rohr am Ende?" hat eine eigene Ergebnis-Box
+- **Fußbodenheizung:** Hinweis, dass die Zahl der Heizkreise erst mit eingetragener Höchstlänge erscheint
+- **Aufheizzeit:** Fehlt die Heizleistung, steht in der Zeile "Aufheizzeit" der Hinweis "Heizleistung fehlt"
+- **Dämmung:** Einbauort "Im Fußbodenaufbau, zwischen Räumen verschiedener Nutzer (6 mm)" statt "Wie vorher …", Erklärung ergänzt (Kreuzungen, Verbindungen, Verteiler)
+- **Dichtheitsprüfung:** Verweis auf die Kachel Rohr statt auf das frühere "Modul Wasserinhalt"
+- **Rohr-Check und Heizungsrohr:** Hinweis bei eigenem Innendurchmesser, dass verzinkter Stahl (zum Beispiel Prestabo) rauer ist und die Rechnung dafür nicht gilt
+- **Eingabefelder:** Beim Antippen wird der Wert markiert, auf der Startseite steht, dass die Felder Beispielwerte enthalten
+- Kleinigkeiten: "Faktor Mittenlänge ÷ Versatz" statt "Faktor L / V", Rohrgewicht ohne doppelte Wasserzeile, Passstücke mit nur einer Z-Maß-Erklärung
+
 ## [1.10.0] – 2026-10-31
 
 Alle Kacheln arbeiten jetzt mit Fragen in ganzen Sätzen. Keine Rechnung hat sich geändert.

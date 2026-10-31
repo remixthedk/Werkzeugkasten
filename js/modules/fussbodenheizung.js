@@ -54,6 +54,7 @@
       }
       if (r.lh != null) rows.push({ k: 'Volumenstrom je Kreis', v: fmt(r.lh, 0) + ' l/h' });
       out.replaceChildren(...[ui.result(rows),
+        r.passt === null ? ui.note('Wie viele Heizkreise du brauchst, siehst du, wenn du oben die höchste Heizkreislänge einträgst. Sie steht in den Unterlagen des Rohrherstellers.') : null,
         r.passt === false ? ui.note('Die Fläche passt nicht in einen Heizkreis. Gerechnet wird mit gleich großen Kreisen, jeder mit eigener Zu- und Rückleitung.') : null].filter(Boolean));
     }
     for (const f of [flaeche, va, ent, max, wm2, k]) f.input.addEventListener('input', update);

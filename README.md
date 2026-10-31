@@ -43,7 +43,7 @@ Zusammengehörige Module stehen unter einer Kachel, die mit großen Fragen in ga
 
 | Kachel | Fragen (Module) |
 |---|---|
-| **Rohr** | Welche Maße hat mein Rohr? (Rohrgrößen) · Wie viel Wasser passt in mein Rohr? (Wasserinhalt) · Reicht mein Rohr für die Wassermenge? (Rohr-Check) · Wie stark dehnt sich mein Rohr, wenn es warm wird? (Längenausdehnung) · Wie schwer ist mein Rohr mit Wasser? (Rohrgewicht) · Welches Rohr brauche ich für meine Heizleistung? (Heizungsrohr) · Wie dick muss die Dämmung an meinem Rohr sein? (Dämmung). Rohrmaterial und Größe bleiben beim Wechsel zwischen Wasserinhalt, Rohr-Check, Rohrgewicht und Dämmung stehen (das Heizungsrohr hat eigene Felder), soweit das Material dort zur Auswahl steht |
+| **Rohr** | Welche Maße hat mein Rohr? (Rohrgrößen) · Wie viel Wasser passt in mein Rohr? (Wasserinhalt) · Wie viel Druck geht in meinem Rohr verloren? (Rohr-Check) · Wie stark dehnt sich mein Rohr, wenn es warm wird? (Längenausdehnung) · Wie schwer ist mein Rohr mit Wasser? (Rohrgewicht) · Welches Rohr brauche ich für meine Heizleistung? (Heizungsrohr) · Wie dick muss die Dämmung an meinem Rohr sein? (Dämmung). Rohrmaterial und Größe bleiben beim Wechsel zwischen Wasserinhalt, Rohr-Check, Rohrgewicht und Dämmung stehen (das Heizungsrohr hat eigene Felder), soweit das Material dort zur Auswahl steht |
 | **Kältemittel** | Welcher Druck gehört zu welcher Temperatur? (Kältemittel-Druck) · Wie viel Überhitzung hat meine Anlage auf der Saugseite? · Wie viel Unterkühlung hat meine Anlage auf der Flüssigkeitsseite? (beide aus Überhitzung & Unterkühlung). Das Kältemittel bleibt beim Wechsel stehen, die Erklärung ist bei Überhitzung und Unterkühlung gleich offen |
 | **Wärme & Wasser** | wie bisher, dazu: Wie viel Wasser muss durch meine Heizung fließen? (Leistung & Volumenstrom) |
 | **Passstücke** (ab 1.10.0) | Wie lang muss mein Passstück bei Versatz und Winkel sein? · Wie lang muss mein Passstück bei Längs- und Quermaß sein? (ehemals Registerkarten "Versatz + Winkel" und "Längs + Quer") |
@@ -208,3 +208,13 @@ Barlow und Barlow Condensed, SIL Open Font License, Lizenztext in `fonts/LICENSE
 - **Sicherung, Kabelquerschnitt, Spannungsabfall, Anlaufstrom und Wirkungsgrad (Strom-Modul):** nicht gebaut. Das legt die Elektrofachkraft fest, es hängt von Verlegeart und Vorschriften ab.
 - **Heizungsrohr: Bewertung und Ampel:** nicht gebaut. Die Grenzwerte in den Quellen widersprechen sich und nennen keine Norm. Die App zeigt die Werte, die gewünschte Geschwindigkeit gibt der Anwender vor.
 - **Heizungsrohr für Prestabo, Mapress XL und Gewinderohr:** nicht gebaut, weil keine bestätigte Rauheit vorliegt (siehe Rohr-Check). Dafür gibt es "Innendurchmesser selbst eingeben" mit Rohrart. Kupfer 12 mm fehlt, weil keine bestätigte Wandstärke vorliegt.
+
+### Bedienung (Prüfung 1.11.0)
+
+Grundsätze, nach denen die Texte und Ergebnisse gebaut sind:
+- Eine Frage verspricht nur, was die App liefert. Wo es keine belegten Grenzwerte gibt, steht keine "reicht"-Frage und keine Ampel (Rohr-Check, Heizungsrohr).
+- Das große Ergebnis trägt nur dann den Namen eines Maßes (zum Beispiel "Zuschnittlänge"), wenn alle nötigen Werte da sind. Fehlt das Z-Maß, heißt es "Länge Mitte zu Mitte" mit Hinweis.
+- Die Antwort steht immer in einer Ergebnis-Box, nie nur in einem Eingabefeld.
+- "Was bedeutet das?" zeigt nur Begriffe, die zur gewählten Frage passen (Schlüssel `<Kachel>/<Frage>` in `js/data/erklaerungen.js`).
+- Eingabefelder sind mit Beispielwerten gefüllt. Beim Antippen wird der Wert markiert, die erste Eingabe überschreibt ihn.
+- Verweise in Texten nennen den Weg in der App ("unter Rohr, Wie viel Wasser passt in mein Rohr?"), nicht frühere Modulnamen.

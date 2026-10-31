@@ -31,6 +31,7 @@
     '<text x="132" y="52">L</text><text x="122" y="88">α</text></g></svg>';
 
   const kommaZahl = n => String(n).replace('.', ',');
+  const KEIN_Z = 'Das ist noch nicht die Zuschnittlänge: Es fehlt das Z-Maß. Wähle oben das Fitting und die Größe oder trag das Z-Maß ein. Dann siehst du die Länge, die du sägst.';
 
   function render() {
     const { h, ui, fmt } = WK;
@@ -66,28 +67,38 @@
       boxA.hidden = mode !== 'dreieck';
       gr.el.hidden = fit.get() === 'selbst';
       const zz = { z1: z1.get() || 0, z2: z2.get() || 0 };
+      const hatZ = zz.z1 + zz.z2 > 0;
       let rows, warn = null;
       if (mode === 'versatz') {
         const r = versatz({ v: v.get(), winkel: w.get(), ...zz });
         if (!r) { out.replaceChildren(ui.note('Versatz größer 0 und Winkel zwischen 0 und 90° eingeben.', 'warn')); return; }
-        rows = [
+        rows = hatZ ? [
           { k: 'Zuschnittlänge', v: fmt(r.zuschnitt, 1) + ' mm', big: true },
           { k: 'Mittenlänge L', v: fmt(r.l, 1) + ' mm' },
           { k: 'Längsmaß A', v: fmt(r.laengs, 1) + ' mm' },
-          { k: 'Faktor L / V', v: fmt(r.faktor, 4) },
+          { k: 'Faktor Mittenlänge ÷ Versatz', v: fmt(r.faktor, 4) },
           { k: 'Abzug Z-Maße', v: fmt(r.abzug, 1) + ' mm' }
+        ] : [
+          { k: 'Länge Mitte zu Mitte', v: fmt(r.l, 1) + ' mm', big: true },
+          { k: 'Längsmaß A', v: fmt(r.laengs, 1) + ' mm' },
+          { k: 'Faktor Mittenlänge ÷ Versatz', v: fmt(r.faktor, 4) }
         ];
-        if (r.zuschnitt <= 0) warn = 'Zuschnitt ist null oder negativ: Z-Maße größer als die Mittenlänge.';
+        if (!hatZ) warn = KEIN_Z;
+        else if (r.zuschnitt <= 0) warn = 'Zuschnitt ist null oder negativ: Z-Maße größer als die Mittenlänge.';
       } else {
         const r = dreieck({ a: a.get(), v: v.get(), ...zz });
         if (!r) { out.replaceChildren(ui.note('Längsmaß (0 oder größer) und Versatz größer 0 eingeben.', 'warn')); return; }
-        rows = [
+        rows = hatZ ? [
           { k: 'Zuschnittlänge', v: fmt(r.zuschnitt, 1) + ' mm', big: true },
           { k: 'Mittenlänge L', v: fmt(r.l, 1) + ' mm' },
           { k: 'Winkel α', v: fmt(r.winkel, 2) + ' °' },
           { k: 'Abzug Z-Maße', v: fmt(r.abzug, 1) + ' mm' }
+        ] : [
+          { k: 'Länge Mitte zu Mitte', v: fmt(r.l, 1) + ' mm', big: true },
+          { k: 'Winkel α', v: fmt(r.winkel, 2) + ' °' }
         ];
-        if (r.zuschnitt <= 0) warn = 'Zuschnitt ist null oder negativ: Z-Maße größer als die Mittenlänge.';
+        if (!hatZ) warn = KEIN_Z;
+        else if (r.zuschnitt <= 0) warn = 'Zuschnitt ist null oder negativ: Z-Maße größer als die Mittenlänge.';
       }
       out.replaceChildren(...[ui.result(rows), warn ? ui.note(warn, 'warn') : null].filter(Boolean));
     }
@@ -115,9 +126,8 @@
       ui.panel(null, h('div', { html: SKIZZE }), v.el, boxW, boxA, fit.el, gr.el, fitHinweis, z1.el, z2.el),
       ui.panel('Ergebnis', out,
         ui.note('Bei 45° gilt: Mittenlänge = Versatz × 1,414.'),
-        h('details', {}, h('summary', {}, 'Was ist das Z-Maß?'),
-          h('p', {}, 'Das Z-Maß ist bei Viega der Abstand von der Mittelachse des Fittings bis zur Anschlagfläche im Fitting, also bis dorthin, wo das Rohr anstößt. ' +
-            'Die Einstecktiefe ist darin schon enthalten. Die Zuschnittlänge ist Mittenlänge − Z-Maß 1 − Z-Maß 2.'),
+        h('details', {}, h('summary', {}, 'Z-Maß und Katalogmaß L nicht verwechseln'),
+          h('p', {}, 'Die Zuschnittlänge ist Mittenlänge − Z-Maß 1 − Z-Maß 2. Das Z-Maß ist bei Viega der Abstand von der Mittelachse des Fittings bis zur Anschlagfläche, die Einstecktiefe ist darin schon enthalten.'),
           h('p', {}, 'Nicht verwechseln mit dem Maß L im Katalog: L reicht bis zum äußeren Ende des Fittings und wird nicht abgezogen. ' +
             'Gemessen wird entlang der Achse des jeweiligen Anschlusses. Das Z-Maß ist je Fitting und System verschieden. ' +
             'Hinterlegt sind die Bögen 45° und 90° von Profipress, Prestabo XL und Mapress (88,9 und 108). Das Z-Maß ist bei Innen-Innen- und Innen-Außen-Fittings gleich. Bei anderen Fittings steht der Wert auf der Produktseite im Viega-Online-Katalog im Reiter "Z-Maße".'),

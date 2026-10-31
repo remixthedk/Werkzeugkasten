@@ -25,7 +25,7 @@
   // ---- Oberfläche ----
   function render() {
     const { h, ui, fmt } = WK;
-    const liter = ui.num('Leitungsvolumen', { unit: 'l', value: '60', hint: 'Inhalt aller Leitungen der Anlage. Je Rohr im Modul Wasserinhalt ausrechnen und addieren.' });
+    const liter = ui.num('Leitungsvolumen', { unit: 'l', value: '60', hint: 'Inhalt aller Leitungen der Anlage. Je Rohr unter Rohr, "Wie viel Wasser passt in mein Rohr?" ausrechnen und addieren.' });
     const dn = ui.select('Größte Nennweite', [
       { value: '50', label: 'bis DN 50' },
       { value: '100', label: 'über DN 50 bis DN 100' }
@@ -59,7 +59,7 @@
     hilfe: {
       wofuer: 'Zeigt Prüfdruck und Prüfzeit für die Dichtheitsprüfung einer Trinkwasser-Installation mit ölfreier Luft oder Inertgas. Die Zeit hängt vom Leitungsvolumen ab.',
       schritte: [
-        'Das Leitungsvolumen der Anlage in Litern eintippen. Den Inhalt je Rohr bekommst du im Modul Wasserinhalt, dann addierst du alles.',
+        'Das Leitungsvolumen der Anlage in Litern eintippen. Den Inhalt je Rohr bekommst du unter Rohr, "Wie viel Wasser passt in mein Rohr?", dann addierst du alles.',
         'Die größte Nennweite der Anlage wählen: bis DN 50 oder darüber bis DN 100.',
         'Du siehst zuerst den Prüfdruck und die Prüfzeit der Dichtheitsprüfung, danach den Höchstdruck der Belastungsprüfung.',
         'Prüfzeit erst starten, wenn Temperatur und Druck sich eingependelt haben.'

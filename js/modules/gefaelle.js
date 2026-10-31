@@ -63,8 +63,12 @@
       zeigeH(r != null);
     }
     function zeigeH(ok) {
-      outH.replaceChildren(ok ? ui.note('Länge und Gefälle ergeben den Höhenunterschied. Oder gib Länge und Höhenunterschied ein, dann wird das Gefälle gerechnet.')
-        : ui.note('Länge und Gefälle (oder Höhenunterschied) eingeben.', 'warn'));
+      outH.replaceChildren(...(ok ? [ui.result([
+        { k: 'Tiefer am Rohrende', v: fmt(hoeheFeld.get(), 1) + ' cm', big: true },
+        { k: 'Auf einer Länge von', v: fmt(laenge.get(), 2) + ' m' },
+        { k: 'Gefälle', v: fmt(proz.get(), 2) + ' %' }
+      ]), ui.note('Du kannst auch Länge und Höhenunterschied eingeben, dann wird das Gefälle gerechnet.')]
+        : [ui.note('Länge und Gefälle (oder Höhenunterschied) eingeben.', 'warn')]));
     }
     laenge.input.addEventListener('input', () => { if (proz.get() > 0 || !(hoeheFeld.get() > 0)) ausGefaelle(); else ausHoehe(); });
     proz.input.addEventListener('input', ausGefaelle);
@@ -76,7 +80,7 @@
       { value: 'hoehe', label: 'Höhe bei Länge' }
     ], v => { boxU.hidden = v !== 'um'; boxH.hidden = v !== 'hoehe'; });
     const boxU = h('div', {}, ui.panel(null, art.el, wert.el), ui.panel('Ergebnis', outU));
-    const boxH = h('div', {}, ui.panel(null, laenge.el, proz.el, hoeheFeld.el, outH,
+    const boxH = h('div', {}, ui.panel(null, laenge.el, proz.el, hoeheFeld.el), ui.panel('Ergebnis', outH,
       ui.note('Gemessen wird die waagerechte Länge. Bei Gefällen bis 10 % ist das schräge Rohr weniger als 0,5 % länger.')));
     boxH.hidden = true;
     box = h('div', {}, tabs.el, boxU, boxH);

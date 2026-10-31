@@ -26,7 +26,7 @@
     fragen: [
       { id: 'rohrgroessen', modul: 'rohrgroessen', frage: 'Welche Maße hat mein Rohr?', klein: 'Außen-, Innendurchmesser und Wandstärke nachschlagen' },
       { id: 'wasserinhalt', modul: 'wasserinhalt', frage: 'Wie viel Wasser passt in mein Rohr?', klein: 'Liter je Meter und für die ganze Länge' },
-      { id: 'druckverlust', modul: 'druckverlust', frage: 'Reicht mein Rohr für die Wassermenge?', klein: 'Fließgeschwindigkeit und Druckverlust' },
+      { id: 'druckverlust', modul: 'druckverlust', frage: 'Wie viel Druck geht in meinem Rohr verloren?', klein: 'Fließgeschwindigkeit und Druckverlust bei deiner Wassermenge' },
       { id: 'heizrohr', modul: 'heizrohr', frage: 'Welches Rohr brauche ich für meine Heizleistung?', klein: 'Aus kW und Spreizung: Wassermenge, Geschwindigkeit, Druckgefälle' },
       { id: 'rohrgewicht', modul: 'rohrgewicht', frage: 'Wie schwer ist mein Rohr mit Wasser?', klein: 'Für Schellen, Decken und Transport' },
       { id: 'ausdehnung', modul: 'ausdehnung', frage: 'Wie stark dehnt sich mein Rohr, wenn es warm wird?', klein: 'Verlängerung in Millimetern' },
@@ -77,15 +77,15 @@
     { id: 'hoehe', begriffe: 'gefaelle', modul: 'gefaelle', tab: 1, frage: 'Wie tief liegt mein Rohr am Ende?', klein: 'Höhenunterschied aus Länge und Gefälle' }
   ] });
   aus('brennstoffe', { fragen: [
-    { id: 'gas', begriffe: 'brennstoffe', modul: 'brennstoffe', tab: 0, frage: 'Wie viele kWh sind meine Kubikmeter Erdgas?', klein: 'Mit Zustandszahl und Brennwert von der Rechnung, auch zurück' },
-    { id: 'sonst', begriffe: 'brennstoffe', modul: 'brennstoffe', tab: 1, frage: 'Wie viele kWh stecken in Öl, Pellets oder Flüssiggas?', klein: 'Aus Menge und Energiegehalt' }
+    { id: 'gas', modul: 'brennstoffe', tab: 0, frage: 'Wie viele kWh sind meine Kubikmeter Erdgas?', klein: 'Mit Zustandszahl und Brennwert von der Rechnung, auch zurück' },
+    { id: 'sonst', modul: 'brennstoffe', tab: 1, frage: 'Wie viele kWh stecken in Öl, Pellets oder Flüssiggas?', klein: 'Aus Menge und Energiegehalt' }
   ] });
   aus('einheiten', { fragen: [
-    { id: 'druck', begriffe: 'einheiten', modul: 'einheiten', tab: 0, frage: 'Wie rechne ich einen Druck um?', klein: 'Pa, mbar, bar, mWS, psi und mehr' },
-    { id: 'leistung', begriffe: 'einheiten', modul: 'einheiten', tab: 1, frage: 'Wie rechne ich eine Leistung um?', klein: 'W, kW, kcal/h, BTU/h' },
-    { id: 'energie', begriffe: 'einheiten', modul: 'einheiten', tab: 2, frage: 'Wie rechne ich eine Energie um?', klein: 'J, kWh, kcal, BTU und mehr' },
-    { id: 'durchfluss', begriffe: 'einheiten', modul: 'einheiten', tab: 3, frage: 'Wie rechne ich einen Durchfluss um?', klein: 'l/s, l/min, m³/h und mehr' },
-    { id: 'temperatur', begriffe: 'einheiten', modul: 'einheiten', tab: 4, frage: 'Wie rechne ich eine Temperatur um?', klein: '°C, K, °F' }
+    { id: 'druck', modul: 'einheiten', tab: 0, frage: 'Wie rechne ich einen Druck um?', klein: 'Pa, mbar, bar, mWS, psi und mehr' },
+    { id: 'leistung', modul: 'einheiten', tab: 1, frage: 'Wie rechne ich eine Leistung um?', klein: 'W, kW, kcal/h, BTU/h' },
+    { id: 'energie', modul: 'einheiten', tab: 2, frage: 'Wie rechne ich eine Energie um?', klein: 'J, kWh, kcal, BTU und mehr' },
+    { id: 'durchfluss', modul: 'einheiten', tab: 3, frage: 'Wie rechne ich einen Durchfluss um?', klein: 'l/s, l/min, m³/h und mehr' },
+    { id: 'temperatur', modul: 'einheiten', tab: 4, frage: 'Wie rechne ich eine Temperatur um?', klein: '°C, K, °F' }
   ] });
 
   // Leistung & Volumenstrom steckt als Frage in "Wärme & Wasser"

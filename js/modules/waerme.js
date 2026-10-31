@@ -135,7 +135,7 @@
             const z = zeit({ kWh: e, kW: kw.f.get() });
             if (z) rows.push({ k: 'Aufheizzeit', v: (z.h ? z.h + ' h ' : '') + z.m + ' min', big: true });
             rows.push({ k: r.abkuehlen ? 'Energie (frei werdend)' : 'Energie', v: fmt(e, 2) + ' kWh' });
-            if (!z) rows.push({ k: 'Heizleistung', v: 'bitte eingeben' });
+            if (!z) rows.unshift({ k: 'Aufheizzeit', v: 'Heizleistung fehlt' });
           } else {
             rows.push({ k: r.abkuehlen ? 'Frei werdende Energie' : 'Energie', v: fmt(e, 2) + ' kWh', big: true });
             rows.push({ k: 'in kJ', v: fmt(Math.abs(r.kJ), 0) + ' kJ' });

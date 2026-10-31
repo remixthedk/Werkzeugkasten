@@ -96,7 +96,7 @@
       if (!r) { out.replaceChildren(ui.note('Innendurchmesser eingeben.', 'warn')); return; }
       const rows = [{ k: r.rohrKg ? 'Rohr mit Wasser je Meter' : 'Wasser je Meter', v: fmt(r.proM, 2) + ' kg/m', big: true }];
       if (r.rohrKg) { rows.push({ k: 'davon Rohr', v: fmt(r.rohrKg, 2) + ' kg/m' }); }
-      rows.push({ k: 'davon Wasser', v: fmt(r.wasserKg, 2) + ' kg/m (' + fmt(r.wasserL, 3) + ' l/m)' });
+      if (r.rohrKg) rows.push({ k: 'davon Wasser', v: fmt(r.wasserKg, 2) + ' kg/m (' + fmt(r.wasserL, 3) + ' l/m)' });
       if (r.gesamt) {
         rows.push({ k: 'Auf ' + fmt(laenge.get(), 1) + ' m insgesamt', v: fmt(r.gesamt.summe, 1) + ' kg' });
         if (r.gesamt.rohr != null) rows.push({ k: 'davon Rohr / Wasser', v: fmt(r.gesamt.rohr, 1) + ' / ' + fmt(r.gesamt.wasser, 1) + ' kg' });

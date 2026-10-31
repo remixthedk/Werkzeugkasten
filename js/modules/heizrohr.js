@@ -88,6 +88,7 @@
         ui.result(rows),
         tab,
         t.zeilen.some(z => z.uebergang) ? ui.note('Bei einzelnen Größen liegt die Strömung im Übergangsbereich (Re 2300 bis 4000), der Wert ist dort unsicherer.') : null,
+        m === 'manuell' ? ui.note('Verzinkter Stahl (zum Beispiel Prestabo) ist innen rauer als Kupfer. Dafür gilt diese Rechnung nicht, der Druckverlust liegt dort höher. Bei Stahlrohr die Tabelle des Herstellers nehmen.') : null,
         m === 'kupfer' ? ui.note('Gerechnet mit der üblichen Wandstärke je Größe (15 bis 22 mm: 1 mm, 28 bis 42 mm: 1,5 mm, 54 mm: 2 mm). Bei anderer Wandstärke "Innendurchmesser selbst eingeben" wählen. Größe 12 mm fehlt.') : null,
         m === 'mehrschicht' ? ui.note('Raxofix: Innendurchmesser aus Außen-Ø und Wand gerechnet. Real ist er bei 25, 32 und 63 mm bis 0,4 mm größer. Der Druckverlust liegt dann bis etwa 10 % niedriger, die Rechnung liegt auf der sicheren Seite.') : null,
         ui.note('Faustwert aus Fachartikeln: im Wohnbau bis etwa 0,5 m/s und 100 bis 150 Pa/m. Eine Norm dazu ist nicht belegt, und die Quellen weichen ab (je nach Leitung 0,3 bis 1,5 m/s). Maßgeblich sind die Tabelle des Herstellers und die Planung.'),
