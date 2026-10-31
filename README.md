@@ -14,7 +14,7 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 |---|---|---|
 | Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen). Rohrauswahl erst Material, dann Größe (Viega Raxofix, Viega Prestabo, Geberit Mapress XL, Kupfer, Stahl-Gewinderohr) |
 | Rohr & Montage | **Rohrgrößen** | Außen-Ø, Wand und Innen-Ø für Raxofix, Prestabo, Mapress XL, Kupfer, Stahl-Gewinderohr und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
-| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel). Z-Maß: Fitting und Größe wählen (Profipress und Prestabo XL, Bogen 45° und 90°), Wert wird eingesetzt; sonst selbst eingeben. Auch aus Längs- und Quermaß |
+| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel). Z-Maß: Fitting und Größe wählen (Profipress, Prestabo XL und Mapress, Bogen 45° und 90°), Wert wird eingesetzt; sonst selbst eingeben. Auch aus Längs- und Quermaß |
 | Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima. Ein Bereich ohne Modul wird nicht angezeigt.
@@ -92,7 +92,8 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Passstücke | Z-Maße Profipress-Bogen 90° (Modell 2416), d 12 bis 54 | bestätigt: Katalogseite zweimal unabhängig abgelesen (Seitenabruf und Handy-Ansicht), gleiche Werte | Viega-Online-Katalog |
 | Passstücke | Z-Maße Profipress-Bogen 45° (Modell 2426), d 12 bis 54 | d 22 bis 54 beim Viega-Händler bestätigt, d 12 im Viega-Datenblatt. d 15 und 18 nur Katalog plus Gegenprobe | Viega-Online-Katalog, ritzmarine.com, tbs-online.de |
 | Passstücke | Z-Maße Vorgängerversion beider Bögen (Spalte Z*) | 90° mit Seitenabruf bestätigt, 45° nur Katalog plus Gegenprobe | Viega-Online-Katalog |
-| Passstücke | Z-Maße Prestabo XL Bogen 90° und 45° (Muffe + Einschubende), d 64, 76,1, 88,9, 108 | Herstellertabellen von Viega (vom Anwender geliefert). Gegenprobe: L − Z (90°) = L1 − Z (45°) = 43 / 50 / 50 / 60 mm. Keine zweite unabhängige Quelle gefunden (Händler nennen keine Z-Maße) | Viega-Katalog |
+| Passstücke | Z-Maße Prestabo XL Bogen 90° und 45°, d 64, 76,1, 88,9, 108 | Herstellertabellen von Viega (vom Anwender geliefert). Gegenprobe: L − Z (90°) = L1 − Z (45°) = 43 / 50 / 50 / 60 mm. Keine zweite unabhängige Quelle gefunden (Händler nennen keine Z-Maße) | Viega-Katalog |
+| Passstücke | Z-Maße Mapress Bogen 90° und 45°, d 88,9 und 108 | Geberit-Produktdaten (Herstellerauszug, cm in mm umgerechnet). Gegenprobe: L − Z bei 90° und 45° gleich (60 / 75 mm) und in allen 11 Größen der Tabelle. Edelstahl und C-Stahl laut Anwender gleich | Geberit Produktdaten (Edelstahl-Bogen, 31.10.2026) |
 | Passstücke | Gegenprobe | L − Z (Einstecktiefe) je Größe in allen vier Tabellen gleich: 18, 22, 22, 23, 24, 26, 36, 40 mm (d 12 bis 54), im Test geprüft | Rechnung |
 
 ### Bewusst nicht gebaut oder entfernt
@@ -102,7 +103,7 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 - **Wandstärken Kupfer:** je Außendurchmesser mehrere Ausführungen (EN 1057: zum Beispiel 28×1 und 28×1,5). Der Anwender gibt die Wandstärke selbst ein. Zu Profipress gibt es kein Rohr von Viega, nur Fittings.
 - **Edelstahlrohr (Sanpress) und Prestabo 12×1,2:** nicht aufgenommen (Sanpress wird im Betrieb nicht genutzt, bei 12×1,2 gibt es nur eine Quelle).
 - **Mehrschichtrohr allgemein:** Größen unterscheiden sich je Hersteller (Uponor, Geberit, Viega). Hinterlegt ist nur Viega Raxofix.
-- **Z-Maße anderer Fittings** (T-Stücke, Muffen, Bögen anderer Winkel, Prestabo, Raxofix, Mapress): je Fitting und System verschieden. Hinterlegt sind nur die Profipress- und Prestabo-XL-Bögen 45° und 90°. Prestabo XL gilt nicht für Geberit Mapress. Weitere kommen nach Einzelprüfung (Katalogseite, Reiter "Z-Maße").
+- **Z-Maße anderer Fittings** (T-Stücke, Muffen, Bögen anderer Winkel, Prestabo, Raxofix, Mapress): je Fitting und System verschieden. Hinterlegt sind nur die Bögen 45° und 90° von Profipress, Prestabo XL und Mapress (88,9 und 108). Die Z-Maße sind laut Anwender bei Innen-Innen und Innen-Außen gleich. Weitere kommen nach Einzelprüfung (Katalogseite, Reiter "Z-Maße").
 - Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
 
 ## Schrift

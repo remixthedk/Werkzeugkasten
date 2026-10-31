@@ -2,6 +2,15 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.1.4] – 2026-10-31
+
+### Neu
+- **Passstücke:** Z-Maße für Geberit Mapress Bogen 90° und 45° (88,9 und 108 mm, Edelstahl und C-Stahl)
+
+### Geändert
+- Prestabo XL Bogen 45°: Name ohne Zusatz, Hinweis zum Einschubende entfernt (Z-Maß gilt laut Anwender für Innen-Innen und Innen-Außen gleich)
+- Prüfliste, Quelle und Hilfetext aktualisiert
+
 ## [1.1.3] – 2026-10-31
 
 ### Neu

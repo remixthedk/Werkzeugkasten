@@ -3,6 +3,7 @@
 //   z = Abstand von der Mittelachse des Fittings bis zur Anschlagfläche im Fitting (Einstecktiefe enthalten)
 //   l = Maß bis zum äußeren Fittingende (wird nicht abgezogen, dient nur der Gegenprobe: l - z = Einstecktiefe)
 // "Vorgängerversion" = die in der Spalte Z*/L* geführten Werte der älteren Fittingausführung.
+// Mapress: Geberit-Produktdaten (Edelstahl-Bogen, Maße in cm umgerechnet). Edelstahl und C-Stahl haben laut Anwender gleiche Z-Maße.
 // hinweis (optional): wird in der App unter der Größenauswahl angezeigt.
 (function () {
   'use strict';
@@ -70,13 +71,26 @@
         ]
       },
       {
-        id: 'x45', name: 'Prestabo XL Bogen 45° (Muffe + Einschubende)',
-        hinweis: 'Das Z-Maß gilt nur für die Pressmuffe. Das Einschubende steckt in einem Fitting, dort gibt es kein Rohr zuzuschneiden. Sitzt am zweiten Ende ein anderer Anschluss, ändere das Z-Maß 2 von Hand.',
+        id: 'x45', name: 'Prestabo XL Bogen 45°',
         werte: [
           { d: 64,   z: 39, l: 82 },
           { d: 76.1, z: 46, l: 96 },
           { d: 88.9, z: 52, l: 102 },
           { d: 108,  z: 61, l: 121 }
+        ]
+      },
+      {
+        id: 'm90', name: 'Mapress Bogen 90° (Edelstahl und C-Stahl)',
+        werte: [
+          { d: 88.9, z: 124, l: 184 },
+          { d: 108,  z: 151, l: 226 }
+        ]
+      },
+      {
+        id: 'm45', name: 'Mapress Bogen 45° (Edelstahl und C-Stahl)',
+        werte: [
+          { d: 88.9, z: 57, l: 117 },
+          { d: 108,  z: 68, l: 143 }
         ]
       }
     ]

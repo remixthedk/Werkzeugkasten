@@ -120,7 +120,7 @@
             'Die Einstecktiefe ist darin schon enthalten. Die Zuschnittlänge ist Mittenlänge − Z-Maß 1 − Z-Maß 2.'),
           h('p', {}, 'Nicht verwechseln mit dem Maß L im Katalog: L reicht bis zum äußeren Ende des Fittings und wird nicht abgezogen. ' +
             'Gemessen wird entlang der Achse des jeweiligen Anschlusses. Das Z-Maß ist je Fitting und System verschieden. ' +
-            'Hinterlegt sind die Profipress-Bögen (45° und 90°) und die Prestabo-XL-Bögen (45° und 90°). Bei anderen Fittings steht der Wert auf der Produktseite im Viega-Online-Katalog im Reiter "Z-Maße".'),
+            'Hinterlegt sind die Bögen 45° und 90° von Profipress, Prestabo XL und Mapress (88,9 und 108). Das Z-Maß ist bei Innen-Innen- und Innen-Außen-Fittings gleich. Bei anderen Fittings steht der Wert auf der Produktseite im Viega-Online-Katalog im Reiter "Z-Maße".'),
           h('p', {}, 'Bei den Bögen gibt es eine Vorgängerversion mit anderen Z-Maßen (im Katalog die Spalte Z*). Wähle sie nur, wenn du noch alte Bögen verbaust.'))));
     update();
     return root;
@@ -146,11 +146,12 @@
       'Z-Maß: Definition aus der Maßzeichnung im Viega-Online-Katalog (Profipress-Bögen 45° und 90°, Reiter "Z-Maße").',
       'Z-Maße Profipress-Bogen 90° (Modell 2416): Viega-Katalogseite, zweimal unabhängig abgelesen (Seitenabruf und Handy-Ansicht), alle Werte gleich. Bogen 45° (Modell 2426): Viega-Katalog, Größen 22 bis 54 beim Viega-Händler ritzmarine.com bestätigt, Größe 12 im Viega-Datenblatt (tbs-online.de).',
       'Gegenprobe: Maß L minus Z-Maß ergibt je Größe bei beiden Bögen und in beiden Ausführungen denselben Wert (Einstecktiefe: 18, 22, 22, 23, 24, 26, 36, 40 mm). Nur durch diese Gegenprobe abgesichert: 45°-Bogen Größe 15 und 18 sowie alle Werte der Vorgängerversion beim 45°-Bogen.',
-      'Z-Maße Prestabo XL Bogen 90° und 45° (64, 76,1, 88,9, 108 mm): Viega-Katalog (direkt vom Hersteller, zwei Maßtabellen). Gegenprobe: L minus Z ergibt bei beiden Bögen dieselben Werte (43, 50, 50, 60 mm). Gilt nur für Viega Prestabo XL, nicht für Geberit Mapress.'
+      'Z-Maße Prestabo XL Bogen 90° und 45° (64, 76,1, 88,9, 108 mm): Viega-Katalog (direkt vom Hersteller, zwei Maßtabellen). Gegenprobe: L minus Z ergibt bei beiden Bögen dieselben Werte (43, 50, 50, 60 mm). Gilt nur für Viega Prestabo XL. Laut Anwender ist das Z-Maß bei Innen-Innen- und Innen-Außen-Fittings gleich.',
+      'Z-Maße Mapress Bogen 90° und 45° (88,9 und 108 mm): Geberit-Produktdaten (Herstellerauszug, Maße in cm). Gegenprobe: L minus Z ergibt bei beiden Bögen dieselben Werte (60 und 75 mm), ebenso in allen anderen Größen der Tabelle. Edelstahl und C-Stahl haben laut Anwender gleiche Z-Maße.'
     ],
     stichworte: 'versatz bogen 45 grad winkel zuschnitt z-maß zmaß rohrlänge etage',
     title: 'Passstücke',
-    desc: 'Zuschnitt bei Versatz, Z-Maße Profipress- und Prestabo-XL-Bögen',
+    desc: 'Zuschnitt bei Versatz, Z-Maße Profipress, Prestabo XL, Mapress',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h6l8-12h6"/></svg>',
     render
   });
