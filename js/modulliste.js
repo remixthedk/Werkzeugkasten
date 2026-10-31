@@ -32,6 +32,7 @@ self.WK.MODULES = [
   { id: 'fussbodenheizung', files: ['js/modules/fussbodenheizung.js'] },
   { id: 'kaeltemittel', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js'] },
   { id: 'ueberhitzung', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js', 'js/modules/ueberhitzung.js'] },
+  { id: 'fehlercodes',  files: ['js/modules/fehlercodes.js'] },
   { id: 'dichtheit',    files: ['js/modules/dichtheit.js'] },
   { id: 'kanal',        files: ['js/modules/kanal.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] },

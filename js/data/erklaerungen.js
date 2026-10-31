@@ -101,6 +101,11 @@
       SPREIZUNG, VOLUMENSTROM,
       { b: 'W/m²', t: 'Die Wärmeleistung, die pro Quadratmeter Fußboden abgegeben werden soll. Der Wert kommt aus der Heizlastberechnung.' }
     ],
+    fehlercodes: [
+      { b: 'Fehlercode', t: 'Eine Zahl oder ein Buchstabe mit Zahl am Display, zum Beispiel F28. Die Heizung sagt damit, was sie gestoppt hat. Was der Code bedeutet, legt der Hersteller fest, und er ist bei jedem Hersteller und oft bei jedem Gerät anders.' },
+      { b: 'Gerätename', t: 'Steht auf dem Typenschild, zum Beispiel „ecoTEC plus“ oder „CGB-2“. Ohne den Namen findet die Suche auch Anleitungen anderer Geräte, bei denen derselbe Code etwas anderes heißt.' },
+      { b: 'Wartungs- und Montageanleitung', t: 'Das Heft für die Fachkraft. Dort steht die Fehlerliste mit Ursache und Maßnahme. Die Bedienungsanleitung für den Betreiber nennt meist nur wenige Codes.' }
+    ],
     dichtheit: [
       { b: 'Dichtheitsprüfung', t: 'Der erste Prüfschritt mit sehr niedrigem Druck. Er findet schon kleine Undichtigkeiten und wird gemacht, solange die Leitungen noch offen liegen.' },
       { b: 'Belastungsprüfung', t: 'Der zweite Prüfschritt mit höherem Druck. Er prüft, ob Rohre und Verbindungen halten. Er kommt erst, wenn die Dichtheitsprüfung bestanden ist.' },

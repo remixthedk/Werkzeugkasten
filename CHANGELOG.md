@@ -2,6 +2,16 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.14.0] – 2026-10-31
+
+### Neu
+- **Kachel Fehlercodes** (Bereich Heizung): Die Frage "Wo finde ich die Fehlercodes für meine Heizung?" führt zu den Unterlagen von Viessmann, Wolf, Vaillant, Remeha und Brötje. Je Hersteller gibt es, wo vorhanden, die offizielle Seite (Viessmann: Fehlercode-Tabelle, Wolf: Downloads für Profis, Brötje: Produktdokumentation, Remeha: Technischer Support) und eine Suche nur auf den Seiten des Herstellers. Mit dem Gerätenamen vom Typenschild sucht sie genau dieses Gerät. Dazu ein Hinweis auf die App Störcode
+- Die Links öffnen im Browser und brauchen Internet. Es gibt bewusst keine eigenen Fehlercodes in der App
+- Neue Erklärung "Was bedeutet das?" (Fehlercode, Gerätename, Wartungsanleitung)
+
+### Geändert
+- Auswahlzeilen (`.wahl`) können jetzt auch Links sein (Style für `a`)
+
 ## [1.13.0] – 2026-10-31
 
 ### Neu
