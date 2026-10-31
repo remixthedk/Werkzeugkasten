@@ -24,5 +24,8 @@ self.WK.MODULES = [
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
   { id: 'waerme',       files: ['js/data/stoffwerte.js', 'js/modules/waerme.js'] },
+  { id: 'kaeltemittel', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js'] },
+  { id: 'ueberhitzung', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js', 'js/modules/ueberhitzung.js'] },
+  { id: 'dichtheit',    files: ['js/modules/dichtheit.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] }
 ];

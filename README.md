@@ -21,6 +21,9 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Heizung | **Brennstoff in kWh** | Gas: m³ × Zustandszahl × Brennwert (und zurück), Öl, Pellets, Flüssiggas: Menge × Energiegehalt. Zustandszahl und Brennwert gibt der Anwender ein, es sind keine Richtwerte hinterlegt |
 | Umrechnen | **Einheiten** | Druck (Pa, mbar, bar, mWS, psi …), Leistung (W, kW, kcal/h, BTU/h), Energie (J, kWh, kcal, BTU …), Durchfluss (l/s, l/min, m³/h …), Temperatur (°C, K, °F) |
 | Heizung | **Wärme & Wasser** | Startseite mit Fragen in großen Zeilen: Wasser erwärmen (Energie in kWh), Aufheizzeit, Gewicht von Wasser nach Temperatur, Wasser aus Erdgas, Stoffwerte (Wasser, Luft, Kupfer, Stahl). Mit mittlerer Wärmekapazität aus der Wassertabelle |
+| Sanitär | **Dichtheitsprüfung** | Trinkwasser mit Luft oder Inertgas: Dichtheitsprüfung 150 mbar, Prüfzeit aus dem Leitungsvolumen (120 min bis 100 l, +20 min je angefangene 100 l), Belastungsprüfung höchstens 3 bar (bis DN 50) bzw. 1 bar (bis DN 100), 10 min. Nur Luft-Teil, keine Wasser- oder Gasprüfung |
+| Lüftung & Klima | **Kältemittel-Druck** | R32 und R410A: Überdruck zu Sättigungstemperatur und umgekehrt, Tabelle −40 bis +70 °C. Bei R410A Tau- und Siedepunkt getrennt |
+| Lüftung & Klima | **Überhitzung & Unterkühlung** | Aus Manometerdruck und Rohrtemperatur, R32 und R410A. Keine Sollwerte hinterlegt |
 | Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Bereich ohne Modul wird nicht angezeigt.
@@ -29,7 +32,7 @@ Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Be
 
 Ein Modul wird nur gebaut, wenn jeder Wert aus mindestens zwei unabhängigen Quellen bestätigt ist und jede Formel auf einem zweiten Rechenweg gegengeprüft wurde. Bei Unklarheit wird das Modul nicht gebaut, sondern gemeldet. Vor jedem Bau wird die Modulliste einzeln freigegeben.
 
-Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Kältemittel-Drucktabelle, F-Gas, Dichtheitsprüfung, Ausdehnungsgefäß, Leistung ↔ Volumenstrom, Heizkörper-Umrechnung, Fußbodenheizung, hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Trinkwasserhygiene, Wasserhärte, Warmwasserbedarf, Kanal rund ↔ eckig, Luftwechsel, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
+Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Ausdehnungsgefäß, Leistung ↔ Volumenstrom, Heizkörper-Umrechnung, Fußbodenheizung, hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Trinkwasserhygiene, Wasserhärte, Warmwasserbedarf, Kanal rund ↔ eckig, Luftwechsel, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
 
 ## Aufbau
 
@@ -117,6 +120,10 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Wärme & Wasser | Luft: c 1,005 kJ/(kg·K), Dichte 1,204 kg/m³ bei 20 °C | bestätigt (c in drei Quellen; Dichte chemie.de, mit Gasgleichung gegengerechnet) | ISB Bayern, chemie.de, Wikibooks |
 | Wärme & Wasser | Kupfer 0,38 und Stahl 0,47 kJ/(kg·K) | bestätigt (0,381 / 0,382 bzw. 0,477 / 0,47), Richtwerte, je Legierung leicht verschieden | chemie.de, Wikibooks, ISB Bayern |
 | Wärme & Wasser | Wasser aus Erdgas, etwa 1,6 l je m³ (Normzustand) | Verbrennungsgleichung nachgerechnet (1,6075 kg je m³ Methan) und SBZ-Artikel (1,63 l). Theoretischer Höchstwert | SBZ Monteur |
+| Kältemittel-Druck | Sättigungsdruck R32 und R410A, −40 bis +70 °C (1-K-Stufen, dazwischen ln p linear) | CoolProp 7 (Referenzzustandsgleichungen). Gegenprobe an Arkema Forane (NIST REFPROP 10) und Chadwell Supply A2L-PT-Chart bei 0, 10, 20, 37,8 °C: höchstens 0,04 % Abweichung (Rundung der psig-Werte). Interpolation bei halben Grad und Rückrechnung Druck → Temperatur gegen CoolProp direkt im Test geprüft | Arkema Forane, Chadwell Supply, CoolProp |
+| Kältemittel-Druck | Überdruck = absolut − 1,01325 bar; Taupunkt (Dampf) und Siedepunkt (Flüssigkeit) bei R410A getrennt | Definition; Gleit bei R410A 0,1 bis 0,2 K, beide Seiten in der Gegenprobe bestätigt | Chadwell (Flüssigkeits- und Dampfdruck), CoolProp |
+| Überhitzung & Unterkühlung | Überhitzung = T − Taupunkt bei Saugdruck, Unterkühlung = Siedepunkt bei Hochdruck − T | Definition (Kältetechnik), zweiter Rechenweg im Test: Druck zu bekannter Sättigungstemperatur → Ergebnis genau die vorgegebene Differenz. Sollwerte absichtlich nicht hinterlegt | Rechnung, Kältemittel-Drucktabelle |
+| Dichtheitsprüfung | Luft: 150 mbar, 120 min bis 100 l, +20 min je weitere 100 l; Belastung 3 bar bis DN 50, 1 bar DN 50 bis 100, 10 min | TECE und Conex Banninger (Quelle ZVSHK) stimmen überein, Beispiel 300 l = 160 min. Das Merkblatt (ZVSHK, Januar 2017, T82/1-1:2017-01, laut DIN aktuell) wurde nicht im Original eingesehen. Abweichende Zahlen bei Wavin (30 min, +10), einem älteren SBZ-Artikel (110 mbar) und Österreich (60 min) gelten als ältere oder andere Fassung | TECE, Conex Banninger, DIN-Eintrag, Wavin, SBZ Monteur, Geberit AT |
 
 ### Bewusst nicht gebaut oder entfernt
 
@@ -132,6 +139,10 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 - **Verdampfungs- und Schmelzwärme von Wasser:** nicht aufgenommen. Die Quellen weichen ab (Schmelzwärme 332,5 bis 334 kJ/kg), eine zweite Bestätigung für 2257 kJ/kg fehlt.
 - **Stoffwerte Edelstahl, Dichte von Stahl und Kupfer, Wärmeleitfähigkeit:** nicht aufgenommen (fehlende oder nur eine Quelle). Glykol-Gemische und Dämmstoffe: Werte hängen vom Produkt ab, nur aus dem Datenblatt.
 - **Praktische Kondensatmenge im Brennwertkessel:** nicht hinterlegt (hängt von der Rücklauftemperatur ab, die einzige Quelle ist ein KI-generierter Ratgeber).
+- **F-Gas: CO₂-Äquivalent und Prüfpflicht:** nicht gebaut (vom Anwender abgelehnt; die GWP-Werte hängen von der Fassung der EU-Verordnung 2024/573 ab und müssten im Verordnungstext geprüft werden).
+- **Dichtheitsprüfung mit Wasser:** nicht gebaut. Die Quellen nennen uneinheitliche Zeiten und Drücke (11 bar mit 30 min bei Conex, andere Staffelung bei TECE, 3 bar mit 10 min bei Wavin). Gasleitungen sind ausgeschlossen.
+- **Sollwerte für Überhitzung und Unterkühlung:** nicht hinterlegt, sie hängen vom Gerät ab (Herstelleranleitung).
+- **Weitere Kältemittel (R290, R454B …):** nicht aufgenommen, im Betrieb nur R32 und R410A.
 - Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
 
 ## Schrift

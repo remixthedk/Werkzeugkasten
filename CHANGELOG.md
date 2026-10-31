@@ -2,6 +2,18 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.3.0] – 2026-10-31
+
+Drei neue Module für Klima und Trinkwasser.
+
+### Neu
+- **Kältemittel-Druck** (Lüftung & Klima): R32 und R410A. Temperatur → Überdruck, Druck → Temperatur, Tabelle von −40 bis +70 °C. Bei R410A getrennt nach Taupunkt (Dampf) und Siedepunkt (Flüssigkeit)
+- **Überhitzung & Unterkühlung** (Lüftung & Klima): aus Manometerdruck und Rohrtemperatur, mit Warnung bei negativem Ergebnis. Keine Sollwerte
+- **Dichtheitsprüfung** (neuer Bereich Sanitär): Prüfdruck und Prüfzeit für Trinkwasser mit Luft oder Inertgas nach ZVSHK-Merkblatt, Zeit nach Leitungsvolumen
+
+### Bewusst nicht gebaut
+- F-Gas (CO₂-Äquivalent, Prüfpflicht), Dichtheitsprüfung mit Wasser und Gas, weitere Kältemittel (siehe README)
+
 ## [1.2.2] – 2026-10-31
 
 ### Behoben
