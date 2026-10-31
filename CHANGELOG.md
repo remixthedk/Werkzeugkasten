@@ -2,6 +2,21 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.4.0] – 2026-10-31
+
+Drei neue Module im Bereich Heizung.
+
+### Neu
+- **Leistung & Volumenstrom:** Volumenstrom (l/h, l/min, m³/h) aus kW und Spreizung, und rückwärts Leistung oder Spreizung
+- **Heizkörper-Leistung:** Leistung bei anderen Vor- und Rücklauftemperaturen (EN 442), Exponent n einstellbar
+- **Fußbodenheizung:** Rohrlänge aus Fläche und Verlegeabstand, Heizkreise bei vorgegebener Höchstlänge, Volumenstrom je Kreis
+
+### Behoben
+- Überhitzung & Unterkühlung: Unter dem Ergebnis stand teilweise das Wort "null". Neuer Test prüft alle Module und Registerkarten darauf
+
+### Bewusst nicht gebaut
+- Ausdehnungsgefäß-Größe und Füllwasser nach VDI 2035 (siehe README)
+
 ## [1.3.0] – 2026-10-31
 
 Drei neue Module für Klima und Trinkwasser.

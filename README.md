@@ -20,6 +20,9 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Rohr & Montage | **Gefälle** | Prozent, cm/m, 1 : n und Winkel ineinander umrechnen; Höhenunterschied bei gegebener Länge (und zurück). Keine Normwerte |
 | Heizung | **Brennstoff in kWh** | Gas: m³ × Zustandszahl × Brennwert (und zurück), Öl, Pellets, Flüssiggas: Menge × Energiegehalt. Zustandszahl und Brennwert gibt der Anwender ein, es sind keine Richtwerte hinterlegt |
 | Umrechnen | **Einheiten** | Druck (Pa, mbar, bar, mWS, psi …), Leistung (W, kW, kcal/h, BTU/h), Energie (J, kWh, kcal, BTU …), Durchfluss (l/s, l/min, m³/h …), Temperatur (°C, K, °F) |
+| Heizung | **Leistung & Volumenstrom** | l/h aus kW und Spreizung, kW aus l/h und Spreizung, Spreizung aus kW und l/h (1,163 Wh/(kg·K), nur Wasser) |
+| Heizung | **Heizkörper-Leistung** | Leistung bei anderen Vor- und Rücklauftemperaturen nach EN 442 (logarithmische Übertemperatur), Exponent n als Eingabe (Vorgabe 1,3) |
+| Heizung | **Fußbodenheizung** | Rohrlänge aus Fläche und Verlegeabstand, Zu- und Rückleitung, Heizkreise bei vorgegebener Höchstlänge, Volumenstrom je Kreis. Nur Geometrie |
 | Heizung | **Wärme & Wasser** | Startseite mit Fragen in großen Zeilen: Wasser erwärmen (Energie in kWh), Aufheizzeit, Gewicht von Wasser nach Temperatur, Wasser aus Erdgas, Stoffwerte (Wasser, Luft, Kupfer, Stahl). Mit mittlerer Wärmekapazität aus der Wassertabelle |
 | Sanitär | **Dichtheitsprüfung** | Trinkwasser mit Luft oder Inertgas: Dichtheitsprüfung 150 mbar, Prüfzeit aus dem Leitungsvolumen (120 min bis 100 l, +20 min je angefangene 100 l), Belastungsprüfung höchstens 3 bar (bis DN 50) bzw. 1 bar (bis DN 100), 10 min. Nur Luft-Teil, keine Wasser- oder Gasprüfung |
 | Lüftung & Klima | **Kältemittel-Druck** | R32 und R410A: Überdruck zu Sättigungstemperatur und umgekehrt, Tabelle −40 bis +70 °C. Bei R410A Tau- und Siedepunkt getrennt |
@@ -32,7 +35,7 @@ Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Be
 
 Ein Modul wird nur gebaut, wenn jeder Wert aus mindestens zwei unabhängigen Quellen bestätigt ist und jede Formel auf einem zweiten Rechenweg gegengeprüft wurde. Bei Unklarheit wird das Modul nicht gebaut, sondern gemeldet. Vor jedem Bau wird die Modulliste einzeln freigegeben.
 
-Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Ausdehnungsgefäß, Leistung ↔ Volumenstrom, Heizkörper-Umrechnung, Fußbodenheizung, hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Trinkwasserhygiene, Wasserhärte, Warmwasserbedarf, Kanal rund ↔ eckig, Luftwechsel, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
+Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Ausdehnungsvolumen (nur Teil), hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Trinkwasserhygiene, Wasserhärte, Warmwasserbedarf, Kanal rund ↔ eckig, Luftwechsel, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
 
 ## Aufbau
 
@@ -124,6 +127,9 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Kältemittel-Druck | Überdruck = absolut − 1,01325 bar; Taupunkt (Dampf) und Siedepunkt (Flüssigkeit) bei R410A getrennt | Definition; Gleit bei R410A 0,1 bis 0,2 K, beide Seiten in der Gegenprobe bestätigt | Chadwell (Flüssigkeits- und Dampfdruck), CoolProp |
 | Überhitzung & Unterkühlung | Überhitzung = T − Taupunkt bei Saugdruck, Unterkühlung = Siedepunkt bei Hochdruck − T | Definition (Kältetechnik), zweiter Rechenweg im Test: Druck zu bekannter Sättigungstemperatur → Ergebnis genau die vorgegebene Differenz. Sollwerte absichtlich nicht hinterlegt | Rechnung, Kältemittel-Drucktabelle |
 | Dichtheitsprüfung | Luft: 150 mbar, 120 min bis 100 l, +20 min je weitere 100 l; Belastung 3 bar bis DN 50, 1 bar DN 50 bis 100, 10 min | TECE und Conex Banninger (Quelle ZVSHK) stimmen überein, Beispiel 300 l = 160 min. Das Merkblatt (ZVSHK, Januar 2017, T82/1-1:2017-01, laut DIN aktuell) wurde nicht im Original eingesehen. Abweichende Zahlen bei Wavin (30 min, +10), einem älteren SBZ-Artikel (110 mbar) und Österreich (60 min) gelten als ältere oder andere Fassung | TECE, Conex Banninger, DIN-Eintrag, Wavin, SBZ Monteur, Geberit AT |
+| Leistung & Volumenstrom | l/h = W × 0,86 ÷ K (= W ÷ (1,163 × K)) | zwei Quellen mit nachgerechneten Beispielen (10 kW/5 K = 1.720 l/h, 6 kW/10 K = 516 l/h, 1,2 kW/5 K = 206 l/h). Zweiter Weg mit c(T) und Dichte der Wassertabelle: höchstens 2 % Abweichung (Dichte), im Test | energiefluss24, SBZ Monteur |
+| Heizkörper-Leistung | Φ = Φ_Norm × (ΔT ÷ ΔT_Norm)^n, logarithmische Übertemperatur, ΔT_Norm 49,83 K bei 75/65/20 | zwei Quellen für die Formel, SBZ-Beispiel 511 W nachgerechnet (SBZ nennt einmal 551 W, Druckfehler). n ist Eingabe (1,3), weil es je Typ und Hersteller 1,27 bis 1,36 gibt (Vogel & Noot). Richtwert, bei 55/45 etwa 3 % Einfluss von n | SBZ Monteur, Caleffi, Vogel & Noot |
+| Fußbodenheizung | Rohrlänge = Fläche ÷ Verlegeabstand; Zuleitung 2 × Entfernung je Kreis; Kreise = aufgerundet | reine Geometrie, Gegenrechnung 100 ÷ Abstand in cm im Test. Volumenstrom wie im Modul Leistung & Volumenstrom. Höchste Heizkreislänge ist Eingabe, nicht hinterlegt (hängt vom Hersteller ab, Beispielquelle 100 bis 120 m) | Rechnung, hydraulischer-abgleich.de |
 
 ### Bewusst nicht gebaut oder entfernt
 
@@ -143,6 +149,10 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 - **Dichtheitsprüfung mit Wasser:** nicht gebaut. Die Quellen nennen uneinheitliche Zeiten und Drücke (11 bar mit 30 min bei Conex, andere Staffelung bei TECE, 3 bar mit 10 min bei Wavin). Gasleitungen sind ausgeschlossen.
 - **Sollwerte für Überhitzung und Unterkühlung:** nicht hinterlegt, sie hängen vom Gerät ab (Herstelleranleitung).
 - **Weitere Kältemittel (R290, R454B …):** nicht aufgenommen, im Betrieb nur R32 und R410A.
+- **Ausdehnungsgefäß (Gefäßgröße):** nicht gebaut. Die Ausdehnungstabelle (2,22 % bei 70 °C, 2,81 % bei 80 °C, 3,47 % bei 90 °C) stimmt bei Viessmann und Watts überein, weicht aber bei 30 bis 50 °C bis 0,26 Prozentpunkte von der Wasserphysik ab. Die Wasservorlage zwischen 12 und 18 l ist ungeklärt, die Formel für den höchsten Fülldruck widerspricht sich, die l/kW-Werte stammen aus einer Quelle. Möglich bliebe nur ein reiner Rechner für das Ausdehnungsvolumen (50 bis 90 °C).
+- **Füllwasser VDI 2035 (Ausgabe 2021):** nicht gebaut. Die Härte-Tabelle ist in den Quellen nicht sauber lesbar (SYR-Tabelle durcheinander, Reflex nennt die Grenzwerte nicht). Das Original wird gebraucht.
+- **Heizkörperexponent je Typ:** nicht hinterlegt (je Hersteller und Typ 1,27 bis 1,36), deshalb Eingabefeld mit 1,3.
+- **Höchste Heizkreislänge, Heizleistung je Verlegeabstand (DIN EN 1264):** nicht hinterlegt, Herstellerwerte.
 - Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
 
 ## Schrift

@@ -40,8 +40,8 @@
           { k: satLabel, v: fmt(r.tSat, 1) + ' °C' },
           { k: kLabel, v: fmt(r.k, 1) + ' K', big: true }
         ];
-        out.replaceChildren(ui.result(rows),
-          r.k < 0 ? ui.note('Negativer Wert: die Messung stimmt nicht (Fühler, Druck oder Kältemittel prüfen).', 'warn') : null);
+        out.replaceChildren(...[ui.result(rows),
+          r.k < 0 ? ui.note('Negativer Wert: die Messung stimmt nicht (Fühler, Druck oder Kältemittel prüfen).', 'warn') : null].filter(Boolean));
       }
       p.input.addEventListener('input', upd);
       t.input.addEventListener('input', upd);
