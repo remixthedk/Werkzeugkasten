@@ -249,6 +249,30 @@
     'rechnen/mwst': [
       { b: 'Netto und Brutto', t: 'Netto ist der Preis ohne Mehrwertsteuer, brutto der Preis mit Mehrwertsteuer. Brutto = Netto × (1 + Steuersatz ÷ 100). Zurück rechnest du, indem du durch diesen Faktor teilst, nicht indem du die Prozente abziehst.' }
     ],
+    // ---- Warmwasser ----
+    'warmwasser/misch': [
+      { b: 'Mischtemperatur', t: 'Die Temperatur, die sich ergibt, wenn warmes und kaltes Wasser zusammenkommen. Sie liegt immer zwischen den beiden Temperaturen, näher bei der Seite mit der größeren Menge.' },
+      { b: 'Menge in Liter', t: 'Gerechnet wird mit Liter. Der kleine Dichteunterschied zwischen warmem und kaltem Wasser (bis etwa 2 %) bleibt unberücksichtigt.' }
+    ],
+    'warmwasser/warm': [
+      { b: 'Gewünschte Temperatur', t: 'Die Temperatur, die das Wasser am Ende haben soll, zum Beispiel 38 °C für ein Bad. Sie muss über dem Kaltwasser liegen und darf nicht heißer sein als das Warmwasser.' },
+      { b: 'Warmwasser und Kaltwasser', t: 'Warmwasser ist das heiße Wasser aus Speicher oder Kessel (zum Beispiel 60 °C), Kaltwasser das Wasser aus der Leitung. Die App sagt dir, wie viel du von jedem brauchst.' }
+    ],
+    'warmwasser/speicher': [
+      { b: 'Mischwasser', t: 'Das Wasser an der Zapfstelle, nachdem kaltes Wasser zugemischt wurde. Bei 60 °C im Speicher und 40 °C zum Duschen gibt es deutlich mehr Mischwasser, als der Speicher Liter hat.' },
+      { b: 'Idealfall', t: 'Gerechnet wird, als würde der ganze Speicher genutzt. Praktisch kommt weniger heraus, weil sich das nachströmende Kaltwasser im Speicher beimischt und der Speicher auskühlt. Ein Speicher mit guter Schichtung kommt dem Idealfall näher.' }
+    ],
+    'warmwasser/durchlauf': [
+      { b: 'Temperaturanhebung', t: 'Der Unterschied zwischen Kaltwasser und gewünschter Auslauftemperatur. Von 10 auf 38 °C sind es 28 K.' },
+      { b: 'kW und Liter pro Minute', t: 'Je mehr Wasser durch das Gerät fließt oder je höher die Anhebung, desto mehr Leistung ist nötig. Die Leistung steht auf dem Typenschild. Reicht sie nicht, wird das Wasser nicht warm genug oder die Menge wird gedrosselt.' },
+      { b: 'Wirkungsgrad', t: 'Wie viel von der aufgenommenen Leistung im Wasser ankommt. Bei Elektrogeräten 100 %, bei Gasgeräten steht der Wert im Datenblatt.' }
+    ],
+    'warmwasser/zirk': [
+      { b: 'Zirkulation', t: 'Eine Pumpe schiebt Warmwasser durch eine Ringleitung, damit es an der Zapfstelle sofort warm ist. Das Wasser kühlt dabei etwas ab.' },
+      { b: 'Auskühlung', t: 'Temperatur am Speicheraustritt minus Temperatur im Zirkulationsrücklauf. Nach DVGW W 551 höchstens 5 K.' },
+      { b: 'Messen', t: 'Mit Anlegefühler oder Thermometer, gut am Rohr anliegend und bei laufender Pumpe: einmal am Speicheraustritt, einmal am Rücklauf kurz vor dem Speicher. Das Rohr dabei möglichst gedämmt lassen.' },
+      { b: 'Klein- und Großanlage', t: 'Ein- und Zweifamilienhäuser sind nach W 551 Kleinanlagen. In anderen Gebäuden zählt eine Anlage als Großanlage, wenn der Speicher über 400 Liter hat oder eine Leitung bis zur Zapfstelle mehr als 3 Liter fasst. Für Großanlagen sind 60 °C und 5 K Anforderung, für Kleinanlagen die Empfehlung.' }
+    ],
     // ---- Flächen & Volumen ----
     'flaechen/flaeche': [
       { b: 'Abzug', t: 'Fenster, Türen und Aussparungen, die von der Gesamtfläche abgehen. Trag ihre Fläche in m² ein: Breite mal Höhe in Metern, zum Beispiel 1,0 × 2,1 = 2,1 m² für eine Tür.' },

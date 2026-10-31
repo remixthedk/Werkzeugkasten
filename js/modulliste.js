@@ -36,6 +36,7 @@ self.WK.MODULES = [
   { id: 'ueberhitzung', files: ['js/data/kaeltemittel.js', 'js/modules/kaeltemittel.js', 'js/modules/ueberhitzung.js'] },
   { id: 'fehlercodes',  files: ['js/modules/fehlercodes.js'] },
   { id: 'dichtheit',    files: ['js/modules/dichtheit.js'] },
+  { id: 'warmwasser',   files: ['js/modules/warmwasser.js'] },
   { id: 'kanal',        files: ['js/modules/kanal.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] },
   { id: 'strom',        files: ['js/modules/strom.js'] },

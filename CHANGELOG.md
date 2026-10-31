@@ -2,6 +2,26 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.19.0] – 2026-11-01
+
+### Neu
+- **Kachel Warmwasser** (Bereich Sanitär), fünf Fragen:
+  - "Welche Temperatur hat mein Wasser, wenn ich warm und kalt mische?" Mischtemperatur und Gesamtmenge aus Warm- und Kaltwasser
+  - "Wie viel Warmwasser brauche ich für eine bestimmte Temperatur?" Zum Beispiel 150 Liter Badewasser mit 38 °C: Liter Warmwasser, Liter Kaltwasser, Anteil
+  - "Wie viele Liter Mischwasser gibt mein Warmwasserspeicher?" Aus Speicherinhalt, Speichertemperatur, Kaltwasser und gewünschter Temperatur an der Zapfstelle (Idealfall ohne Vermischung im Speicher)
+  - "Wie viel Warmwasser schafft mein Durchlauferhitzer?" Wahlweise Liter pro Minute, nötige Leistung oder erreichbare Auslauftemperatur, mit optionalem Wirkungsgrad (Elektro 100 %)
+  - "Ist meine Zirkulation warm genug?" Speichertemperatur am Austritt und Temperatur am Zirkulationsrücklauf eintragen: Ergebnis "In Ordnung" oder "Nicht in Ordnung" nach DVGW W 551 (Speicher ab 60 °C, Auskühlung höchstens 5 K), mit Hinweis, was bei Abweichung zu prüfen ist
+- Zu allen fünf Fragen gibt es Erklärkästen "Was bedeutet das?" (Mischwasser, Idealfall, Temperaturanhebung, Wirkungsgrad, Auskühlung, Messen, Klein- und Großanlage)
+
+### Geprüft
+- Mischrechnung über die Energiebilanz (abgegebene = aufgenommene Wärme) und als Rundlauf aller drei Mischfragen. Durchlauferhitzer gegen die bestehende Rechnung in "Wärme & Wasser" (6 kW bei 20 K = 258 l/h) und als Rundlauf (Liter/min ↔ kW ↔ Auslauftemperatur)
+- Zirkulation: 5 K Auskühlung in zwei Quellen (W-551-Auszug, haustechnikdialog.de), 60 °C am Speicher in zwei Quellen. Grenzfälle getestet (genau 5 K ist erlaubt, 59,9 °C nicht)
+- Die Prüfwerte sind für Großanlagen (zum Beispiel Mehrfamilienhaus, Hotel) Anforderung, für Ein- und Zweifamilienhäuser (Kleinanlage) die Empfehlung. Das steht auch in der App. Es ersetzt keine Untersuchung auf Legionellen
+- Tests: 168 Logik- und 57 Oberflächentests
+
+### Nicht enthalten
+- Warmwasserbedarf und Speichergröße (DIN 4708, kostenpflichtig), Legionellenuntersuchung, Höchstgrenze für Kaltwasser, Spülzeiten
+
 ## [1.18.0] – 2026-11-01
 
 ### Neu
