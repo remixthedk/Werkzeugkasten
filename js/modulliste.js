@@ -10,12 +10,18 @@ self.WK.BEREICHE = [
   { id: 'rohr',     title: 'Rohr & Montage' },
   { id: 'heizung',  title: 'Heizung' },
   { id: 'sanitaer', title: 'Sanitär' },
-  { id: 'lueftung', title: 'Lüftung & Klima' }
+  { id: 'lueftung', title: 'Lüftung & Klima' },
+  { id: 'allgemein', title: 'Umrechnen' }
 ];
 
 self.WK.MODULES = [
   { id: 'filter',       files: ['js/data/filter.js', 'js/modules/filter.js'] },
   { id: 'daemmung',     files: ['js/data/rohre.js', 'js/data/daemmung.js', 'js/modules/daemmung.js'] },
   { id: 'rohrgroessen', files: ['js/data/rohre.js', 'js/modules/rohrgroessen.js'] },
-  { id: 'passstuecke',  files: ['js/data/zmasse.js', 'js/modules/passstuecke.js'] }
+  { id: 'passstuecke',  files: ['js/data/zmasse.js', 'js/modules/passstuecke.js'] },
+  { id: 'wasserinhalt', files: ['js/data/rohre.js', 'js/modules/wasserinhalt.js'] },
+  { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
+  { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
+  { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
+  { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] }
 ];

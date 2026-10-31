@@ -2,6 +2,25 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.2.0] – 2026-10-31
+
+Fünf neue Module.
+
+### Neu
+- **Einheiten** (neuer Bereich "Umrechnen"): Druck, Leistung, Energie, Durchfluss, Temperatur
+- **Wasserinhalt Rohr:** Liter je Meter und Gesamtinhalt, Rohrauswahl wie bei der Dämmung
+- **Längenausdehnung:** Raxofix, Prestabo, Mapress Edelstahl und C-Stahl, Kupfer, Stahl, oder eigener Wert
+- **Gefälle:** Prozent, cm/m, 1 : n, Winkel und Höhenunterschied
+- **Brennstoff in kWh:** Gas (m³ × Zustandszahl × Brennwert) und Öl, Pellets, Flüssiggas (Menge × Energiegehalt). Zustandszahl und Brennwert gibt der Anwender ein
+
+### Bewusst nicht gebaut
+- Mindestgefälle für Abwasser: keine zwei unabhängigen Quellen, Angaben widersprechen sich (siehe README)
+- Feste Brennwerte: schwanken je Versorger
+
+### Hinweise zum Prüfstand
+- Wasserinhalt Prestabo gegen die Viega-Tabelle geprüft: 7 von 8 Größen gleich, bei 15×1,2 nennt Viega 0,13 gegen gerechnete 0,125 l/m
+- Wasserinhalt Raxofix ist gerechnet und kann bei 25, 32, 63 mm bis etwa 4 % zu niedrig sein (im Modul vermerkt)
+
 ## [1.1.4] – 2026-10-31
 
 ### Neu
