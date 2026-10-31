@@ -17,5 +17,5 @@ self.WK.MODULES = [
   { id: 'filter',       files: ['js/data/filter.js', 'js/modules/filter.js'] },
   { id: 'daemmung',     files: ['js/data/rohre.js', 'js/data/daemmung.js', 'js/modules/daemmung.js'] },
   { id: 'rohrgroessen', files: ['js/data/rohre.js', 'js/modules/rohrgroessen.js'] },
-  { id: 'passstuecke',  files: ['js/modules/passstuecke.js'] }
+  { id: 'passstuecke',  files: ['js/data/zmasse.js', 'js/modules/passstuecke.js'] }
 ];

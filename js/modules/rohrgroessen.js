@@ -112,19 +112,21 @@
     hilfe: {
       wofuer: 'Rohrmaße nachschlagen: Welchen Außen- und Innendurchmesser hat DN 25, oder ein Raxofix-Rohr 25 × 2,7? Dazu gibt es einen Umrechner von Zoll in Millimeter und zurück.',
       schritte: [
-        'Werkstoff wählen: Stahl, Kupfer, Edelstahl, Mehrschicht (Viega Raxofix) oder Rohrgewinde.',
+        'Werkstoff wählen: Raxofix, Prestabo, Mapress XL, Kupfer, Stahl-Gewinderohr oder Rohrgewinde.',
         'In der Liste nachschauen oder oben im Suchfeld tippen, zum Beispiel 28 oder DN 25.',
-        'Bei Stahl und Raxofix zeigen die Spalten Außendurchmesser, Wandstärke und Innendurchmesser in Millimetern. Bei Kupfer und Edelstahl nur den Außendurchmesser (und bei Edelstahl die DN), weil die Wandstärke je Rohr verschieden ist.',
+        'Die Spalten zeigen Außendurchmesser, Wandstärke und Innendurchmesser in Millimetern. Bei Kupfer nur den Außendurchmesser, weil die Wandstärke je Rohr verschieden ist.',
         'Zoll in Millimeter: unten den Zollwert eintippen, zum Beispiel 1 1/4 oder 0,75. Oder Millimeter eintippen und den Zollwert ablesen.'
       ],
       beispiel: 'Stahlrohr DN 25 (1 Zoll): Außendurchmesser 33,7 mm, Wand 3,25 mm, Innendurchmesser 27,2 mm. Und 1 1/4 Zoll sind 31,75 mm.',
       hinweis: 'Beim Gewinde ist der Zollwert nur der Name: Ein 1/2-Zoll-Gewinde hat 20,955 mm Außendurchmesser, nicht 12,7 mm.'
     },
     quelle: [
-      'Stahl DIN EN 10255 mittelschwer (Maße und DN-Zuordnung): Sikla, zickwolff.de und Wikipedia (Gewinderohr), übereinstimmend.',
+      'Stahl-Gewinderohr DIN EN 10255 mittelschwer (Maße und DN-Zuordnung): Sikla, zickwolff.de und Wikipedia (Gewinderohr), übereinstimmend.',
       'Rohrgewinde ISO 7-1: REMS-Gewindetabelle und Wikipedia (British Standard Pipe), identische Werte. Zoll in mm: 1" = 25,4 mm exakt.',
       'Raxofix (Viega): Außen-Ø × Wand aus der Viega-Gebrauchsanleitung, 20 × 2,8 zusätzlich im Viega-Prospekt, alle sieben Größen bei einem Händler (lemu.dk). Innen-Ø gerechnet.',
-      'Kupfer und Edelstahl: nur Außendurchmesser (und DN bei Edelstahl, Viega und zickwolff.de). Wandstärken gibt es je Außendurchmesser in mehreren Ausführungen, sie sind deshalb nicht hinterlegt.'
+      'Prestabo (Viega): Viega-Katalog Modell 1103 (15 bis 54) und Prestabo-XL-Anleitung (64, 76,1). Bestätigt durch Modell 1104, Händlerangaben (lemu.dk, hts24, bels, ahlsell) und Geberit Mapress C-Stahl mit gleichen Maßen. Größe 12 nicht aufgenommen (nur eine Quelle).',
+      'Mapress XL (Geberit): 88,9 × 2,0 und 108 × 2,0 für Edelstahl und C-Stahl, aus Heinze (Geberit-Ausschreibungstexte), pdod.de und dem thyssenkrupp-Werkstoffhandbuch.',
+      'Kupfer: nur Außendurchmesser. Es gibt je Außendurchmesser mehrere Wandstärken (EN 1057), deshalb ist keine hinterlegt.'
     ],
     stichworte: 'zoll dn mm rohr kupfer edelstahl stahl raxofix mehrschicht gewinde umrechnen zollmaß',
     title: 'Rohrgrößen',

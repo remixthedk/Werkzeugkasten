@@ -12,9 +12,9 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 
 | Bereich | Modul | Was es kann |
 |---|---|---|
-| Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen). Rohrauswahl erst Material, dann Größe (Stahl, Kupfer, Edelstahl, Viega Raxofix) |
-| Rohr & Montage | **Rohrgrößen** | Zoll ↔ DN ↔ mm für Stahl, Kupfer, Edelstahl, Viega Raxofix und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
-| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel) mit Z-Maßen nach Viega-Definition, auch aus Längs- und Quermaß |
+| Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen). Rohrauswahl erst Material, dann Größe (Viega Raxofix, Viega Prestabo, Geberit Mapress XL, Kupfer, Stahl-Gewinderohr) |
+| Rohr & Montage | **Rohrgrößen** | Außen-Ø, Wand und Innen-Ø für Raxofix, Prestabo, Mapress XL, Kupfer, Stahl-Gewinderohr und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
+| Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel). Z-Maß: Fitting und Größe wählen (Profipress Bogen 45° und 90°), Wert wird eingesetzt; sonst selbst eingeben. Auch aus Längs- und Quermaß |
 | Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima. Ein Bereich ohne Modul wird nicht angezeigt.
@@ -83,18 +83,25 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Rohrgrößen | Rohrgewinde ISO 7-1, Außen-Ø | bestätigt | REMS, Wikipedia |
 | Rohrgrößen | Zoll in mm (25,4) | exakt | Definition |
 | Rohrgrößen | Raxofix 16×2,2 bis 63×4,5 | bestätigt (Viega-Anleitung, Prospekt für 20×2,8, Händlerdaten). Innen-Ø gerechnet; Wasserinhalt laut Händler weicht bei 25, 32, 63 mm um bis zu 0,4 mm im Innen-Ø ab, im Modul vermerkt | Viega Gebrauchsanleitung Raxofix, Viega Prospekt, lemu.dk |
-| Rohrgrößen | Kupfer und Edelstahl Außen-Ø, Edelstahl DN | bestätigt | Sikla, Viega, zickwolff.de |
+| Rohrgrößen | Prestabo 15×1,2 bis 54×1,5, 64×2,0, 76,1×2,0 | bestätigt (Viega-Katalog Modell 1103 und Prestabo-XL-Anleitung; Modell 1104, Händler und Geberit-C-Stahl mit gleichen Maßen). 12×1,2 nicht aufgenommen (nur eine Quelle). Nicht für Trinkwasser | Viega-Katalog, lemu.dk, hts24, bels, ahlsell, thyssenkrupp-Werkstoffhandbuch |
+| Rohrgrößen | Mapress XL 88,9×2,0 und 108×2,0 (Edelstahl und C-Stahl) | bestätigt | Heinze (Geberit), pdod.de, thyssenkrupp-Werkstoffhandbuch |
+| Rohrgrößen | Kupfer Außen-Ø 12 bis 54 | bestätigt, Wandstärke bewusst nicht hinterlegt | Sikla, Viega |
 | Filter | Spannen M5 bis F9 | Tabelle bestätigt (gleich in drei Ausgaben, aber eine Primärquelle), deshalb nur Tabelle ohne Umrechnung | Eurovent 4/23 (2018, 2022), EMW |
 | Passstücke | Geometrie | bestätigt, zweiter Rechenweg | Omni Calculator, eigene Gegenrechnung |
-| Passstücke | Z-Maß-Definition (Fittingmitte bis Rohranschlag, Einstecktiefe enthalten) | bestätigt anhand der Viega-Maßzeichnung (Profipress-Bogen 90°, Z = 16 mm bei d 15, zusätzlich auf der Viega-Produktseite gefunden) | Viega-Online-Katalog |
+| Passstücke | Z-Maß-Definition (Mittelachse bis Rohranschlag im Fitting, Einstecktiefe enthalten) | bestätigt anhand der Viega-Maßzeichnungen (Profipress-Bogen 45° und 90°) | Viega-Online-Katalog |
+| Passstücke | Z-Maße Profipress-Bogen 90° (Modell 2416), d 12 bis 54 | bestätigt: Katalogseite zweimal unabhängig abgelesen (Seitenabruf und Handy-Ansicht), gleiche Werte | Viega-Online-Katalog |
+| Passstücke | Z-Maße Profipress-Bogen 45° (Modell 2426), d 12 bis 54 | d 22 bis 54 beim Viega-Händler bestätigt, d 12 im Viega-Datenblatt. d 15 und 18 nur Katalog plus Gegenprobe | Viega-Online-Katalog, ritzmarine.com, tbs-online.de |
+| Passstücke | Z-Maße Vorgängerversion beider Bögen (Spalte Z*) | 90° mit Seitenabruf bestätigt, 45° nur Katalog plus Gegenprobe | Viega-Online-Katalog |
+| Passstücke | Gegenprobe | L − Z (Einstecktiefe) je Größe in allen vier Tabellen gleich: 18, 22, 22, 23, 24, 26, 36, 40 mm (d 12 bis 54), im Test geprüft | Rechnung |
 
 ### Bewusst nicht gebaut oder entfernt
 
 - **Umrechnung auf anderes λ (Dämmung):** Das Gesetz nennt kein Verfahren ("anerkannte Regeln der Technik"). Die Formel (Zylinderformel) weicht von Herstellertabellen (Uponor, λ 0,040) um bis zu 1 mm ab. Die Rechenfunktion liegt noch in `js/modules/daemmung.js`, die Oberfläche zeigt sie nicht. Einschalten erst mit einer belegten Quelle.
 - **Filter-Umrechnung alt ↔ neu:** Es gibt keine exakte Umrechnung (Eurovent, Systemair). Hersteller nennen abweichende Spannen ohne Quelle.
-- **Wandstärken Kupfer und Edelstahl:** je Außendurchmesser mehrere Ausführungen (EN 1057: zum Beispiel 28×1 und 28×1,5). Der Anwender gibt die Wandstärke selbst ein.
+- **Wandstärken Kupfer:** je Außendurchmesser mehrere Ausführungen (EN 1057: zum Beispiel 28×1 und 28×1,5). Der Anwender gibt die Wandstärke selbst ein. Zu Profipress gibt es kein Rohr von Viega, nur Fittings.
+- **Edelstahlrohr (Sanpress) und Prestabo 12×1,2:** nicht aufgenommen (Sanpress wird im Betrieb nicht genutzt, bei 12×1,2 gibt es nur eine Quelle).
 - **Mehrschichtrohr allgemein:** Größen unterscheiden sich je Hersteller (Uponor, Geberit, Viega). Hinterlegt ist nur Viega Raxofix.
-- **Feste Z-Maß-Werte:** je Fitting und System verschieden. Sie kommen aus dem Viega-Online-Katalog. Eine Tabelle käme erst nach Einzelprüfung.
+- **Z-Maße anderer Fittings** (T-Stücke, Muffen, Bögen anderer Winkel, Prestabo, Raxofix, Mapress): je Fitting und System verschieden. Hinterlegt sind nur die Profipress-Bögen 45° und 90°. Weitere kommen nach Einzelprüfung (Katalogseite, Reiter "Z-Maße").
 - Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
 
 ## Schrift

@@ -157,7 +157,7 @@
       schritte: [
         'Medium wählen: Heizung / Warmwasser oder Kälte / Kaltwasser.',
         'Bei Heizung / Warmwasser die Einbausituation wählen. "Normal" ist der Standardfall. Im Wand- oder Deckendurchbruch gilt die halbe Dicke, an der Außenluft die doppelte.',
-        'Rohrmaterial wählen, danach die Größe. Bei Stahl und Raxofix füllt sich der Innendurchmesser von selbst. Bei Kupfer und Edelstahl trägst du die Wandstärke ein, der Innendurchmesser wird daraus gerechnet.',
+        'Rohrmaterial wählen (Raxofix, Prestabo, Mapress XL, Kupfer oder Stahl-Gewinderohr), danach die Größe. Bei Raxofix, Prestabo, Mapress XL und Stahl füllt sich der Innendurchmesser von selbst. Bei Kupfer trägst du die Wandstärke ein, der Innendurchmesser wird daraus gerechnet.',
         'Oder bei "Maße selbst eingeben" den Innendurchmesser direkt eintippen. Das ist das Maß innen im Rohr, nicht außen.',
         'Ergebnis: die Mindestdicke in Millimetern, auf volle Millimeter aufgerundet.'
       ],
@@ -166,7 +166,7 @@
     },
     quelle: [
       'Mindestdicken: Anlage 8 GEG. Gleiche Werte in gesetze-im-internet.de, buzer.de und lxgesetze.de (geprüft Oktober 2026). Die Tabelle bezieht sich auf den Innendurchmesser.',
-      'Rohrmaße Stahl: DIN EN 10255 mittelschwer, geprüft in drei Quellen (Sikla, zickwolff.de, Wikipedia). Raxofix: Viega Gebrauchsanleitung und Prospekt, Händlerdaten zum Wasserinhalt.',
+      'Rohrmaße: Raxofix aus der Viega-Gebrauchsanleitung (Prospekt und Händlerdaten bestätigen). Prestabo aus dem Viega-Katalog (Modell 1103, Prestabo XL), bestätigt durch Modell 1104, Händlerangaben und Geberit Mapress C-Stahl mit gleichen Maßen. Mapress XL (88,9 und 108 mm, 2,0 mm Wand): Heinze, pdod.de und thyssenkrupp-Werkstoffhandbuch. Stahl-Gewinderohr: DIN EN 10255, drei Quellen (Sikla, zickwolff.de, Wikipedia). Innen-Ø jeweils gerechnet.',
       'Nicht enthalten: Umrechnung auf anderes λ. Das Gesetz nennt kein Verfahren, eine belegte Formel liegt nicht vor.'
     ],
     title: 'Dämmung nach GEG',

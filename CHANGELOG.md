@@ -2,6 +2,23 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.1.2] – 2026-10-31
+
+Rohrauswahl nach den Systemen im Betrieb, Z-Maße für Profipress-Bögen.
+
+### Neu
+- **Passstücke:** Fitting und Größe wählen, das Z-Maß wird für beide Bögen eingesetzt. Hinterlegt: Profipress Bogen 45° und 90° (Größen 12 bis 54), jeweils aktuelle Ausführung und Vorgängerversion. Die Felder bleiben von Hand änderbar, zum Beispiel für ein anderes Fitting am zweiten Ende
+- **Rohrauswahl (Dämmung und Rohrgrößen):** Viega Prestabo (15 bis 54, 64, 76,1) und Geberit Mapress XL (88,9 und 108) mit Wand und Innen-Ø
+- Prüfliste und Quellen für die neuen Werte in README und im Modul
+
+### Geändert
+- Kupfer nur noch 12 bis 54 mm (Profipress), Wandstärke wird eingegeben
+- Werkstoffreihenfolge: Raxofix, Prestabo, Mapress XL, Kupfer, Stahl-Gewinderohr, Rohrgewinde. Raxofix ist in den Rohrgrößen vorausgewählt
+- Beispiel in der Beschreibung der Passstücke mit echten Z-Maßen (Profipress 22 mm, Bogen 45°: 402,3 mm)
+
+### Entfernt
+- Edelstahlrohr (Sanpress) aus der Rohrauswahl
+
 ## [1.1.1] – 2026-10-31
 
 Prüfdurchgang der bestehenden Module, Favoriten, Suche, getrennte Rohrauswahl.

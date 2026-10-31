@@ -35,9 +35,24 @@
     const v = ui.num('Querversatz V (Mitte zu Mitte)', { unit: 'mm', value: '300' });
     const w = ui.num('Winkel α', { unit: '°', value: '45' });
     const a = ui.num('Längsmaß A', { unit: 'mm', value: '300' });
-    const z1 = ui.num('Z-Maß Fitting 1', { unit: 'mm', value: '0', hint: 'aus dem Viega-Online-Katalog, Reiter "Z-Maße"' });
-    const z2 = ui.num('Z-Maß Fitting 2', { unit: 'mm', value: '0' });
+    // Fitting und Größe wählen setzt das Z-Maß für beide Fittings ein; die Felder bleiben von Hand änderbar
+    const Z = WK.data.zmasse;
+    const fit = ui.select('Fitting (für das Z-Maß)', [
+      { value: 'selbst', label: 'Z-Maß selbst eingeben' },
+      ...Z.fittings.map(f => ({ value: f.id, label: f.name }))
+    ], 'selbst');
+    const gr = ui.select('Größe (Rohr-Außendurchmesser)', [{ value: '', label: 'bitte wählen' }], '');
+    const z1 = ui.num('Z-Maß Fitting 1', { unit: 'mm', value: '0', hint: 'Wird bei Fitting und Größe eingesetzt. Sonst aus dem Viega-Online-Katalog, Reiter "Z-Maße".' });
+    const z2 = ui.num('Z-Maß Fitting 2', { unit: 'mm', value: '0', hint: 'Anderes Fitting am zweiten Ende? Wert hier ändern.' });
     const out = h('div');
+    const aktFit = () => Z.fittings.find(f => f.id === fit.get());
+    function fuelleGroessen() {
+      const f = aktFit();
+      const opts = [{ value: '', label: 'bitte wählen' },
+        ...(f ? f.werte.map(x => ({ value: String(x.d), label: x.d + ' mm (Z = ' + x.z + ' mm)' })) : [])];
+      gr.select.replaceChildren(...opts.map(o => h('option', { value: o.value }, o.label)));
+      gr.set('');
+    }
     let mode = 'versatz';
     const boxW = h('div', {}, w.el);
     const boxA = h('div', {}, a.el);
@@ -45,6 +60,7 @@
     function update() {
       boxW.hidden = mode !== 'versatz';
       boxA.hidden = mode !== 'dreieck';
+      gr.el.hidden = fit.get() === 'selbst';
       const zz = { z1: z1.get() || 0, z2: z2.get() || 0 };
       let rows, warn = null;
       if (mode === 'versatz') {
@@ -76,19 +92,32 @@
       { value: 'versatz', label: 'Versatz + Winkel' },
       { value: 'dreieck', label: 'Längs + Quer' }
     ], m => { mode = m; update(); });
-    for (const f of [v, w, a, z1, z2]) f.input.addEventListener('input', update);
+    for (const f of [v, w, a]) f.input.addEventListener('input', update);
+    fit.select.addEventListener('change', () => { fuelleGroessen(); update(); });
+    gr.select.addEventListener('change', () => {
+      const f = aktFit();
+      const x = f && f.werte.find(e => String(e.d) === gr.get());
+      if (x) { z1.set(String(x.z)); z2.set(String(x.z)); }
+      update();
+    });
+    // Z-Maß von Hand geändert: die Auswahl passt dann nicht mehr, sie springt auf "selbst eingeben"
+    for (const f of [z1, z2]) f.input.addEventListener('input', () => {
+      if (fit.get() !== 'selbst') { fit.set('selbst'); fuelleGroessen(); }
+      update();
+    });
 
     const root = h('div', {},
       tabs.el,
-      ui.panel(null, h('div', { html: SKIZZE }), v.el, boxW, boxA, z1.el, z2.el),
+      ui.panel(null, h('div', { html: SKIZZE }), v.el, boxW, boxA, fit.el, gr.el, z1.el, z2.el),
       ui.panel('Ergebnis', out,
         ui.note('Bei 45° gilt: Mittenlänge = Versatz × 1,414.'),
         h('details', {}, h('summary', {}, 'Was ist das Z-Maß?'),
           h('p', {}, 'Das Z-Maß ist bei Viega der Abstand von der Mittelachse des Fittings bis zur Anschlagfläche im Fitting, also bis dorthin, wo das Rohr anstößt. ' +
             'Die Einstecktiefe ist darin schon enthalten. Die Zuschnittlänge ist Mittenlänge − Z-Maß 1 − Z-Maß 2.'),
           h('p', {}, 'Nicht verwechseln mit dem Maß L im Katalog: L reicht bis zum äußeren Ende des Fittings und wird nicht abgezogen. ' +
-            'Das Z-Maß ist je Fitting und System verschieden (Profipress, Sanpress, Raxofix, Bogen 45° oder 90°). ' +
-            'Den Wert findest du auf der Produktseite des Fittings im Viega-Online-Katalog im Reiter "Z-Maße".'))));
+            'Gemessen wird entlang der Achse des jeweiligen Anschlusses. Das Z-Maß ist je Fitting und System verschieden. ' +
+            'Für Profipress-Bögen (45° und 90°) sind die Werte hinterlegt. Bei anderen Fittings steht der Wert auf der Produktseite im Viega-Online-Katalog im Reiter "Z-Maße".'),
+          h('p', {}, 'Bei den Bögen gibt es eine Vorgängerversion mit anderen Z-Maßen (im Katalog die Spalte Z*). Wähle sie nur, wenn du noch alte Bögen verbaust.'))));
     update();
     return root;
   }
@@ -101,20 +130,22 @@
       schritte: [
         'Querversatz V eintippen: der seitliche Abstand zwischen den beiden Rohrmitten.',
         'Winkel eintippen. Bei 45°-Bögen sind das 45.',
-        'Z-Maß der beiden Bögen eintragen: der Abstand von der Bogenmitte bis dorthin, wo das Rohr im Fitting anstößt. Es steht im Viega-Online-Katalog auf der Produktseite im Reiter "Z-Maße". Kennst du es nicht, lass 0 stehen, dann bekommst du nur die Länge von Mitte zu Mitte.',
+        'Fitting wählen, zum Beispiel "Profipress Bogen 45°", und die Größe. Das Z-Maß wird für beide Bögen eingesetzt. Das Z-Maß ist der Abstand von der Bogenmitte bis dorthin, wo das Rohr im Fitting anstößt. Bei anderen Fittings gibst du es selbst ein (Viega-Online-Katalog, Reiter "Z-Maße"). Kennst du es nicht, lass 0 stehen, dann bekommst du nur die Länge von Mitte zu Mitte.',
         'Ergebnis: Die Zuschnittlänge sägst du ab. Die Mittenlänge L ist die Strecke von Bogenmitte zu Bogenmitte.',
         'Kennst du statt des Winkels das Längsmaß, wähle oben "Längs + Quer".'
       ],
-      beispiel: 'Versatz 300 mm bei 45°: Mittenlänge 424 mm. Mit je 20 mm Z-Maß (angenommener Wert, nicht aus dem Katalog) sind das 424 − 20 − 20 = 384 mm Zuschnitt.',
-      hinweis: 'Bei 45° gilt: Mittenlänge = Versatz × 1,414. Die Z-Maße bitte immer aus dem Katalog nehmen.'
+      beispiel: 'Versatz 300 mm bei 45°, Profipress 22 mm mit zwei Bögen 45°: Mittenlänge 424 mm. Z-Maß je Bogen 11 mm, also 424,3 − 11 − 11 = 402,3 mm Zuschnitt.',
+      hinweis: 'Bei 45° gilt: Mittenlänge = Versatz × 1,414. Bei Fittings, die nicht in der Liste stehen, das Z-Maß bitte aus dem Katalog nehmen.'
     },
     quelle: [
       'Geometrie: Mittenlänge = Versatz ÷ sin(Winkel), Längsmaß und Dreieck nach Pythagoras. Geprüft mit Omni Calculator und eigener Gegenrechnung (300 mm bei 45° ergibt 424,26 mm).',
-      'Z-Maß: Definition aus der Maßzeichnung im Viega-Online-Katalog (Profipress-Bogen 90°). Werte stehen nicht in der App, sie sind je Fitting verschieden und kommen aus dem Katalog.'
+      'Z-Maß: Definition aus der Maßzeichnung im Viega-Online-Katalog (Profipress-Bögen 45° und 90°, Reiter "Z-Maße").',
+      'Z-Maße Profipress-Bogen 90° (Modell 2416): Viega-Katalogseite, zweimal unabhängig abgelesen (Seitenabruf und Handy-Ansicht), alle Werte gleich. Bogen 45° (Modell 2426): Viega-Katalog, Größen 22 bis 54 beim Viega-Händler ritzmarine.com bestätigt, Größe 12 im Viega-Datenblatt (tbs-online.de).',
+      'Gegenprobe: Maß L minus Z-Maß ergibt je Größe bei beiden Bögen und in beiden Ausführungen denselben Wert (Einstecktiefe: 18, 22, 22, 23, 24, 26, 36, 40 mm). Nur durch diese Gegenprobe abgesichert: 45°-Bogen Größe 15 und 18 sowie alle Werte der Vorgängerversion beim 45°-Bogen.'
     ],
     stichworte: 'versatz bogen 45 grad winkel zuschnitt z-maß zmaß rohrlänge etage',
     title: 'Passstücke',
-    desc: 'Zuschnitt bei Versatz: 45° und andere Winkel, Z-Maße',
+    desc: 'Zuschnitt bei Versatz, Z-Maße Profipress-Bögen',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h6l8-12h6"/></svg>',
     render
   });
