@@ -28,7 +28,7 @@
     }
 
     const boxV = tab(
-      [ui.num('Leistung', { unit: 'kW', value: '6' }), ui.num('Spreizung (Vorlauf − Rücklauf)', { unit: 'K', value: '20' })],
+      [ui.num('Leistung', { unit: 'kW', value: '6' }), ui.num('Spreizung', { unit: 'K', value: '20', hint: 'Vorlauf minus Rücklauf, zum Beispiel 55 − 35 = 20 K' })],
       (kw, k) => volumenstrom({ kw, k }),
       lh => [
         { k: 'Volumenstrom', v: fmt(lh, 0) + ' l/h', big: true },
@@ -36,7 +36,7 @@
         { k: 'je Stunde', v: fmt(lh / 1000, 3) + ' m³/h' }
       ]);
     const boxL = tab(
-      [ui.num('Volumenstrom', { unit: 'l/h', value: '500' }), ui.num('Spreizung (Vorlauf − Rücklauf)', { unit: 'K', value: '10' })],
+      [ui.num('Volumenstrom', { unit: 'l/h', value: '500' }), ui.num('Spreizung', { unit: 'K', value: '10', hint: 'Vorlauf minus Rücklauf, zum Beispiel 55 − 45 = 10 K' })],
       (lh, k) => leistung({ lh, k }),
       kw => [
         { k: 'Leistung', v: fmt(kw, 2) + ' kW', big: true },
@@ -49,9 +49,9 @@
 
     const boxen = { v: boxV, l: boxL, s: boxS };
     const tabs = ui.tabs([
-      { value: 'v', label: 'Volumenstrom' },
-      { value: 'l', label: 'Leistung' },
-      { value: 's', label: 'Spreizung' }
+      { value: 'v', label: 'Wie viel Wasser?' },
+      { value: 'l', label: 'Wie viel Leistung?' },
+      { value: 's', label: 'Welche Spreizung?' }
     ], v => { for (const k of Object.keys(boxen)) boxen[k].hidden = k !== v; });
     boxL.hidden = true; boxS.hidden = true;
     return h('div', {}, tabs.el, boxV, boxL, boxS,

@@ -50,10 +50,10 @@
       return h('div', {}, ui.panel(null, p.el, t.el), ui.panel('Ergebnis', out));
     }
 
-    const boxU = tab(ueberhitzung, 'Saugdruck', 'Temperatur Saugleitung', 'Taupunkt bei diesem Druck', 'Überhitzung',
-      '8', '15', 'am Manometer, Überdruck', 'mit Anlegefühler am Rohr gemessen');
-    const boxK = tab(unterkuehlung, 'Hochdruck', 'Temperatur Flüssigkeitsleitung', 'Siedepunkt bei diesem Druck', 'Unterkühlung',
-      '25', '35', 'am Manometer, Überdruck', 'mit Anlegefühler am Rohr gemessen');
+    const boxU = tab(ueberhitzung, 'Saugdruck (Niederdruck)', 'Temperatur der Saugleitung', 'Taupunkt bei diesem Druck', 'Überhitzung',
+      '8', '15', 'Niederdruckseite, meist das blaue Manometer', 'Anlegefühler an der Saugleitung (bei Split-Geräten das dickere Rohr)');
+    const boxK = tab(unterkuehlung, 'Hochdruck', 'Temperatur der Flüssigkeitsleitung', 'Siedepunkt bei diesem Druck', 'Unterkühlung',
+      '25', '35', 'Hochdruckseite, meist das rote Manometer', 'Anlegefühler an der Flüssigkeitsleitung (bei Split-Geräten das dünnere Rohr)');
     boxK.hidden = true;
     const tabs = ui.tabs([
       { value: 'u', label: 'Überhitzung' },

@@ -67,15 +67,17 @@
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
-    { id: 'erwaermen', titel: 'Wasser erwärmen', frage: 'Wie viel Energie braucht das Wasser?',
+    { id: 'erwaermen', titel: 'Wasser erwärmen', frage: 'Wie viel Energie brauche ich, um Wasser zu erwärmen?', klein: 'Zum Beispiel von 60 auf 80 °C',
       icon: SVG('<path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/><path d="M12 12v5M9.5 14.5h5"/>') },
-    { id: 'zeit', titel: 'Aufheizzeit', frage: 'Wie lange dauert das mit meiner Leistung?',
+    { id: 'zeit', titel: 'Aufheizzeit', frage: 'Wie lange dauert das Aufheizen mit meiner Heizleistung?', klein: 'Mit der Leistung in kW',
       icon: SVG('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 3h6"/>') },
-    { id: 'gewicht', titel: 'Gewicht von Wasser', frage: 'Wie schwer ist das Wasser bei dieser Temperatur?',
+    { id: 'gewicht', titel: 'Gewicht von Wasser', frage: 'Wie schwer ist mein Wasser?', klein: 'Warmes Wasser ist leichter als kaltes',
       icon: SVG('<path d="M6 8h12l2 12H4z"/><circle cx="12" cy="5" r="2"/>') },
-    { id: 'gas', titel: 'Wasser aus Gas', frage: 'Wie viel Wasser entsteht beim Verbrennen von Erdgas?',
+    { id: 'fluss', titel: 'Volumenstrom', frage: 'Wie viel Wasser muss durch meine Heizung fließen?', klein: 'Volumenstrom aus Leistung und Spreizung',
+      icon: SVG('<path d="M3 9h12M12 5l4 4-4 4"/><path d="M21 15H9M12 11l-4 4 4 4"/>') },
+    { id: 'gas', titel: 'Wasser aus Gas', frage: 'Wie viel Wasser entsteht, wenn Gas verbrennt?', klein: 'Pro m³ Erdgas',
       icon: SVG('<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .3 1.2 1 2 2 2 0-3-1-5 1-8z"/>') },
-    { id: 'stoffe', titel: 'Stoffwerte nachschlagen', frage: 'Wärmekapazität und Dichte von Wasser, Luft, Kupfer, Stahl',
+    { id: 'stoffe', titel: 'Stoffwerte nachschlagen', frage: 'Welche Werte haben Wasser, Luft, Kupfer und Stahl?', klein: 'Wärmekapazität und Dichte zum Nachschlagen',
       icon: SVG('<path d="M5 4h14v16H5zM5 9h14M5 14h14M10 4v16"/>') }
   ];
 
@@ -97,7 +99,7 @@
         h('p', { class: 'lead' }, 'Was willst du wissen?'),
         h('div', { class: 'wahl' }, FRAGEN.map(q => h('button', { type: 'button', onclick: () => zeigeFrage(q.id) },
           h('span', { class: 'ico', html: q.icon }),
-          h('span', {}, h('strong', {}, q.titel), h('small', {}, q.frage))))));
+          h('span', {}, h('strong', {}, q.frage), h('small', {}, q.klein))))));
     }
 
     function zeigeFrage(id) {
@@ -105,6 +107,12 @@
       const out = h('div');
       const zurueck = h('button', { type: 'button', class: 'zurueck', onclick: zeigeMenu }, '‹ Andere Frage');
       let felder = [], update = () => {};
+      const begriffe = WK.ui.begriffe('waerme/' + id);
+      if (id === 'fluss') {   // das Modul "Leistung & Volumenstrom" steckt hier als Frage
+        const vs = WK.modules.find(m => m.id === 'volumenstrom');
+        root.replaceChildren(...[zurueck, h('h2', { class: 'frage' }, q.frage), begriffe, vs ? vs.render() : null].filter(Boolean));
+        return;
+      }
 
       if (id === 'erwaermen' || id === 'zeit') {
         const menge = feld('Wassermenge', 'menge');
@@ -173,7 +181,7 @@
           ['Luft (trocken)', fmt(D.luft.cp, 3), fmt(D.luft.cp / 3.6, 3)],
           ...D.werkstoffe.map(w => [w.name, fmt(w.c, 2), fmt(w.c / 3.6, 3)])
         ]);
-        root.replaceChildren(zurueck,
+        root.replaceChildren(...[zurueck, begriffe].filter(Boolean),
           ui.panel('Wasser (flüssig)', wasser, ui.note('c = spezifische Wärmekapazität. Faustwert: 1,163 Wh/(kg·K), also etwa 1,16 Wh je kg und Kelvin.')),
           ui.panel('Luft, Kupfer, Stahl', sonst,
             ui.result([
@@ -184,8 +192,8 @@
         return;
       }
 
-      root.replaceChildren(zurueck, ui.panel(q.titel, h('p', { class: 'lead' }, q.frage), ...felder),
-        ui.panel('Ergebnis', out));
+      root.replaceChildren(...[zurueck, begriffe, ui.panel(q.titel, h('p', { class: 'lead' }, q.frage), ...felder),
+        ui.panel('Ergebnis', out)].filter(Boolean));
       update();
     }
 
@@ -197,7 +205,7 @@
     id: 'waerme',
     bereich: 'heizung',
     hilfe: {
-      wofuer: 'Fragen rund um Wasser und Wärme: wie viel Energie das Aufheizen braucht, wie lange es dauert, wie schwer das Wasser ist und wie viel Wasser beim Verbrennen von Gas entsteht. Dazu eine Tabelle mit Stoffwerten zum Nachschlagen.',
+      wofuer: 'Fragen rund um Wasser und Wärme: wie viel Energie das Aufheizen braucht, wie lange es dauert, wie schwer das Wasser ist, wie viel Wasser durch die Heizung fließen muss und wie viel Wasser beim Verbrennen von Gas entsteht. Dazu eine Tabelle mit Stoffwerten zum Nachschlagen.',
       schritte: [
         'Oben tippst du auf die Frage, die du beantwortet haben willst.',
         'Du siehst nur die Felder, die dafür nötig sind. Die Temperaturen bleiben beim Wechsel zwischen den Fragen erhalten.',
@@ -215,9 +223,9 @@
       'Wasser aus Erdgas: etwa 1,6 l je m³ im Normzustand, aus der Verbrennungsgleichung (CH₄ + 2 O₂ → CO₂ + 2 H₂O) gerechnet und bestätigt durch den SBZ-Artikel mit 1,63 l.',
       'Nicht enthalten: Verdampfungs- und Schmelzwärme (die Quellen weichen ab), Edelstahl, Wärmeleitfähigkeit, Dichte von Stahl und Kupfer, Glykol-Gemische und Dämmstoffe (Werte hängen vom Produkt ab, nur aus dem Datenblatt).'
     ],
-    stichworte: 'wärmekapazität spezifische wärme dichte gewicht wasser kondensat verbrennung aufheizen erwärmen energie kwh liter kg wärmemenge speicher luft kupfer stahl brennwert abgas',
+    stichworte: 'volumenstrom spreizung l/h durchfluss leistung heizkreis wärmekapazität spezifische wärme dichte gewicht wasser kondensat verbrennung aufheizen erwärmen energie kwh liter kg wärmemenge speicher luft kupfer stahl brennwert abgas',
     title: 'Wärme & Wasser',
-    desc: 'Wasser erwärmen, Gewicht, Stoffwerte, Kondensat aus Gas',
+    desc: 'Wasser erwärmen, Volumenstrom, Gewicht, Stoffwerte, Gas',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/><path d="M9 14a3 3 0 0 0 3 3"/></svg>',
     render
   });

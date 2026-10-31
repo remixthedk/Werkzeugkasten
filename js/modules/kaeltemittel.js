@@ -93,9 +93,9 @@
     const boxB = h('div', {}, ui.panel(null, stoffB.el, druck.el), ui.panel('Temperatur', outB));
     const boxen = { a: boxA, b: boxB, t: tabelle };
     const tabs = ui.tabs([
-      { value: 'a', label: '°C → Druck' },
-      { value: 'b', label: 'Druck → °C' },
-      { value: 't', label: 'Tabelle' }
+      { value: 'a', label: 'Temperatur bekannt' },
+      { value: 'b', label: 'Druck bekannt' },
+      { value: 't', label: 'Ganze Tabelle' }
     ], v => { for (const k of Object.keys(boxen)) boxen[k].hidden = k !== v; });
     boxB.hidden = true; tabelle.hidden = true;
     updA(); updB();
@@ -120,7 +120,7 @@
     quelle: [
       'Werte aus CoolProp 7 (Referenzzustandsgleichungen für R32 und R410A, Datenbasis wie NIST REFPROP). Zwischen den 1-K-Werten wird logarithmisch interpoliert.',
       'Gegenprobe an zwei unabhängigen Herstellertabellen: Arkema Forane (Datenbasis NIST REFPROP 10) und Chadwell Supply A2L-PT-Chart. Verglichen bei 0, 10, 20 und 37,8 °C: höchstens 0,04 % Abweichung, das ist Rundung der psig-Werte. Umrechnung: 1 psi = 0,0689476 bar, Normaldruck 1,01325 bar.',
-      'R410A hat 0,1 bis 0,2 K Temperaturgleit zwischen Tau- und Siedepunkt; deshalb werden beide Werte gezeigt. Im Test mit eigenen Zwischenwerten (halbe Grad) stimmt die Interpolation auf 0,05 % mit CoolProp überein.'
+      'R410A hat etwa 0,1 K Temperaturgleit (bei gleichem Druck 0,09 bis 0,12 K) zwischen Tau- und Siedepunkt; deshalb werden beide Werte gezeigt. Im Test mit eigenen Zwischenwerten (halbe Grad) stimmt die Interpolation auf 0,05 % mit CoolProp überein.'
     ],
     stichworte: 'kältemittel r32 r410a druck temperatur tabelle manometer sättigung verdampfung verflüssigung klima split wärmepumpe pt',
     title: 'Kältemittel-Druck',

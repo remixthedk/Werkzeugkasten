@@ -2,6 +2,21 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.5.0] – 2026-10-31
+
+Einfachere Bedienung für Einsteiger. Keine neuen Rechner, alle Rechnungen sind unverändert.
+
+### Neu
+- **Sammelkacheln:** Aus 16 Kacheln werden 11. **Rohr** (Maße, Wasserinhalt, Dehnung, Dämmung), **Kältemittel** (Druck, Überhitzung, Unterkühlung) und **Wärme & Wasser** (jetzt mit Volumenstrom). Sie öffnen mit großen Fragen in ganzen Sätzen, zum Beispiel "Wie viel Wasser passt in mein Rohr?"
+- **"Was bedeutet das?":** Aufklappbare Erklärung der Fachbegriffe in jeder Frage und bei den Kacheln Passstücke, Gefälle, Heizkörper-Leistung, Fußbodenheizung, Dichtheitsprüfung, Filterklassen, Brennstoff und Einheiten. Bei Überhitzung und Unterkühlung ist sie von Anfang an offen
+- Rohrmaterial, Größe und Kältemittel bleiben beim Wechsel zwischen den Fragen einer Sammelkachel stehen
+- Eingabefelder mit Hinweis, wo der Wert zu finden ist (zum Beispiel "Niederdruckseite, meist das blaue Manometer")
+- Favoriten der alten Einzelmodule wandern automatisch auf die Sammelkachel. Die Suche findet weiterhin alle alten Namen
+
+### Geändert
+- Registerkarten in Kältemittel-Druck ("Temperatur bekannt", "Druck bekannt", "Ganze Tabelle") und im Volumenstrom ("Wie viel Wasser?", "Wie viel Leistung?", "Welche Spreizung?")
+- Kältemittel: Temperaturgleit von R410A heißt jetzt "etwa 0,1 K" (nachgerechnet: 0,09 bis 0,12 K bei gleichem Druck), vorher stand dort "0,1 bis 0,2 K"
+
 ## [1.4.0] – 2026-10-31
 
 Drei neue Module im Bereich Heizung.

@@ -97,6 +97,95 @@
     }
   };
 
+  // Aufklappbare Erklärung der Fachbegriffe ("Was bedeutet das?"). Texte: js/data/erklaerungen.js, Schlüssel = Modul-ID
+  // oder "<Sammelkachel>/<Frage>". Ohne Eintrag: nichts anzeigen.
+  WK.ui.begriffe = (key, offen) => {
+    const l = (WK.data.erklaerungen || {})[key];
+    if (!l || !l.length) return null;
+    return h('details', Object.assign({ class: 'help begriffe' }, offen ? { open: true } : {}),
+      h('summary', {}, 'Was bedeutet das?'),
+      h('div', { class: 'helpbody' }, l.map(x => h('div', {}, h('h3', {}, x.b), h('p', {}, x.t)))));
+  };
+
+  // ---- Sammelkacheln --------------------------------------------------------
+  // Eine Kachel, die beim Öffnen große Fragen zeigt. Jede Frage öffnet ein vorhandenes Modul (dessen Kachel dann
+  // versteckt ist, die Seite #/<id> geht weiter). g: { id, bereich, title, desc, icon, stichworte, hilfe, teilen[],
+  // fragen: [{ id, modul, frage, klein, tab, offen }] }. "teilen": Auswahlfelder (nach Beschriftung), die beim
+  // Wechsel zwischen den Fragen erhalten bleiben.
+  WK.ersatz = {};
+  WK.gruppe = function (g) {
+    const subs = g.fragen.map(f => WK.modules.find(m => m.id === f.modul));
+    g.fragen.forEach((f, i) => { if (subs[i]) { subs[i].versteckt = true; WK.ersatz[f.modul] = g.id; } });
+    const stich = [g.stichworte || '', ...subs.filter(Boolean).map(m => [m.title, m.desc, m.stichworte || ''].join(' '))].join(' ');
+
+    function render() {
+      const root = h('div');
+      const gemerkt = {};
+      const teilen = g.teilen || [];
+
+      function teile(el) {
+        for (const lab of el.querySelectorAll('label.field')) {
+          const t = (lab.querySelector('.lbl') || {}).textContent;
+          const sel = lab.querySelector('select');
+          const nr = teilen.indexOf(t);
+          if (!sel || nr < 0) continue;
+          if (gemerkt[t] != null && [...sel.options].some(o => o.value === gemerkt[t])) {
+            sel.value = gemerkt[t];
+            sel.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+          sel.addEventListener('change', () => {
+            gemerkt[t] = sel.value;
+            for (const spaeter of teilen.slice(nr + 1)) delete gemerkt[spaeter];   // neues Material: Größe neu wählen
+          });
+        }
+      }
+
+      function menu() {
+        root.replaceChildren(
+          h('p', { class: 'lead' }, g.lead || 'Was willst du wissen?'),
+          h('div', { class: 'wahl' }, g.fragen.map(f => {
+            const m = WK.modules.find(x => x.id === f.modul);
+            return h('button', { type: 'button', onclick: () => frage(f) },
+              h('span', { class: 'ico', html: f.icon || (m && m.icon) || '' }),
+              h('span', {}, h('strong', {}, f.frage), f.klein ? h('small', {}, f.klein) : null));
+          })));
+        try { window.scrollTo(0, 0); } catch (e) { /* ohne Fenster egal */ }
+      }
+
+      function frage(f) {
+        const m = WK.modules.find(x => x.id === f.modul);
+        const el = m.render();
+        if (f.tab != null) {   // gleiches Modul, andere Frage: Registerkarte vorwählen und die Leiste ausblenden
+          const tabs = el.querySelectorAll('.tab');
+          if (tabs[f.tab]) tabs[f.tab].dispatchEvent(new Event('click', { bubbles: true }));
+          const leiste = el.querySelector('.tabs');
+          if (leiste) leiste.style.display = 'none';
+        }
+        teile(el);
+        const anleitung = WK.ui.help(m.hilfe);
+        if (anleitung) anleitung.querySelector('summary').textContent = 'So geht es Schritt für Schritt';
+        root.replaceChildren(...[
+          h('button', { type: 'button', class: 'zurueck', onclick: menu }, '‹ Andere Frage'),
+          h('h2', { class: 'frage' }, f.frage),
+          WK.ui.begriffe(g.id + '/' + f.id, f.offen),
+          anleitung,
+          el,
+          WK.ui.quelle(m.quelle)
+        ].filter(Boolean));
+        try { window.scrollTo(0, 0); } catch (e) { /* ohne Fenster egal */ }
+      }
+
+      menu();
+      return root;
+    }
+
+    WK.register({ id: g.id, gruppe: true, bereich: g.bereich, title: g.title, desc: g.desc, icon: g.icon, stichworte: stich, hilfe: g.hilfe, render });
+    // Kachel steht dort, wo die erste Frage-Kachel stand
+    const neu = WK.modules.pop();
+    const erste = WK.modules.findIndex(m => m.id === g.fragen[0].modul);
+    WK.modules.splice(erste < 0 ? WK.modules.length : erste, 0, neu);
+  };
+
   // ---- Favoriten (nur auf diesem Gerät, im Browser gespeichert) -------------
   const FAV_KEY = 'wk-favoriten';
   let favs = [];
@@ -157,6 +246,10 @@
   let failedModules = [];
 
   function home() {
+    // Favoriten von Modulen, die jetzt in einer Sammelkachel stecken, wandern auf die Sammelkachel
+    const alt = JSON.stringify(favs);
+    favs = [...new Set(favs.map(id => WK.ersatz[id] || id))];
+    if (JSON.stringify(favs) !== alt) { try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch (e) { /* siehe oben */ } }
     title.textContent = 'Werkzeugkasten';
     back.hidden = true;
     document.title = 'Werkzeugkasten';
@@ -178,10 +271,11 @@
           h('strong', {}, m.title),
           h('small', {}, m.desc)),
         sternKnopf(m, zeichne));
-      const bereiche = WK.BEREICHE.map(b => ({ b, mods: WK.modules.filter(m => m.bereich === b.id) }));
-      const ohne = WK.modules.filter(m => !WK.BEREICHE.some(b => b.id === m.bereich));
+      const sichtbar = WK.modules.filter(m => !m.versteckt);
+      const bereiche = WK.BEREICHE.map(b => ({ b, mods: sichtbar.filter(m => m.bereich === b.id) }));
+      const ohne = sichtbar.filter(m => !WK.BEREICHE.some(b => b.id === m.bereich));
       if (ohne.length) bereiche.push({ b: { id: 'weitere', title: 'Weitere' }, mods: ohne });
-      const favMods = favs.map(id => WK.modules.find(m => m.id === id)).filter(Boolean);
+      const favMods = favs.map(id => sichtbar.find(m => m.id === id)).filter(Boolean);
       const gruppen = [
         { b: { id: 'favoriten', title: 'Favoriten' }, mods: favMods },
         ...bereiche
@@ -226,7 +320,7 @@
     back.hidden = false;
     favKnopf(m);
     document.title = m.title + ' – Werkzeugkasten';
-    view.replaceChildren(...[WK.ui.help(m.hilfe), m.render(), WK.ui.quelle(m.quelle)].filter(Boolean));
+    view.replaceChildren(...[WK.ui.help(m.hilfe), WK.ui.begriffe(m.id), m.render(), WK.ui.quelle(m.quelle)].filter(Boolean));
   }
 
   function route() {

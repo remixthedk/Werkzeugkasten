@@ -31,6 +31,18 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Bereich ohne Modul wird nicht angezeigt.
 
+### Sammelkacheln und Erklärungen (ab 1.5.0)
+
+Zusammengehörige Module stehen unter einer Kachel, die mit großen Fragen in ganzen Sätzen öffnet. Die Module darin sind unverändert, ihre eigenen Kacheln sind versteckt (die Seite `#/<id>` funktioniert weiter):
+
+| Kachel | Fragen (Module) |
+|---|---|
+| **Rohr** | Welche Maße hat mein Rohr? (Rohrgrößen) · Wie viel Wasser passt in mein Rohr? (Wasserinhalt) · Wie stark dehnt sich mein Rohr, wenn es warm wird? (Längenausdehnung) · Wie dick muss die Dämmung an meinem Rohr sein? (Dämmung). Rohrmaterial und Größe bleiben beim Wechsel zwischen Wasserinhalt und Dämmung stehen |
+| **Kältemittel** | Welcher Druck gehört zu welcher Temperatur? (Kältemittel-Druck) · Wie viel Überhitzung hat meine Anlage auf der Saugseite? · Wie viel Unterkühlung hat meine Anlage auf der Flüssigkeitsseite? (beide aus Überhitzung & Unterkühlung). Das Kältemittel bleibt beim Wechsel stehen, die Erklärung ist bei Überhitzung und Unterkühlung gleich offen |
+| **Wärme & Wasser** | wie bisher, dazu: Wie viel Wasser muss durch meine Heizung fließen? (Leistung & Volumenstrom) |
+
+Jede Kachel und jede Frage hat eine aufklappbare Box **"Was bedeutet das?"** mit den Fachbegriffen in einfachen Sätzen (`js/data/erklaerungen.js`, Schlüssel = Modul-ID oder `<Kachel>/<Frage>`). Die Eingabefelder haben kurze Beschriftungen mit Einheit und darunter einen Hinweis, wo man den Wert findet. Favoriten alter Einzelmodule wandern automatisch auf die Sammelkachel. Die Suche findet weiter alle alten Namen.
+
 ### Qualitätsregel
 
 Ein Modul wird nur gebaut, wenn jeder Wert aus mindestens zwei unabhängigen Quellen bestätigt ist und jede Formel auf einem zweiten Rechenweg gegengeprüft wurde. Bei Unklarheit wird das Modul nicht gebaut, sondern gemeldet. Vor jedem Bau wird die Modulliste einzeln freigegeben.
@@ -48,7 +60,9 @@ css/fonts.css         Einbindung der lokalen Schriften
 fonts/                Barlow und Barlow Condensed (SIL Open Font License) mit Lizenz
 js/version.js         Versionsnummer (einzige Stelle)
 js/modulliste.js      Liste der Bereiche und aller Module
-js/app.js             Grundgerüst: Startseite, Navigation, UI-Bausteine
+js/app.js             Grundgerüst: Startseite, Navigation, UI-Bausteine, Sammelkacheln (WK.gruppe)
+js/gruppen.js         Welche Module in welcher Sammelkachel stecken, mit den Fragen
+js/data/erklaerungen.js  Texte der Boxen "Was bedeutet das?"
 js/data/*.js          Daten (Tabellen, Werte), getrennt von der Logik
 js/modules/*.js       Ein Modul pro Datei: Rechenlogik und Oberfläche
 icons/                App-Icons
@@ -66,7 +80,8 @@ Grundregel: Zahlen und Tabellen stehen in `js/data/`, die Rechnung steht im Modu
 2. Falls Daten nötig sind: `js/data/<name>.js` anlegen.
 3. In `js/modulliste.js` einen Eintrag mit `id` und allen Dateien ergänzen. Der Service Worker liest diese Liste, die Datei muss nirgends sonst eingetragen werden.
 4. Hinweis beim Programmieren: Beim Befüllen von Elementen kein `null` an `replaceChildren` übergeben, sonst erscheint das Wort "null" auf der Seite. Leere Einträge vorher mit `.filter(Boolean)` entfernen.
-5. Versionsnummer in `js/version.js` erhöhen und Eintrag im `CHANGELOG.md` ergänzen.
+5. Erklärungen für Fachbegriffe in `js/data/erklaerungen.js` ergänzen (Schlüssel = Modul-ID). Soll das Modul unter eine Sammelkachel, in `js/gruppen.js` bei `WK.gruppe` als Frage eintragen.
+6. Versionsnummer in `js/version.js` erhöhen und Eintrag im `CHANGELOG.md` ergänzen.
 
 ## Update ausliefern
 
@@ -124,7 +139,7 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Wärme & Wasser | Kupfer 0,38 und Stahl 0,47 kJ/(kg·K) | bestätigt (0,381 / 0,382 bzw. 0,477 / 0,47), Richtwerte, je Legierung leicht verschieden | chemie.de, Wikibooks, ISB Bayern |
 | Wärme & Wasser | Wasser aus Erdgas, etwa 1,6 l je m³ (Normzustand) | Verbrennungsgleichung nachgerechnet (1,6075 kg je m³ Methan) und SBZ-Artikel (1,63 l). Theoretischer Höchstwert | SBZ Monteur |
 | Kältemittel-Druck | Sättigungsdruck R32 und R410A, −40 bis +70 °C (1-K-Stufen, dazwischen ln p linear) | CoolProp 7 (Referenzzustandsgleichungen). Gegenprobe an Arkema Forane (NIST REFPROP 10) und Chadwell Supply A2L-PT-Chart bei 0, 10, 20, 37,8 °C: höchstens 0,04 % Abweichung (Rundung der psig-Werte). Interpolation bei halben Grad und Rückrechnung Druck → Temperatur gegen CoolProp direkt im Test geprüft | Arkema Forane, Chadwell Supply, CoolProp |
-| Kältemittel-Druck | Überdruck = absolut − 1,01325 bar; Taupunkt (Dampf) und Siedepunkt (Flüssigkeit) bei R410A getrennt | Definition; Gleit bei R410A 0,1 bis 0,2 K, beide Seiten in der Gegenprobe bestätigt | Chadwell (Flüssigkeits- und Dampfdruck), CoolProp |
+| Kältemittel-Druck | Überdruck = absolut − 1,01325 bar; Taupunkt (Dampf) und Siedepunkt (Flüssigkeit) bei R410A getrennt | Definition; Gleit bei R410A etwa 0,1 K (0,09 bis 0,12 K bei gleichem Druck), beide Seiten in der Gegenprobe bestätigt | Chadwell (Flüssigkeits- und Dampfdruck), CoolProp |
 | Überhitzung & Unterkühlung | Überhitzung = T − Taupunkt bei Saugdruck, Unterkühlung = Siedepunkt bei Hochdruck − T | Definition (Kältetechnik), zweiter Rechenweg im Test: Druck zu bekannter Sättigungstemperatur → Ergebnis genau die vorgegebene Differenz. Sollwerte absichtlich nicht hinterlegt | Rechnung, Kältemittel-Drucktabelle |
 | Dichtheitsprüfung | Luft: 150 mbar, 120 min bis 100 l, +20 min je weitere 100 l; Belastung 3 bar bis DN 50, 1 bar DN 50 bis 100, 10 min | TECE und Conex Banninger (Quelle ZVSHK) stimmen überein, Beispiel 300 l = 160 min. Das Merkblatt (ZVSHK, Januar 2017, T82/1-1:2017-01, laut DIN aktuell) wurde nicht im Original eingesehen. Abweichende Zahlen bei Wavin (30 min, +10), einem älteren SBZ-Artikel (110 mbar) und Österreich (60 min) gelten als ältere oder andere Fassung | TECE, Conex Banninger, DIN-Eintrag, Wavin, SBZ Monteur, Geberit AT |
 | Leistung & Volumenstrom | l/h = W × 0,86 ÷ K (= W ÷ (1,163 × K)) | zwei Quellen mit nachgerechneten Beispielen (10 kW/5 K = 1.720 l/h, 6 kW/10 K = 516 l/h, 1,2 kW/5 K = 206 l/h). Zweiter Weg mit c(T) und Dichte der Wassertabelle: höchstens 2 % Abweichung (Dichte), im Test | energiefluss24, SBZ Monteur |
