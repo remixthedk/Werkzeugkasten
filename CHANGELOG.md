@@ -2,6 +2,11 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.2.2] – 2026-10-31
+
+### Behoben
+- Startseite: Die beiden Kachelspalten sind jetzt immer gleich breit. Vorher machte ein langes Wort ("Längenausdehnung") die linke Spalte breiter. Lange Kachelnamen werden bei Bedarf getrennt
+
 ## [1.2.1] – 2026-10-31
 
 ### Neu
