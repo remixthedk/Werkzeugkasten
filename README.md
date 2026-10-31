@@ -17,10 +17,12 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Rohr & Montage | **Passstücke** | Zuschnittlänge bei Versatz (45° und beliebige Winkel). Z-Maß: Fitting und Größe wählen (Profipress, Prestabo XL und Mapress, Bogen 45° und 90°), Wert wird eingesetzt; sonst selbst eingeben. Auch aus Längs- und Quermaß |
 | Rohr & Montage | **Wasserinhalt Rohr** | Liter je Meter und Gesamtinhalt aus dem Innen-Ø (Rohrauswahl wie bei der Dämmung oder Innen-Ø selbst eingeben) |
 | Rohr & Montage | **Rohr-Check** (ab 1.7.0) | Wassermenge in l/min und Rohr (Raxofix, Kupfer oder Innen-Ø selbst eingeben) ergeben Fließgeschwindigkeit, Druckverlust je Meter und auf der Leitungslänge. Kaltwasser (10 °C) oder Warm-/Heizungswasser (60 °C). Nur das gerade Rohr, ohne Bögen und Armaturen |
+| Rohr & Montage | **Rohrgewicht** (ab 1.8.0) | Gewicht von Rohr mit Wasser: kg je Meter und auf der Leitungslänge, getrennt in Rohr und Wasser. Rohr aus Außen-Ø und Wand gerechnet für Kupfer und Stahl-Gewinderohr, sonst Gewicht aus dem Katalog selbst eintragen. Kaltwasser (10 °C) oder Warm-/Heizungswasser (60 °C). Ohne Fittings, Dämmung und Schellen |
 | Rohr & Montage | **Längenausdehnung** | Dehnung in mm aus Länge und Temperaturunterschied für Raxofix, Prestabo, Mapress Edelstahl und C-Stahl, Kupfer, Stahl; auch mit eigenem α |
 | Rohr & Montage | **Gefälle** | Prozent, cm/m, 1 : n und Winkel ineinander umrechnen; Höhenunterschied bei gegebener Länge (und zurück). Keine Normwerte |
 | Heizung | **Brennstoff in kWh** | Gas: m³ × Zustandszahl × Brennwert (und zurück), Öl, Pellets, Flüssiggas: Menge × Energiegehalt. Zustandszahl und Brennwert gibt der Anwender ein, es sind keine Richtwerte hinterlegt |
 | Umrechnen | **Dreisatz & Prozent** (ab 1.6.0) | Fünf Fragen: Dreisatz (gerade und umgekehrt), Prozent von einem Wert, Anteil und Veränderung in Prozent, Preis mit Aufschlag oder Rabatt, Preis netto ↔ brutto (Steuersatz selbst eintragen). Reine Rechenregeln |
+| Umrechnen | **Strom: kW ↔ Ampere** (ab 1.8.0) | Zwei Fragen: Wie viel Strom zieht mein Gerät (aus kW)? Wie viel Leistung hat es bei diesem Strom (aus A)? Drehstrom 400 V oder Wechselstrom 230 V, cos φ einstellbar (Vorgabe 1). Keine Sicherung, kein Kabelquerschnitt |
 | Umrechnen | **Einheiten** | Druck (Pa, mbar, bar, mWS, psi …), Leistung (W, kW, kcal/h, BTU/h), Energie (J, kWh, kcal, BTU …), Durchfluss (l/s, l/min, m³/h …), Temperatur (°C, K, °F) |
 | Heizung | **Leistung & Volumenstrom** | l/h aus kW und Spreizung, kW aus l/h und Spreizung, Spreizung aus kW und l/h (1,163 Wh/(kg·K), nur Wasser) |
 | Heizung | **Heizkörper-Leistung** | Leistung bei anderen Vor- und Rücklauftemperaturen nach EN 442 (logarithmische Übertemperatur), Exponent n als Eingabe (Vorgabe 1,3) |
@@ -29,7 +31,7 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Sanitär | **Dichtheitsprüfung** | Trinkwasser mit Luft oder Inertgas: Dichtheitsprüfung 150 mbar, Prüfzeit aus dem Leitungsvolumen (120 min bis 100 l, +20 min je angefangene 100 l), Belastungsprüfung höchstens 3 bar (bis DN 50) bzw. 1 bar (bis DN 100), 10 min. Nur Luft-Teil, keine Wasser- oder Gasprüfung |
 | Lüftung & Klima | **Kältemittel-Druck** | R32 und R410A: Überdruck zu Sättigungstemperatur und umgekehrt, Tabelle −40 bis +70 °C. Bei R410A Tau- und Siedepunkt getrennt |
 | Lüftung & Klima | **Überhitzung & Unterkühlung** | Aus Manometerdruck und Rohrtemperatur, R32 und R410A. Keine Sollwerte hinterlegt |
-| Lüftung & Klima | **Luftkanal** (ab 1.6.0) | Startseite mit drei Fragen: Welcher runde Kanal ersetzt meinen eckigen (Durchmesser aus Breite und Höhe, gleicher Druckverlust)? Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt (eine Seite vorgeben)? Wie schnell strömt die Luft im Kanal (aus m³/h und Maßen)? Keine Normgrößen, keine Grenzwerte |
+| Lüftung & Klima | **Luftkanal & Luftwechsel** (ab 1.6.0, Luftwechsel ab 1.8.0) | Startseite mit fünf Fragen: Welcher runde Kanal ersetzt meinen eckigen (Durchmesser aus Breite und Höhe, gleicher Druckverlust)? Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt (eine Seite vorgeben)? Wie schnell strömt die Luft im Kanal (aus m³/h und Maßen)? Wie viel Luft muss die Lüftung fördern (Raumvolumen × Luftwechsel)? Wie oft wird die Luft im Raum getauscht (aus m³/h und Raumvolumen, mit Tauschzeit)? Keine Normgrößen, keine Grenzwerte, keine Richtwerte je Raumtyp |
 | Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Bereich ohne Modul wird nicht angezeigt.
@@ -40,7 +42,7 @@ Zusammengehörige Module stehen unter einer Kachel, die mit großen Fragen in ga
 
 | Kachel | Fragen (Module) |
 |---|---|
-| **Rohr** | Welche Maße hat mein Rohr? (Rohrgrößen) · Wie viel Wasser passt in mein Rohr? (Wasserinhalt) · Reicht mein Rohr für die Wassermenge? (Rohr-Check) · Wie stark dehnt sich mein Rohr, wenn es warm wird? (Längenausdehnung) · Wie dick muss die Dämmung an meinem Rohr sein? (Dämmung). Rohrmaterial und Größe bleiben beim Wechsel zwischen Wasserinhalt, Rohr-Check und Dämmung stehen, soweit das Material dort zur Auswahl steht |
+| **Rohr** | Welche Maße hat mein Rohr? (Rohrgrößen) · Wie viel Wasser passt in mein Rohr? (Wasserinhalt) · Reicht mein Rohr für die Wassermenge? (Rohr-Check) · Wie stark dehnt sich mein Rohr, wenn es warm wird? (Längenausdehnung) · Wie schwer ist mein Rohr mit Wasser? (Rohrgewicht) · Wie dick muss die Dämmung an meinem Rohr sein? (Dämmung). Rohrmaterial und Größe bleiben beim Wechsel zwischen Wasserinhalt, Rohr-Check, Rohrgewicht und Dämmung stehen, soweit das Material dort zur Auswahl steht |
 | **Kältemittel** | Welcher Druck gehört zu welcher Temperatur? (Kältemittel-Druck) · Wie viel Überhitzung hat meine Anlage auf der Saugseite? · Wie viel Unterkühlung hat meine Anlage auf der Flüssigkeitsseite? (beide aus Überhitzung & Unterkühlung). Das Kältemittel bleibt beim Wechsel stehen, die Erklärung ist bei Überhitzung und Unterkühlung gleich offen |
 | **Wärme & Wasser** | wie bisher, dazu: Wie viel Wasser muss durch meine Heizung fließen? (Leistung & Volumenstrom) |
 
@@ -50,7 +52,7 @@ Jede Kachel und jede Frage hat eine aufklappbare Box **"Was bedeutet das?"** mit
 
 Ein Modul wird nur gebaut, wenn jeder Wert aus mindestens zwei unabhängigen Quellen bestätigt ist und jede Formel auf einem zweiten Rechenweg gegengeprüft wurde. Bei Unklarheit wird das Modul nicht gebaut, sondern gemeldet. Vor jedem Bau wird die Modulliste einzeln freigegeben.
 
-Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Luftwechsel-Rechner (Prüfstand liegt vor, Freigabe offen), Ausdehnungsvolumen (nur Teil), hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß, Strom kW ↔ A, Gewicht Rohr mit Wasser.
+Geplant (Reihenfolge, je Stufe erst nach Prüfung und Freigabe): Ausdehnungsvolumen (nur Teil), hydraulischer Abgleich, Füllwasser VDI 2035, Heizlast aus Verbrauch, Klimagerät-Leistung, Kondensat, Biegemaße, Aufmaß.
 
 ## Aufbau
 
@@ -152,6 +154,9 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Rohr-Check | Geschwindigkeitsgrenzen (Hausanschluss 2 m/s, Verbrauchsleitungen je Armatur bis 5 m/s) | nur ein Artikel (SBZ Monteur zu DIN 1988-300), Norm nicht eingesehen, deshalb nur als Hinweis ohne Bewertung der Rechnung | SBZ Monteur |
 | Luftkanal | Gleichwertiger Durchmesser d = 1,3 · (a·b)^0,625 / (a+b)^0,25 (gleicher Volumenstrom, gleicher Druckverlust je m) | zwei Quellen mit gleicher Formel (engineeringtoolbox.com nach Huebscher, ASHRAE Handbook Fundamentals Kap. 21 laut hvacpy), Beispiel 300 × 500 = 420 mm nachgerechnet. Zweiter Rechenweg: Darcy-Weisbach mit Colebrook (Luft 20 °C, k 0,15 mm) für gleichen Volumenstrom und Druckverlust, Abweichung 0,13 bis 0,42 % bei Seitenverhältnis 1,5 bis 8 : 1, im Test. Über 8 : 1 Warnhinweis. Ein deutscher Beleg (SBZ, ingenieur.de) war nur als nicht lesbare Formelgrafik abrufbar | engineeringtoolbox.com, hvacpy (ASHRAE), eigene Gegenrechnung |
 | Luftkanal | Luftgeschwindigkeit v = V̇ ÷ A | reine Geometrie, Beispiel 500 m³/h in Ø 200 mm = 4,42 m/s im Test | Rechnung |
+| Luftwechsel | Luftwechsel n = V̇ ÷ V, Luftmenge V̇ = n · V, Tauschzeit = 1 ÷ n | zwei Quellen mit gleicher Formel (Baunetzwissen, Greenox), Umkehrrechnung im Test. Richtwerte je Raumtyp bewusst nicht hinterlegt | Baunetzwissen, Greenox |
+| Strom kW ↔ A | Wechselstrom I = P ÷ (U · cos φ), Drehstrom I = P ÷ (√3 · U · cos φ) | drei Quellen stimmen überein: atek.de (15 kW, 400 V, cos φ 0,86 gleich 25,18 A), sanier.de (2000 W, 230 V gleich 8,7 A), Omni Calculator (1492 W, 230 V, cos φ 0,85, Wirkungsgrad 95 % gleich 4,638 A). Das 7,5-kW-Beispiel bei atek.de (14 A) passt nicht zur eigenen Formel (12,7 A) und wurde nicht übernommen | atek.de, sanier.de, Omni Calculator |
+| Rohrgewicht | Wasser: π · d² ÷ 4 × Dichte (0,9997 / 0,9832 kg/l); Rohr: π/4 · (da² − di²) × Dichte (Kupfer 8,94, Stahl 7,85 g/cm³) | Gegenprobe Sikla-Rohrtabelle: Kupfer 15 × 1 bis 54 × 2 höchstens 0,9 % (Rundung der Tabelle), Stahl DN 15 bis DN 100 höchstens 0,3 %. Dichte Kupfer bei chemie.de 8,92 (0,2 % darunter) | Sikla, EN 1057, EN 10255, eigene Rechnung |
 | Dreisatz & Prozent | Dreisatz, Prozentwert, Anteil, Veränderung, Aufschlag, MwSt | Rechenregeln (Schulmathematik), im Test mit Umkehrrechnungen gegengeprüft. Steuersatz nicht vorgegeben | Rechnung |
 | Dämmung | Einbauort "Im Haus, auch Garage" (Faktor 1) und "Im Freien" (Faktor 2, Nr. 1 a) hh)) | Wortlaut: "soweit Leitungen an Außenluft grenzen". Unbeheizte Räume nennt das Gesetz nicht. Dass eine geschlossene unbeheizte Garage als Innenraum zählt, ist Auslegung und so in der App vermerkt | Anlage 8 GEG (gesetze-im-internet.de) |
 | Fußbodenheizung | Rohrlänge = Fläche ÷ Verlegeabstand; Zuleitung 2 × Entfernung je Kreis; Kreise = aufgerundet | reine Geometrie, Gegenrechnung 100 ÷ Abstand in cm im Test. Volumenstrom wie im Modul Leistung & Volumenstrom. Höchste Heizkreislänge ist Eingabe, nicht hinterlegt (hängt vom Hersteller ab, Beispielquelle 100 bis 120 m) | Rechnung, hydraulischer-abgleich.de |
@@ -189,3 +194,5 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 ## Schrift
 
 Barlow und Barlow Condensed, SIL Open Font License, Lizenztext in `fonts/LICENSE-Barlow.txt`.
+- **Rohrgewicht für Raxofix, Prestabo und Mapress XL:** nicht gebaut, keine bestätigte Herstellerangabe gefunden (Prestabo ist außen verzinkt, Mapress XL gibt es in zwei Werkstoffen). Dort trägt der Anwender das Gewicht aus dem Katalog selbst ein.
+- **Sicherung, Kabelquerschnitt, Spannungsabfall, Anlaufstrom und Wirkungsgrad (Strom-Modul):** nicht gebaut. Das legt die Elektrofachkraft fest, es hängt von Verlegeart und Vorschriften ab.

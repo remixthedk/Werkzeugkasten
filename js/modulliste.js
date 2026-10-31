@@ -21,6 +21,7 @@ self.WK.MODULES = [
   { id: 'passstuecke',  files: ['js/data/zmasse.js', 'js/modules/passstuecke.js'] },
   { id: 'wasserinhalt', files: ['js/data/rohre.js', 'js/modules/wasserinhalt.js'] },
   { id: 'druckverlust', files: ['js/data/rohre.js', 'js/modules/druckverlust.js'] },
+  { id: 'rohrgewicht',  files: ['js/data/rohre.js', 'js/modules/rohrgewicht.js'] },
   { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
@@ -33,6 +34,7 @@ self.WK.MODULES = [
   { id: 'dichtheit',    files: ['js/modules/dichtheit.js'] },
   { id: 'kanal',        files: ['js/modules/kanal.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] },
+  { id: 'strom',        files: ['js/modules/strom.js'] },
   { id: 'rechnen',      files: ['js/modules/rechnen.js'] },
   { id: 'gruppen',      files: ['js/data/erklaerungen.js', 'js/gruppen.js'] }
 ];

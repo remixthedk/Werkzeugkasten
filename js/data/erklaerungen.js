@@ -31,6 +31,11 @@
       { b: 'Wassermenge', t: 'Wie viel Wasser pro Minute durch die Leitung fließt, in l/min. Sie steht im Datenblatt der Armatur oder des Geräts.' },
       INNEN
     ],
+    'rohr/rohrgewicht': [
+      { b: 'Rohr mit Wasser', t: 'Ein gefülltes Rohr wiegt mehr als ein leeres. Für Schellen, Konsolen und Decken zählt das Gewicht von Rohr und Wasser zusammen. Warmes Wasser ist etwas leichter als kaltes.' },
+      { b: 'kg je Meter', t: 'Wie viele Kilogramm ein Meter Rohr wiegt. Für die ganze Leitung rechnest du kg je Meter mal Länge.' },
+      INNEN
+    ],
     'rohr/ausdehnung': [
       { b: 'Längenausdehnung', t: 'Rohre werden länger, wenn sie warm werden, und kürzer, wenn sie abkühlen. Bleibt dafür kein Platz, entstehen Spannungen und Geräusche.' },
       { b: 'Temperaturunterschied', t: 'Entscheidend ist der Unterschied zwischen der Temperatur beim Einbau und der Temperatur im Betrieb. Wurde bei 10 °C eingebaut und läuft die Anlage mit 70 °C, sind es 60 K.' },
@@ -115,6 +120,25 @@
     'kanal/tempo': [
       { b: 'Luftmenge (Volumenstrom)', t: 'Wie viel Luft in einer Stunde durch den Kanal strömt, in m³/h. Sie steht im Lüftungskonzept oder auf dem Gerät. 1 m³/h sind etwa 0,28 l/s.' },
       { b: 'Luftgeschwindigkeit', t: 'Wie schnell die Luft im Kanal strömt, in m/s. Bei hoher Geschwindigkeit werden Strömungsgeräusche und Druckverlust größer.' }
+    ],
+    'kanal/menge': [
+      { b: 'Luftwechsel', t: 'Wie oft pro Stunde die Luft in einem Raum rechnerisch einmal komplett ersetzt wird. Bei einem Luftwechsel von 2 je Stunde fördert die Lüftung pro Stunde doppelt so viel Luft, wie in den Raum passt.' },
+      { b: 'Raumvolumen', t: 'Wie viel Luft in den Raum passt: Grundfläche mal Raumhöhe, in m³. Ein Raum mit 20 m² und 2,5 m Höhe hat 50 m³.' },
+      { b: 'Luftmenge', t: 'Wie viel Luft in einer Stunde gefördert wird, in m³/h. 1 m³/h sind etwa 0,28 l/s.' }
+    ],
+    'kanal/wechsel': [
+      { b: 'Luftwechsel', t: 'Wie oft pro Stunde die Luft in einem Raum rechnerisch einmal komplett ersetzt wird: Luftmenge geteilt durch Raumvolumen. In der Praxis vermischt sich die Luft, deshalb ist es eine Rechengröße.' },
+      { b: 'Raumvolumen', t: 'Wie viel Luft in den Raum passt: Grundfläche mal Raumhöhe, in m³.' }
+    ],
+    // ---- Strom ----
+    'strom/strom': [
+      { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Bei Drehstrom verteilt sich die Leistung auf drei Leiter, der Strom je Leiter ist deshalb kleiner.' },
+      { b: 'Leistungsfaktor cos φ', t: 'Er sagt, wie viel von der aufgenommenen Leistung wirklich genutzt wird. Heizstäbe und Durchlauferhitzer haben 1. Bei Motoren und Pumpen liegt er darunter und steht auf dem Typenschild. Je kleiner er ist, desto mehr Strom fließt bei gleicher Leistung.' },
+      { b: 'Typenschild bei Motoren', t: 'Auf Motoren und Pumpen steht oft die abgegebene Leistung. Die aufgenommene Leistung ist höher, weil der Motor selbst Verluste hat. Besser ist der Strom vom Typenschild.' }
+    ],
+    'strom/leistung': [
+      { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Der Strom wird je Außenleiter angegeben.' },
+      { b: 'Leistungsfaktor cos φ', t: 'Er sagt, wie viel von der aufgenommenen Leistung wirklich genutzt wird. Heizstäbe und Durchlauferhitzer haben 1. Bei Motoren und Pumpen steht er auf dem Typenschild.' }
     ],
     // ---- Dreisatz & Prozent ----
     'rechnen/dreisatz': [

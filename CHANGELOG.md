@@ -2,6 +2,16 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.8.0] – 2026-10-31
+
+Drei neue Rechner.
+
+### Neu
+- **Luftwechsel** in der Kachel Luftkanal (jetzt "Luftkanal & Luftwechsel"): Wie viel Luft muss die Lüftung fördern (Raumvolumen × Luftwechsel, auch in l/s)? Wie oft wird die Luft im Raum getauscht (aus m³/h und Raumvolumen, mit Tauschzeit)? Raumvolumen aus Fläche × Höhe oder direkt eingeben. Keine Richtwerte je Raumtyp, weil sich die Quellen widersprechen
+- **Strom: kW ↔ Ampere** (Umrechnen): Wie viel Strom zieht mein Gerät? Wie viel Leistung hat es bei diesem Strom? Drehstrom 400 V oder Wechselstrom 230 V, cos φ einstellbar. Formeln mit drei Quellen bestätigt. Hinweis, dass Sicherung und Kabelquerschnitt die Elektrofachkraft festlegt
+- **Rohrgewicht** als sechste Frage in der Kachel Rohr: Wie schwer ist mein Rohr mit Wasser? kg je Meter und auf der Länge, getrennt in Rohr und Wasser. Rohrgewicht für Kupfer und Stahl-Gewinderohr gerechnet (Gegenprobe Sikla-Tabelle, höchstens 0,9 %), bei anderen Rohren aus dem Katalog selbst eintragen
+- "Was bedeutet das?" bei allen neuen Fragen
+
 ## [1.7.0] – 2026-10-31
 
 ### Neu
