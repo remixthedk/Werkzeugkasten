@@ -2,6 +2,25 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.18.0] – 2026-11-01
+
+### Neu
+- **Kachel Flächen & Volumen** (Bereich Umrechnen), zwei Fragen:
+  - "Wie groß ist meine Fläche?" Rechteck, Kreis, Dreieck oder Trapez. Maße wahlweise in mm, cm oder m. Dazu ein Feld **Abzug** in m² für Fenster, Türen und Aussparungen. Ergebnis in m² (bei kleinen Flächen auch cm²) mit der Rechnung in einer Zeile
+  - "Wie viel Inhalt hat mein Behälter oder Raum?" Quader oder Zylinder (Speicher, Fass, Rohr). Ergebnis in Liter und m³ und **Liter je cm Füllhöhe**
+- **Kachel Dreieck & Bogen** (Bereich Umrechnen), drei Fragen:
+  - "Wie lang ist die dritte Seite meines Dreiecks?" Rechtwinkliges Dreieck mit Skizze. Bekannt sein dürfen Längsmaß und Quermaß, Längsmaß und Schräge, Quermaß und Schräge oder eine Seite und der Winkel α. Ergebnis: alle drei Seiten und beide Winkel
+  - "Wie lang ist mein Rohrbogen?" Bogenlänge aus Radius (Rohrmitte) und Winkel, oder Radius bzw. Winkel aus den beiden anderen Werten
+  - "Wie groß ist der Umfang meines Rohrs?" Durchmesser in Umfang und zurück, zum Beispiel mit dem Maßband gemessen
+- Zu allen fünf Fragen gibt es Erklärkästen "Was bedeutet das?" (Abzug, Höhe beim Trapez, Länge von Mitte zu Mitte, Radius der Rohrmitte und weitere)
+
+### Geprüft
+- Reine Schulmathematik, keine Normwerte. Im Test über einen zweiten Weg gegengeprüft: Kreisfläche aus Umfang × Radius ÷ 2, Trapez als Rechteck plus Dreieck, Zylinder in cm³ gegen Liter, Quader in dm³, Pythagoras gegen Sinus und Kosinus, Bogen als Anteil am Vollkreis, Rundlauf Umfang ↔ Durchmesser. Das Dreieck (400/300 = 500 mm bei 36,87°) stimmt mit der unabhängig gerechneten Passstück-Kachel überein
+- Tests: 163 Logik- und 56 Oberflächentests
+
+### Nicht enthalten
+- Dachflächen mit Neigung, Verschnitt, Teilfüllung eines liegenden Zylinders, schiefwinklige Dreiecke, Biegezugabe und Rückfederung, Radien von Fittings
+
 ## [1.17.1] – 2026-10-31
 
 ### Behoben

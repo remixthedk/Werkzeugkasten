@@ -40,5 +40,7 @@ self.WK.MODULES = [
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] },
   { id: 'strom',        files: ['js/modules/strom.js'] },
   { id: 'rechnen',      files: ['js/modules/rechnen.js'] },
+  { id: 'flaechen',     files: ['js/modules/flaechen.js'] },
+  { id: 'dreieck',      files: ['js/modules/dreieck.js'] },
   { id: 'gruppen',      files: ['js/data/erklaerungen.js', 'js/gruppen.js'] }
 ];

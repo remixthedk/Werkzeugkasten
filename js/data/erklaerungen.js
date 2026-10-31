@@ -249,6 +249,34 @@
     'rechnen/mwst': [
       { b: 'Netto und Brutto', t: 'Netto ist der Preis ohne Mehrwertsteuer, brutto der Preis mit Mehrwertsteuer. Brutto = Netto × (1 + Steuersatz ÷ 100). Zurück rechnest du, indem du durch diesen Faktor teilst, nicht indem du die Prozente abziehst.' }
     ],
+    // ---- Flächen & Volumen ----
+    'flaechen/flaeche': [
+      { b: 'Abzug', t: 'Fenster, Türen und Aussparungen, die von der Gesamtfläche abgehen. Trag ihre Fläche in m² ein: Breite mal Höhe in Metern, zum Beispiel 1,0 × 2,1 = 2,1 m² für eine Tür.' },
+      { b: 'Höhe beim Dreieck und Trapez', t: 'Die Höhe steht senkrecht auf der Grundseite (beim Trapez zwischen den beiden parallelen Seiten). Sie ist nicht die schräge Seite, die ist länger.' },
+      { b: 'Trapez', t: 'Vier Ecken, zwei Seiten laufen parallel. Das ist zum Beispiel eine Giebelwand mit einer Seite schräg. Die Fläche ist der Mittelwert der beiden parallelen Seiten mal die Höhe.' },
+      { b: 'm² und cm²', t: '1 m² sind 10.000 cm². Ein Quadrat mit 1 m Kantenlänge hat 1 m², eines mit 10 cm Kantenlänge 100 cm².' }
+    ],
+    'flaechen/volumen': [
+      { b: 'Liter und m³', t: '1 m³ sind 1000 Liter. 1 Liter ist ein Würfel mit 10 cm Kantenlänge.' },
+      { b: 'Je cm Füllhöhe', t: 'So viele Liter passen in jeden Zentimeter Höhe des Behälters. Damit kannst du aus der Füllhöhe die Wassermenge ablesen, solange der Behälter überall gleich breit ist (stehender Zylinder oder Quader).' },
+      { b: 'Innenmaß', t: 'Für den Inhalt zählen die Maße innen. Nimmst du außen, ist das Ergebnis etwas zu groß, bei dicken Wänden deutlich.' }
+    ],
+    // ---- Dreieck & Bogen ----
+    'dreieck/pytha': [
+      { b: 'Längsmaß, Quermaß, Schräge', t: 'Bei einem Versatz oder einer Steigleitung ist das Längsmaß die waagerechte Strecke, das Quermaß die senkrechte, die Schräge die lange Seite im schrägen Rohr. Die Skizze zeigt, welche Seite gemeint ist.' },
+      { b: 'Winkel α', t: 'Der Winkel zwischen Längsmaß und Schräge, so wie das Rohr gegen die Waagerechte geneigt ist. Der andere spitze Winkel β ist 90° minus α.' },
+      { b: 'Rechter Winkel', t: 'Die Rechnung stimmt nur, wenn Längsmaß und Quermaß genau im rechten Winkel (90°) zueinander stehen, zum Beispiel Boden und Wand.' },
+      { b: 'Länge von Mitte zu Mitte', t: 'Das Ergebnis ist die Länge zwischen den Rohrmitten. Für das Passstück ziehst du an beiden Enden das Z-Maß des Fittings ab. Das rechnet die Passstück-Kachel.' }
+    ],
+    'dreieck/bogen': [
+      { b: 'Bogenlänge', t: 'Die Länge des gebogenen Rohrs entlang seiner Mitte. Ein Viertelkreis (90°) ist rund das 1,57-fache des Radius lang.' },
+      { b: 'Radius der Rohrmitte', t: 'Gemessen wird bis zur Mitte des Rohrs. Der Außenradius ist um das halbe Rohr größer, der Innenradius um das halbe Rohr kleiner. Mit dem falschen Radius stimmt die Länge nicht.' },
+      { b: 'Winkel', t: 'Um wie viel Grad das Rohr abbiegt. Ein Rohr, das nach der Biegung quer zum Anfang liegt, hat 90°.' }
+    ],
+    'dreieck/umfang': [
+      { b: 'Umfang und Durchmesser', t: 'Der Umfang ist die Länge einmal um das Rohr herum. Er ist π (3,14159) mal der Durchmesser.' },
+      { b: 'Rohr mit dem Maßband messen', t: 'Ist kein Messschieber zur Hand, legst du das Maßband eng um das Rohr und teilst den Umfang durch π. 87,96 mm Umfang sind 28 mm Außendurchmesser. Zum Vergleich ein Rohr aus der Rohrsuche nehmen.' }
+    ],
     einheiten: [
       { b: 'bar, mbar, Pa', t: 'Einheiten für den Druck. 1 bar sind 1000 mbar und 100.000 Pa. Manometer zeigen meist bar oder mbar.' },
       { b: 'mWS', t: 'Meter Wassersäule: der Druck, den eine 1 m hohe Wassersäule unten ausübt. 10 mWS sind etwa 1 bar.' },
