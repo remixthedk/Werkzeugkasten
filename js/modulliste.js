@@ -23,5 +23,6 @@ self.WK.MODULES = [
   { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
+  { id: 'waerme',       files: ['js/data/stoffwerte.js', 'js/modules/waerme.js'] },
   { id: 'einheiten',    files: ['js/data/einheiten.js', 'js/modules/einheiten.js'] }
 ];

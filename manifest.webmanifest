@@ -3,6 +3,7 @@
   "short_name": "Werkzeugkasten",
   "description": "Rechner und Umrechner für den SHK-Alltag",
   "lang": "de",
+  "id": "/Werkzeugkasten/",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -2,6 +2,15 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.2.1] – 2026-10-31
+
+### Neu
+- **Wärme & Wasser** (Heizung): Startseite mit Fragen in großen Zeilen. Wasser erwärmen (Energie in kWh und kJ), Aufheizzeit bei gegebener Leistung, Gewicht von Wasser nach Temperatur (Liter in kg), Wasser aus Erdgas (etwa 1,6 l je m³), Stoffwerte zum Nachschlagen (Wasser nach Temperatur, Luft, Kupfer, Stahl). Die Temperaturen bleiben beim Wechsel zwischen den Fragen erhalten
+- **Updates:** Die App fragt beim Start und bei jeder Rückkehr aus dem Hintergrund nach einer neuen Version, und `version.js` wird nicht mehr zwischengespeichert. Das Manifest hat eine feste App-Kennung (`id`)
+
+### Bewusst nicht gebaut
+- Verdampfungs- und Schmelzwärme, Edelstahl-Stoffwerte, Wärmeleitfähigkeit: fehlende oder widersprüchliche Quellen (siehe README)
+
 ## [1.2.0] – 2026-10-31
 
 Fünf neue Module.

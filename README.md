@@ -20,6 +20,7 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Rohr & Montage | **Gefälle** | Prozent, cm/m, 1 : n und Winkel ineinander umrechnen; Höhenunterschied bei gegebener Länge (und zurück). Keine Normwerte |
 | Heizung | **Brennstoff in kWh** | Gas: m³ × Zustandszahl × Brennwert (und zurück), Öl, Pellets, Flüssiggas: Menge × Energiegehalt. Zustandszahl und Brennwert gibt der Anwender ein, es sind keine Richtwerte hinterlegt |
 | Umrechnen | **Einheiten** | Druck (Pa, mbar, bar, mWS, psi …), Leistung (W, kW, kcal/h, BTU/h), Energie (J, kWh, kcal, BTU …), Durchfluss (l/s, l/min, m³/h …), Temperatur (°C, K, °F) |
+| Heizung | **Wärme & Wasser** | Startseite mit Fragen in großen Zeilen: Wasser erwärmen (Energie in kWh), Aufheizzeit, Gewicht von Wasser nach Temperatur, Wasser aus Erdgas, Stoffwerte (Wasser, Luft, Kupfer, Stahl). Mit mittlerer Wärmekapazität aus der Wassertabelle |
 | Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Bereich ohne Modul wird nicht angezeigt.
@@ -64,7 +65,7 @@ Grundregel: Zahlen und Tabellen stehen in `js/data/`, die Rechnung steht im Modu
 ## Update ausliefern
 
 - Dateien ins Repo, `js/version.js` hochzählen. Ohne neue Versionsnummer bleibt auf den Handys der alte Offline-Stand.
-- Beim nächsten Start mit Netz lädt die App die neue Version im Hintergrund und zeigt einen Hinweis "Neue Version geladen" mit Knopf zum Neuladen.
+- Die App fragt beim Start und bei jeder Rückkehr aus dem Hintergrund (höchstens alle 30 Sekunden) nach einer neuen Version, auch `version.js` kommt immer frisch vom Server (`updateViaCache: 'none'`). Eine neue Version wird im Hintergrund geladen, dann erscheint der Hinweis "Neue Version geladen" mit Knopf zum Neuladen.
 - Mehrere Änderungen zu einem Update bündeln, ein Eintrag im Changelog.
 
 ## Veröffentlichen mit GitHub Pages
@@ -111,6 +112,11 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Längenausdehnung | Kupfer 0,0166 | Viega-Gebrauchsanleitung; BauNetz Wissen nennt 0,017 (gerundet) | Viega Profipress, BauNetz Wissen |
 | Gefälle | Prozent, cm/m, 1 : n, Winkel, Höhe | reine Geometrie, im Test gegengerechnet (2 % = 1 : 50 = 1,146°) | Rechnung |
 | Brennstoffe | kWh = m³ × Zustandszahl × Brennwert | bestätigt, Beispiel Stadtwerke Walldorf (3.500 m³ → 38.111 kWh) nachgerechnet | DVGW G 685 laut Bonn-Netz, Stadtwerke Walldorf |
+| Wärme & Wasser | Dichte Wasser 0 bis 100 °C (10-K-Stufen, dazwischen linear) | bestätigt in zwei Quellen, Abweichung höchstens 0,1 kg/m³, im Test gegengeprüft | engineeringtoolbox.com, chemie.de |
+| Wärme & Wasser | Spezifische Wärmekapazität Wasser | IAPWS-95-Tabelle, Gegenprobe chemie.de: bei 0 °C 0,25 % Abweichung, sonst unter 0,1 %. Gerechnet mit dem Mittelwert zwischen Start- und Zieltemperatur. Faustformel 1,163 Wh/(kg·K) stimmt bei 60 bis 80 °C auf 0,1 % | chem-casts.com (IAPWS-95), chemie.de |
+| Wärme & Wasser | Luft: c 1,005 kJ/(kg·K), Dichte 1,204 kg/m³ bei 20 °C | bestätigt (c in drei Quellen; Dichte chemie.de, mit Gasgleichung gegengerechnet) | ISB Bayern, chemie.de, Wikibooks |
+| Wärme & Wasser | Kupfer 0,38 und Stahl 0,47 kJ/(kg·K) | bestätigt (0,381 / 0,382 bzw. 0,477 / 0,47), Richtwerte, je Legierung leicht verschieden | chemie.de, Wikibooks, ISB Bayern |
+| Wärme & Wasser | Wasser aus Erdgas, etwa 1,6 l je m³ (Normzustand) | Verbrennungsgleichung nachgerechnet (1,6075 kg je m³ Methan) und SBZ-Artikel (1,63 l). Theoretischer Höchstwert | SBZ Monteur |
 
 ### Bewusst nicht gebaut oder entfernt
 
@@ -123,6 +129,9 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 - **Mindestgefälle Abwasser (DIN 1986-100, DIN EN 12056, DIN EN 752):** nicht gebaut. Gefunden wurden nur Artikel desselben Verlags (SBZ), und beide nennen für Anschlussleitungen unterschiedliche Werte (unbelüftet 1 cm/m bzw. gar nicht aufgeführt). Die Normen selbst sind kostenpflichtig. Das Modul Gefälle rechnet deshalb nur um.
 - **Feste Richtwerte für Brennwerte (Gas, Öl, Pellets, Flüssiggas):** nicht hinterlegt. Die Werte schwanken je Versorger und Lieferung, deshalb trägt der Anwender sie aus der Rechnung oder dem Datenblatt ein.
 - **Wasserinhalt Raxofix aus Herstellerangabe:** Viega nennt keinen Wert in der Gebrauchsanleitung, deshalb gerechnet mit Hinweis.
+- **Verdampfungs- und Schmelzwärme von Wasser:** nicht aufgenommen. Die Quellen weichen ab (Schmelzwärme 332,5 bis 334 kJ/kg), eine zweite Bestätigung für 2257 kJ/kg fehlt.
+- **Stoffwerte Edelstahl, Dichte von Stahl und Kupfer, Wärmeleitfähigkeit:** nicht aufgenommen (fehlende oder nur eine Quelle). Glykol-Gemische und Dämmstoffe: Werte hängen vom Produkt ab, nur aus dem Datenblatt.
+- **Praktische Kondensatmenge im Brennwertkessel:** nicht hinterlegt (hängt von der Rücklauftemperatur ab, die einzige Quelle ist ein KI-generierter Ratgeber).
 - Vorläufig als nicht belegbar eingeschätzt (vor einem Bau neu zu prüfen): Schellenabstände (herstellerabhängig), Voreinstellwerte beim hydraulischen Abgleich (Ventilkennlinien), Flansch-Anzugsmomente (Dichtung und Schmierung), Rohrdimensionierung nach DIN 1988-300 (kostenpflichtige Norm).
 
 ## Schrift

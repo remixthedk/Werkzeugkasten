@@ -239,18 +239,28 @@
   // ---- Offline / Updates ---------------------------------------------------
   function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return;
-    navigator.serviceWorker.register('sw.js').then(reg => {
+    // updateViaCache 'none': auch version.js (steckt im Service Worker) kommt immer frisch vom Server
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
       reg.addEventListener('updatefound', () => {
         const nw = reg.installing;
         if (!nw) return;
         nw.addEventListener('statechange', () => {
-          if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller && !document.querySelector('.banner')) {
             document.body.append(h('div', { class: 'banner' },
               'Neue Version geladen.',
               h('button', { type: 'button', onclick: () => location.reload() }, 'Neu laden')));
           }
         });
       });
+      // Eine installierte App bleibt oft im Hintergrund offen: bei jeder Rückkehr nach einer neuen Version fragen
+      let zuletzt = 0;
+      const pruefe = () => {
+        if (Date.now() - zuletzt < 30000) return;
+        zuletzt = Date.now();
+        reg.update().catch(() => { /* offline: nichts zu tun */ });
+      };
+      pruefe();
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pruefe(); });
     }).catch(() => { /* ohne https/localhost kein Offline-Modus */ });
   }
 
