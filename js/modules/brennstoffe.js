@@ -56,11 +56,22 @@
       return { felder: [menge.el, ...faktorFelder.map(f => f.el), kwh.el], out, update };
     }
 
-    // Erdgas
+    // Erdgas: Gasart wählen füllt einen Richtwert für den Brennwert vor (überschreibbar, genau steht er auf der Gasrechnung)
+    const RICHTWERT = { H: '11,5', L: '9,8' };
+    const art = ui.select('Gasart', [
+      { value: 'H', label: 'Erdgas H (Standard im Nordwesten)' },
+      { value: 'L', label: 'Erdgas L' }
+    ], 'H');
     const z = ui.num('Zustandszahl', { placeholder: 'z. B. 0,96', hint: 'steht auf der Gasrechnung' });
-    const bw = ui.num('Abrechnungsbrennwert', { unit: 'kWh/m³', placeholder: 'z. B. 11,3', hint: 'steht auf der Gasrechnung' });
+    const bw = ui.num('Abrechnungsbrennwert', { unit: 'kWh/m³', value: RICHTWERT.H, hint: 'Richtwert für die Gasart. Genau steht er auf der Gasrechnung, bitte dort eintragen.' });
     const gas = rechner('Gasverbrauch', 'm³', [z, bw], () => z.get() * bw.get(),
       'Zustandszahl und Brennwert aus der Gasrechnung eintragen.');
+    gas.felder.unshift(art.el);
+    const richt = ui.note('Mit dem Richtwert für die Gasart gerechnet, nicht mit dem Wert der Rechnung. Das Ergebnis kann einige Prozent abweichen.');
+    art.select.addEventListener('change', () => { bw.set(RICHTWERT[art.get()]); gas.update(); aktRicht(); });
+    function aktRicht() { richt.hidden = bw.input.value.trim() !== RICHTWERT[art.get()]; }
+    bw.input.addEventListener('input', aktRicht);
+    aktRicht();
 
     // Öl, Pellets, Flüssiggas
     const einheit = ui.select('Brennstoff', [
@@ -73,7 +84,7 @@
     let sonstige = rechner('Menge', unit(), [kwhPro], () => kwhPro.get(),
       'Energiegehalt je Einheit eintragen (Datenblatt oder Lieferschein).');
 
-    const boxGas = h('div', {}, ui.panel(null, ...gas.felder), ui.panel('Ergebnis', gas.out,
+    const boxGas = h('div', {}, ui.panel(null, ...gas.felder), ui.panel('Ergebnis', gas.out, richt,
       ui.note('Gerechnet wird m³ × Zustandszahl × Brennwert. Die Zahlen stehen auf der Abrechnung deines Gasversorgers.')));
     const feldHost = h('div');
     const outHost = h('div');
@@ -104,18 +115,19 @@
     id: 'brennstoffe',
     bereich: 'heizung',
     hilfe: {
-      wofuer: 'Rechnet den Verbrauch in kWh um, zum Beispiel Kubikmeter Gas oder Liter Heizöl. Zustandszahl und Brennwert trägst du selbst ein, denn sie unterscheiden sich je Versorger.',
+      wofuer: 'Rechnet den Verbrauch in kWh um, zum Beispiel Kubikmeter Gas oder Liter Heizöl. Zustandszahl und Brennwert trägst du selbst ein, denn sie unterscheiden sich je Versorger. Der Brennwert ist je nach Gasart (H oder L) mit einem Richtwert vorbelegt.',
       schritte: [
-        'Erdgas: Zustandszahl und Abrechnungsbrennwert von der Gasrechnung eintragen, dann den Verbrauch in m³. Du siehst die kWh. Oder die kWh eintippen und die m³ ablesen.',
+        'Erdgas: Gasart wählen (H oder L), der Brennwert ist dann mit einem Richtwert vorbelegt. Zustandszahl und Abrechnungsbrennwert besser von der Gasrechnung eintragen, dann den Verbrauch in m³. Du siehst die kWh. Oder die kWh eintippen und die m³ ablesen.',
         'Öl, Pellets, Flüssiggas: den Brennstoff wählen, den Energiegehalt je Einheit aus Lieferschein oder Datenblatt eintragen, dann die Menge.',
         'Beide Felder sind verbunden: Wenn du die kWh eintippst, wird die Menge gerechnet.'
       ],
       beispiel: '3.500 m³ Gas mit Zustandszahl 0,9592 und Brennwert 11,352 kWh/m³: 3.500 × 0,9592 × 11,352 = 38.111 kWh.',
-      hinweis: 'Für die Abrechnung zählt der Abrechnungsbrennwert von der Rechnung. Fest eingebaute Richtwerte gibt es absichtlich nicht.'
+      hinweis: 'Für die Abrechnung zählt der Abrechnungsbrennwert von der Rechnung. Der vorbelegte Brennwert ist nur ein Richtwert für die Gasart.'
     },
     quelle: [
       'Formel Gas: Gasmenge × Zustandszahl × Brennwert nach DVGW G 685. Gleich bei Bonn-Netz und den Stadtwerken Walldorf; das Beispiel stammt von den Stadtwerken Walldorf (38.111 kWh) und ist nachgerechnet.',
-      'Öl, Pellets, Flüssiggas: Menge × Energiegehalt je Einheit. Der Wert kommt vom Anwender, es sind keine Richtwerte hinterlegt.'
+      'Vorbelegte Brennwerte (H 11,5 und L 9,8 kWh/m³) sind Richtwerte aus der Mitte typischer Netzwerte, keine Abrechnungswerte. Quellen: Orientierungswerte der OGE (H-Gas 11,28 bis 11,67; L-Gas Deutschland 9,84) und Entega (Bandbreiten).',
+      'Öl, Pellets, Flüssiggas: Menge × Energiegehalt je Einheit. Der Wert kommt vom Anwender, dafür sind keine Richtwerte hinterlegt.'
     ],
     stichworte: 'gas erdgas kubikmeter m3 kwh öl heizöl liter pellets flüssiggas brennwert heizwert zustandszahl verbrauch',
     title: 'Brennstoff in kWh',

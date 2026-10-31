@@ -25,6 +25,7 @@ self.WK.MODULES = [
   { id: 'heizrohr',     files: ['js/data/rohre.js', 'js/modules/heizrohr.js'] },
   { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
   { id: 'rohrsuche',    files: ['js/data/rohre.js', 'js/data/rohrsuche.js', 'js/modules/rohrsuche.js'] },
+  { id: 'gasleitung',   files: ['js/data/rohre.js', 'js/data/gasrohre.js', 'js/modules/gasleitung.js'] },
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
   { id: 'waerme',       files: ['js/data/stoffwerte.js', 'js/modules/waerme.js'] },

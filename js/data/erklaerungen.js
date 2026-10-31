@@ -101,6 +101,13 @@
       SPREIZUNG, VOLUMENSTROM,
       { b: 'W/m²', t: 'Die Wärmeleistung, die pro Quadratmeter Fußboden abgegeben werden soll. Der Wert kommt aus der Heizlastberechnung.' }
     ],
+    gasleitung: [
+      { b: 'Nennbelastung', t: 'Die Leistung, die ein Gasgerät höchstens aufnimmt. Sie steht auf dem Typenschild in kW. Bei mehreren Geräten an einer Leitung zählt die Summe.' },
+      { b: 'Niederdruck und Hausdruckregler', t: 'Hinter dem Hausdruckregler liegen etwa 23 mbar an. Diese Seite rechnet nur für diesen Bereich. Der Druck davor (Mitteldruck oder Hochdruck am Hausanschluss) ist nicht erfasst.' },
+      { b: 'Druckverlust in Pa', t: 'Durch die Reibung im Rohr verliert das Gas Druck. Vom Regler bis zum Gerät dürfen es höchstens 3 mbar sein, das sind 300 Pa. Ein Teil davon geht schon für Zähler, Gasströmungswächter und Armatur ab.' },
+      { b: 'Berechnungslänge', t: 'Die gestreckte Rohrlänge plus ein Zuschlag je Winkel. Ein Winkel bremst das Gas wie ein Stück Rohr mehr, bei Kupfer etwa 0,3 m.' },
+      { b: 'Gasart H und L', t: 'Erdgas H hat mehr Energie je Kubikmeter als Erdgas L. Bei gleicher Leistung muss von L-Gas mehr Volumen durch das Rohr, deshalb verliert es mehr Druck.' }
+    ],
     'rohrsuche/stahl': [
       { b: 'Gewinderohr', t: 'Stahlrohr nach DIN EN 10255, an dem man Gewinde schneiden kann. Es hat zu jeder Nennweite (DN) eine feste Wandstärke.' },
       { b: 'Siederohr', t: 'Nahtloses Stahlrohr nach DIN EN 10220. Es gibt viele Außendurchmesser (auch Zwischenmaße wie 54 oder 57 mm) und zu jedem mehrere Wandstärken. Die dickere Wand erkennst du am Gewicht und an der Schnittkante.' },

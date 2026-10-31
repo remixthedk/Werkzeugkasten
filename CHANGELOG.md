@@ -2,6 +2,19 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.16.0] – 2026-10-31
+
+### Neu
+- **Kachel Gasleitung** (Bereich Rohr): "Wie groß muss meine Gasleitung sein?" Eingabe Leistung in kW, Gasart (H oder L), Rohrwerkstoff (Kupfer, Edelstahl, Stahl mit Gewinde), geschätzte Rohrlänge, Anzahl Winkel und der Druckverlust der Bauteile (voreingestellt 120 Pa). Ergebnis: kleinste passende Größe, Druckverlust im Rohr, Strömung und eine Tabelle aller Größen mit Haken und Kreuz. Gilt für Erdgas bis 110 kW hinter dem Hausdruckregler (Niederdruck). Über 110 kW zeigt die App nur den Hinweis auf die Berechnung durch das Vertragsinstallationsunternehmen
+- **Brennstoff in kWh: Gasart H oder L.** Der Brennwert ist vorbelegt (H 11,5, L 9,8 kWh/m³) und lässt sich überschreiben. Solange der Richtwert steht, weist die Seite darauf hin
+
+### Geprüft
+- Gasleitung: Druckbudget 300 Pa (zwei Quellen). Gegenprobe der Rechnung am TRGI-Beispiel: 19 kW, Erdgas L, Kupfer 18 x 1: TRGI liest 9 Pa/m ab, die App rechnet 9,5 Pa/m. Zweites Beispiel: 18 kW auf 20,3 m, Kupfer 18, Verlust 176 Pa (TRGI-Beispiel etwa 183 Pa). Es gibt nur diese Gegenproben
+- Kupfer-Maße nach DVGW GW 392 in zwei Quellen (DKI, eumet). Edelstahl nur Geberit-Datenblatt. Gasdaten Erdgas H in zwei Quellen, Erdgas L in einer. Bauteil-Druckverluste aus einem TRGI-Beispiel
+
+### Nicht enthalten
+- Mittel- und Hochdruck, Anlagen über 110 kW, Höhenunterschied, T-Stücke und Absperrungen, mehrere Geräte mit Gleichzeitigkeit, Kunststoff-Gasrohre
+
 ## [1.15.0] – 2026-10-31
 
 ### Neu
