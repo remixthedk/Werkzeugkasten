@@ -109,6 +109,7 @@
       { b: 'mbar und bar', t: '1 bar sind 1000 mbar. Die Dichtheitsprüfung läuft also mit nur 0,15 bar, die Belastungsprüfung mit bis zu 3 bar.' }
     ],
     filter: [
+      { b: 'ISO 16890 (ePM)', t: 'Die neue Norm für Luftfilter. Der Name nennt die feinste Partikelgröße, die der Filter zu mindestens 50 % abscheidet, und den Prozentwert dazu: ePM1 60 % holt mindestens 60 % der Partikel bis 1 Mikrometer aus der Luft. Filter, die in keiner Größe 50 % erreichen, heißen ISO Coarse (Grobfilter).' },
       { b: 'Filterklasse', t: 'Sie sagt, wie fein ein Luftfilter ist. Früher galten die Klassen G und F nach EN 779 (zum Beispiel F7). Heute gilt ISO 16890 mit ePM1, ePM2,5 und ePM10.' },
       { b: 'ePM1, ePM2,5, ePM10', t: 'Der Wert sagt, wie gut der Filter Partikel bis 1, 2,5 oder 10 Mikrometer aus der Luft holt. Je höher der Prozentwert, desto besser. Die Tabelle zeigt Spannen, keine genauen Werte.' }
     ],

@@ -33,7 +33,7 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Lüftung & Klima | **Kältemittel-Druck** | R32 und R410A: Überdruck zu Sättigungstemperatur und umgekehrt, Tabelle −40 bis +70 °C. Bei R410A Tau- und Siedepunkt getrennt |
 | Lüftung & Klima | **Überhitzung & Unterkühlung** | Aus Manometerdruck und Rohrtemperatur, R32 und R410A. Keine Sollwerte hinterlegt |
 | Lüftung & Klima | **Luftkanal & Luftwechsel** (ab 1.6.0, Luftwechsel ab 1.8.0) | Startseite mit fünf Fragen: Welcher runde Kanal ersetzt meinen eckigen (Durchmesser aus Breite und Höhe, gleicher Druckverlust)? Wie groß muss ein eckiger Kanal sein, der meinen runden ersetzt (eine Seite vorgeben)? Wie schnell strömt die Luft im Kanal (aus m³/h und Maßen)? Wie viel Luft muss die Lüftung fördern (Raumvolumen × Luftwechsel)? Wie oft wird die Luft im Raum getauscht (aus m³/h und Raumvolumen, mit Tauschzeit)? Keine Normgrößen, keine Grenzwerte, keine Richtwerte je Raumtyp |
-| Lüftung & Klima | **Filterklassen** | Tabelle der Eurovent-Spannen: RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Keine Umrechnung |
+| Lüftung & Klima | **Filterklassen** | Eurovent-Spannen für RLT-Filter EN 779 (G3 bis F9) und ISO 16890 (ePM1, ePM2,5, ePM10). Alt → neu: Spannen der Klasse. Neu → alt (ab 1.12.0): welche alten Klassen zu ePM-Fraktion und Prozentwert passen. Keine exakte Umrechnung |
 
 Bereiche: Rohr & Montage, Heizung, Sanitär, Lüftung & Klima, Umrechnen. Ein Bereich ohne Modul wird nicht angezeigt.
 
@@ -49,9 +49,10 @@ Zusammengehörige Module stehen unter einer Kachel, die mit großen Fragen in ga
 | **Passstücke** (ab 1.10.0) | Wie lang muss mein Passstück bei Versatz und Winkel sein? · Wie lang muss mein Passstück bei Längs- und Quermaß sein? (ehemals Registerkarten "Versatz + Winkel" und "Längs + Quer") |
 | **Gefälle** (ab 1.10.0) | Wie rechne ich mein Gefälle um? · Wie tief liegt mein Rohr am Ende? |
 | **Brennstoff in kWh** (ab 1.10.0) | Wie viele kWh sind meine Kubikmeter Erdgas? · Wie viele kWh stecken in Öl, Pellets oder Flüssiggas? |
+| **Filterklassen** (ab 1.12.0) | Wie gut filtert meine alte Filterklasse? · Welcher alten Klasse entspricht mein neuer Filter? (ID `k-filter`) |
 | **Einheiten** (ab 1.10.0) | Wie rechne ich einen Druck / eine Leistung / eine Energie / einen Durchfluss / eine Temperatur um? |
 
-Diese vier Kacheln hatten vorher Registerkarten. Jetzt öffnen sie mit Fragen in ganzen Sätzen, die Registerleiste ist ausgeblendet. Die Sammelkachel hat eine eigene ID (`k-passstuecke`, `k-gefaelle`, `k-brennstoffe`, `k-einheiten`), die Module bleiben über `#/<id>` erreichbar, Favoriten wandern automatisch. Kacheln mit nur einer Aufgabe (Heizkörper-Leistung, Fußbodenheizung, Dichtheitsprüfung, Filterklassen) zeigen ihre Frage als Überschrift (`frage` in der Moduldatei) mit "Was bedeutet das?" darunter. Damit haben alle Kacheln das Fragen-Prinzip.
+Diese Kacheln hatten vorher Registerkarten. Jetzt öffnen sie mit Fragen in ganzen Sätzen, die Registerleiste ist ausgeblendet. Die Sammelkachel hat eine eigene ID (`k-passstuecke`, `k-gefaelle`, `k-brennstoffe`, `k-einheiten`, `k-filter`), die Module bleiben über `#/<id>` erreichbar, Favoriten wandern automatisch. Kacheln mit nur einer Aufgabe (Heizkörper-Leistung, Fußbodenheizung, Dichtheitsprüfung, Filterklassen) zeigen ihre Frage als Überschrift (`frage` in der Moduldatei) mit "Was bedeutet das?" darunter. Damit haben alle Kacheln das Fragen-Prinzip.
 
 Jede Kachel und jede Frage hat eine aufklappbare Box **"Was bedeutet das?"** mit den Fachbegriffen in einfachen Sätzen (`js/data/erklaerungen.js`, Schlüssel = Modul-ID oder `<Kachel>/<Frage>`). Die Eingabefelder haben kurze Beschriftungen mit Einheit und darunter einen Hinweis, wo man den Wert findet. Favoriten alter Einzelmodule wandern automatisch auf die Sammelkachel. Die Suche findet weiter alle alten Namen.
 
@@ -125,6 +126,9 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Rohrgrößen | Prestabo 15×1,2 bis 54×1,5, 64×2,0, 76,1×2,0 | bestätigt (Viega-Katalog Modell 1103 und Prestabo-XL-Anleitung; Modell 1104, Händler und Geberit-C-Stahl mit gleichen Maßen). 12×1,2 nicht aufgenommen (nur eine Quelle). Nicht für Trinkwasser | Viega-Katalog, lemu.dk, hts24, bels, ahlsell, thyssenkrupp-Werkstoffhandbuch |
 | Rohrgrößen | Mapress XL 88,9×2,0 und 108×2,0 (Edelstahl und C-Stahl) | bestätigt | Heinze (Geberit), pdod.de, thyssenkrupp-Werkstoffhandbuch |
 | Rohrgrößen | Kupfer Außen-Ø 12 bis 54 | bestätigt, Wandstärke bewusst nicht hinterlegt | Sikla, Viega |
+| Filter Neu → alt | Schwelle 50 % (darunter ISO Coarse) | bestätigt, zwei Quellen | Camfil, FläktGroup |
+| Filter Neu → alt | Prozentwert wird auf 5-%-Schritte abgerundet angegeben | nur eine Quelle (Camfil), deshalb nur als Hinweis im Quellenfeld | Camfil |
+| Filter Neu → alt | Zuordnung zu alten Klassen | keine eigene Tabelle: Wert gegen die bestätigten Eurovent-Spannen geprüft, Gegenprobe im Test (jeder Wert einer Spanne liefert diese Klasse) | eigene Rechnung |
 | Filter | Spannen M5 bis F9 | Tabelle bestätigt (gleich in drei Ausgaben, aber eine Primärquelle), deshalb nur Tabelle ohne Umrechnung | Eurovent 4/23 (2018, 2022), EMW |
 | Passstücke | Geometrie | bestätigt, zweiter Rechenweg | Omni Calculator, eigene Gegenrechnung |
 | Passstücke | Z-Maß-Definition (Mittelachse bis Rohranschlag im Fitting, Einstecktiefe enthalten) | bestätigt anhand der Viega-Maßzeichnungen (Profipress-Bogen 45° und 90°) | Viega-Online-Katalog |
@@ -174,7 +178,7 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 ### Bewusst nicht gebaut oder entfernt
 
 - **Umrechnung auf anderes λ (Dämmung):** Das Gesetz nennt kein Verfahren ("anerkannte Regeln der Technik"). Die Formel (Zylinderformel) weicht von Herstellertabellen (Uponor, λ 0,040) um bis zu 1 mm ab. Die Rechenfunktion liegt noch in `js/modules/daemmung.js`, die Oberfläche zeigt sie nicht. Einschalten erst mit einer belegten Quelle.
-- **Filter-Umrechnung alt ↔ neu:** Es gibt keine exakte Umrechnung (Eurovent, Systemair). Hersteller nennen abweichende Spannen ohne Quelle.
+- **Exakte Filter-Umrechnung alt ↔ neu:** Es gibt keine (Eurovent, Systemair). Neu → alt zeigt deshalb nur, welche alten Klassen passen können, oft zwei. Hersteller nennen abweichende Spannen ohne Quelle.
 - **Wandstärken Kupfer:** je Außendurchmesser mehrere Ausführungen (EN 1057: zum Beispiel 28×1 und 28×1,5). Der Anwender gibt die Wandstärke selbst ein. Zu Profipress gibt es kein Rohr von Viega, nur Fittings.
 - **Edelstahlrohr (Sanpress) und Prestabo 12×1,2:** nicht aufgenommen (Sanpress wird im Betrieb nicht genutzt, bei 12×1,2 gibt es nur eine Quelle).
 - **Mehrschichtrohr allgemein:** Größen unterscheiden sich je Hersteller (Uponor, Geberit, Viega). Hinterlegt ist nur Viega Raxofix.

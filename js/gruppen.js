@@ -80,6 +80,10 @@
     { id: 'gas', modul: 'brennstoffe', tab: 0, frage: 'Wie viele kWh sind meine Kubikmeter Erdgas?', klein: 'Mit Zustandszahl und Brennwert von der Rechnung, auch zurück' },
     { id: 'sonst', modul: 'brennstoffe', tab: 1, frage: 'Wie viele kWh stecken in Öl, Pellets oder Flüssiggas?', klein: 'Aus Menge und Energiegehalt' }
   ] });
+  aus('filter', { fragen: [
+    { id: 'alt', begriffe: 'filter', modul: 'filter', tab: 0, frage: 'Wie gut filtert meine alte Filterklasse?', klein: 'Von F7, M6 und Co. auf ePM-Werte' },
+    { id: 'neu', begriffe: 'filter', modul: 'filter', tab: 1, frage: 'Welcher alten Klasse entspricht mein neuer Filter?', klein: 'Von ePM1 60 % und Co. auf F7, M6 und Co.' }
+  ] });
   aus('einheiten', { fragen: [
     { id: 'druck', modul: 'einheiten', tab: 0, frage: 'Wie rechne ich einen Druck um?', klein: 'Pa, mbar, bar, mWS, psi und mehr' },
     { id: 'leistung', modul: 'einheiten', tab: 1, frage: 'Wie rechne ich eine Leistung um?', klein: 'W, kW, kcal/h, BTU/h' },

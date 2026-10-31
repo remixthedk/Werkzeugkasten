@@ -2,6 +2,16 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.12.0] – 2026-10-31
+
+### Neu
+- **Filterklassen: Neu → alt.** Neue Filter nach ISO 16890 (zum Beispiel ePM1 60 %) zeigen, zu welchen alten Klassen (G3 bis F9) sie passen können. Dafür wird der Prozentwert gegen die Eurovent-Spannen geprüft. Weil sich die Spannen überlappen, sind oft zwei Klassen möglich. Unter 50 % gibt es keine ISO-Klasse (ISO Coarse), die App weist darauf hin
+- Filterklassen ist jetzt eine Sammelkachel (`k-filter`) mit zwei Fragen: "Wie gut filtert meine alte Filterklasse?" und "Welcher alten Klasse entspricht mein neuer Filter?". Favoriten wandern automatisch
+- Neue Erklärung "ISO 16890 (ePM)" in der Box "Was bedeutet das?"
+
+### Geprüft
+- 50-%-Schwelle: zwei Quellen (Camfil, FläktGroup). Abrundung auf 5-%-Schritte: nur Camfil, deshalb nur als Hinweis. Gegenprobe im Test: jeder Wert innerhalb einer Spanne liefert diese Klasse
+
 ## [1.11.0] – 2026-10-31
 
 Bedienung und Verständlichkeit nach einer Prüfung aller Bildschirme. Keine Rechnung hat sich geändert.
