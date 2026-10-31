@@ -24,6 +24,13 @@
       INNEN,
       { b: 'Liter je Meter', t: 'Wie viel Wasser in einem Meter Rohr steckt. Daraus wird der Inhalt für die ganze Länge gerechnet, zum Beispiel für die Füllmenge einer Anlage.' }
     ],
+    'rohr/druckverlust': [
+      { b: 'Druckverlust', t: 'Wasser, das durch ein Rohr fließt, verliert durch Reibung Druck. Je mehr Wasser und je dünner das Rohr, desto mehr. Angegeben in mbar je Meter. 1000 mbar sind 1 bar.' },
+      { b: 'Fließgeschwindigkeit', t: 'Wie schnell das Wasser im Rohr strömt, in m/s. Schnelles Wasser macht Geräusche und verliert viel Druck.' },
+      { b: 'Fließdruck', t: 'Der Druck, der an der Armatur ansteht, während Wasser fließt. Er ist kleiner als der Ruhedruck, weil unterwegs Druck verloren geht. Er muss mindestens so hoch sein wie der Mindestfließdruck im Datenblatt der Armatur.' },
+      { b: 'Wassermenge', t: 'Wie viel Wasser pro Minute durch die Leitung fließt, in l/min. Sie steht im Datenblatt der Armatur oder des Geräts.' },
+      INNEN
+    ],
     'rohr/ausdehnung': [
       { b: 'Längenausdehnung', t: 'Rohre werden länger, wenn sie warm werden, und kürzer, wenn sie abkühlen. Bleibt dafür kein Platz, entstehen Spannungen und Geräusche.' },
       { b: 'Temperaturunterschied', t: 'Entscheidend ist der Unterschied zwischen der Temperatur beim Einbau und der Temperatur im Betrieb. Wurde bei 10 °C eingebaut und läuft die Anlage mit 70 °C, sind es 60 K.' },

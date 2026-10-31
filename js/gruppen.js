@@ -9,15 +9,15 @@
     id: 'rohr',
     bereich: 'rohr',
     title: 'Rohr',
-    desc: 'Maße, Wasserinhalt, Dehnung und Dämmung',
+    desc: 'Maße, Wasserinhalt, Druckverlust, Dehnung, Dämmung',
     icon: SVG('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/>'),
     stichworte: 'rohr leitung',
     teilen: ['Rohrmaterial', 'Größe'],
     hilfe: {
-      wofuer: 'Alles rund um das Rohr an einem Ort: Maße nachschlagen, Wasserinhalt, Längenausdehnung und die Dämmung nach GEG.',
+      wofuer: 'Alles rund um das Rohr an einem Ort: Maße nachschlagen, Wasserinhalt, Fließgeschwindigkeit und Druckverlust, Längenausdehnung und die Dämmung nach GEG.',
       schritte: [
         'Tippe auf die Frage, die du beantwortet haben willst.',
-        'Rohrmaterial und Größe wählst du nur einmal. Sie bleiben stehen, wenn du zur Wasserinhalt- und zur Dämmungsfrage wechselst.',
+        'Rohrmaterial und Größe wählst du nur einmal. Sie bleiben stehen, wenn du zwischen Wasserinhalt, Druckverlust und Dämmung wechselst, soweit das Material dort zur Auswahl steht.',
         'Mit „Andere Frage“ kommst du zurück zur Auswahl.'
       ],
       beispiel: 'Prestabo 22 × 1,5: Frage „Wie viel Wasser passt in mein Rohr?“ ergibt 0,284 Liter je Meter. Danach die Frage nach der Dämmung zeigt dasselbe Rohr schon eingestellt.',
@@ -26,6 +26,7 @@
     fragen: [
       { id: 'rohrgroessen', modul: 'rohrgroessen', frage: 'Welche Maße hat mein Rohr?', klein: 'Außen-, Innendurchmesser und Wandstärke nachschlagen' },
       { id: 'wasserinhalt', modul: 'wasserinhalt', frage: 'Wie viel Wasser passt in mein Rohr?', klein: 'Liter je Meter und für die ganze Länge' },
+      { id: 'druckverlust', modul: 'druckverlust', frage: 'Reicht mein Rohr für die Wassermenge?', klein: 'Fließgeschwindigkeit und Druckverlust' },
       { id: 'ausdehnung', modul: 'ausdehnung', frage: 'Wie stark dehnt sich mein Rohr, wenn es warm wird?', klein: 'Verlängerung in Millimetern' },
       { id: 'daemmung', modul: 'daemmung', frage: 'Wie dick muss die Dämmung an meinem Rohr sein?', klein: 'Mindestdicke nach Gebäudeenergiegesetz' }
     ]

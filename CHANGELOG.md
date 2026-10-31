@@ -2,6 +2,13 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.7.0] – 2026-10-31
+
+### Neu
+- **Rohr-Check** als fünfte Frage in der Kachel Rohr: "Reicht mein Rohr für die Wassermenge?" Aus Wassermenge (l/min), Rohr und Leitungslänge kommen Fließgeschwindigkeit, Druckverlust je Meter und Druckverlust auf der Strecke. Raxofix und Kupfer zur Auswahl, sonst Innendurchmesser selbst eingeben. Kaltwasser (10 °C) und Warm-/Heizungswasser (60 °C)
+- Gegenprobe mit den Druckverlusttabellen von Geberit (Abweichung höchstens 0,2 % für Kupfer und Edelstahl, Kunststoff 0,1 bis 0,9 %). Stahlrohre sind nicht enthalten, weil für sie keine bestätigte Rauheit vorliegt
+- Hinweis bei mehr als 2 m/s und bei mehr als 5 m/s, mit Quellenangabe
+
 ## [1.6.0] – 2026-10-31
 
 Zwei neue Kacheln und ein klarerer Einbauort bei der Dämmung.

@@ -20,6 +20,7 @@ self.WK.MODULES = [
   { id: 'rohrgroessen', files: ['js/data/rohre.js', 'js/modules/rohrgroessen.js'] },
   { id: 'passstuecke',  files: ['js/data/zmasse.js', 'js/modules/passstuecke.js'] },
   { id: 'wasserinhalt', files: ['js/data/rohre.js', 'js/modules/wasserinhalt.js'] },
+  { id: 'druckverlust', files: ['js/data/rohre.js', 'js/modules/druckverlust.js'] },
   { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },
