@@ -13,6 +13,7 @@ Jedes Modul hat oben eine aufklappbare Beschreibung ("Wofür ist das und wie ben
 | Bereich | Modul | Was es kann |
 |---|---|---|
 | Rohr & Montage | **Dämmung nach GEG** | Mindestdicke der Rohrdämmung nach Anlage 8 (Heizung/Warmwasser, Kälte/Kaltwasser, Sondersituationen). Rohrauswahl erst Material, dann Größe (Viega Raxofix, Viega Prestabo, Geberit Mapress XL, Kupfer, Stahl-Gewinderohr) |
+| Alle Kacheln | **Ergebnis kopieren** (ab 1.17.0) | Knopf unter jedem Ergebnis: kopiert Kachelname, sichtbare Eingaben und Ergebnis als Text. Ausschaltbar mit `ui.result(rows, { kopieren: false })` |
 | Rohr & Montage | **Gasleitung** (ab 1.16.0) | "Wie groß muss meine Gasleitung sein?" Aus kW, Gasart H/L, Werkstoff (Kupfer, Edelstahl, Stahl), Länge und Winkeln die kleinste Größe, mit Tabelle aller Größen. Druckbudget 300 Pa (23 auf 20 mbar), Bauteile voreingestellt 120 Pa. Nur Niederdruck hinter dem Hausdruckregler, nur bis 110 kW (TRGI-Diagrammverfahren). Orientierung, kein Nachweis. Daten: `js/data/gasrohre.js` |
 | Rohr & Montage | **Rohrsuche** (ab 1.15.0) | "Welches Rohr habe ich da?" für Stahlrohr (Gewinderohr, Siederohr nahtlos DN 15 bis 150 mit Zwischenmaßen) und Verbundrohr (Raxofix/Sanfix, Wavin Tigris, TECEflex, Uponor, Rehau Rautitan, Mepla). Messen: Außen-Ø (und Wand) mit einstellbarer Genauigkeit, Treffer nach Abstand sortiert. Tabelle: alle Rohre mit Filter nach System und Außen-Ø ± Spanne. Daten: `js/data/rohre.js`, `js/data/rohrsuche.js` |
 | Rohr & Montage | **Rohrgrößen** | Außen-Ø, Wand und Innen-Ø für Verbundrohre (Raxofix, Tigris, TECEflex u. a.), Prestabo, Mapress XL, Kupfer, Stahl-Gewinderohr, Siederohr und Rohrgewinde, mit Suche; Zoll ↔ Millimeter-Umrechner |
@@ -178,6 +179,7 @@ Alle Werte sind Richtwerte für die Praxis und ersetzen keine Planung, keinen Pr
 | Rohrsuche | TECEflex 14 bis 63 | zwei Ausgaben desselben Herstellers (2017, 2024), keine unabhängige zweite Quelle | TECE |
 | Rohrsuche | Uponor 16×2,0 und 20×2,25; Rautitan 16,2×2,6 und 25×3,7; Mepla 20×2,5 | nur diese Größen doppelt bestätigt (Hersteller/Händler) | Uponor, Rehau, Geberit, Händler |
 | Rohrsuche | Sanfix Fosta = Maße wie Raxofix | laut Viega-Gebrauchsanleitung | Viega |
+| Wärme & Wasser | Aufheizen mit Wirkungsgrad, nötige Leistung | Gegenprobe im Test (Zeit und Leistung umkehrbar). Wirkungsgrad vom Anwender, kein Richtwert hinterlegt | Physik, Q = m · c · ΔT |
 | Gasleitung | Druckbudget 300 Pa, Grenze 110 kW | bestätigt (SBZ Monteur, bubiza-Wiki) | SBZ Monteur, bubiza-Wiki |
 | Gasleitung | Rechenweg Darcy-Weisbach | Gegenprobe am TRGI-Beispiel: 19 kW, Erdgas L, 18 x 1 -> TRGI 9 Pa/m, App 9,5 Pa/m. Zweites Beispiel 18 kW/20,3 m: App 176 Pa, TRGI etwa 183 Pa. Nur diese Beispiele, keine eigene Tabelle | mh-software (TRGI-Rechenbeispiel) |
 | Gasleitung | Kupfer 15x1 bis 54x1,5 (GW 392 Hauptabmessungen) | bestätigt, zwei Quellen | DKI-Broschüre, eumet.de |

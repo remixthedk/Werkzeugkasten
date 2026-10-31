@@ -76,7 +76,9 @@
       { b: 'kWh', t: 'Kilowattstunde: die Energiemenge, die eine Leistung von 1 kW in einer Stunde liefert.' }
     ],
     'waerme/zeit': [
-      { b: 'Heizleistung', t: 'Die Leistung des Geräts in kW, zum Beispiel des Heizstabs oder des Kessels. Sie steht auf dem Typenschild. Die Rechnung gilt ohne Verluste, in der Praxis dauert es etwas länger.' }
+      { b: 'Heizleistung', t: 'Die Leistung des Geräts in kW, zum Beispiel des Heizstabs oder des Kessels. Sie steht auf dem Typenschild. Die Rechnung gilt ohne Verluste, in der Praxis dauert es etwas länger.' },
+      { b: 'Wirkungsgrad', t: 'Wie viel von der Leistung wirklich im Wasser ankommt. 90 % heißt: Ein Zehntel geht als Verlust verloren, die Aufheizzeit wird entsprechend länger. Wenn du das Feld leer lässt, wird ohne Verluste gerechnet.' },
+      { b: 'Speicher', t: 'Der Inhalt in Litern ist die Wassermenge. Wähle Liter und trage die Starttemperatur und die Zieltemperatur ein. Das Auskühlen des Speichers (Bereitschaftsverlust) ist nicht eingerechnet.' }
     ],
     'waerme/fluss': [VOLUMENSTROM, SPREIZUNG, KELVIN,
       { b: 'Leistung', t: 'Die Wärmeleistung, die das Wasser zum Heizkörper, zum Heizkreis oder zur ganzen Anlage transportiert, in kW.' }],

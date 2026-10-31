@@ -66,9 +66,14 @@
       }
       return { el: h('div', { class: 'tabs' }, btns), set, get: () => cur };
     },
-    result(rows) {
-      return h('dl', { class: 'result' }, rows.map(r =>
+    // Ergebnis-Zeilen. Unter dem Ergebnis steht ein Knopf "Ergebnis kopieren" (mit den Eingaben der Seite), ausschaltbar mit { kopieren: false }
+    result(rows, o = {}) {
+      const dl = h('dl', { class: 'result' }, rows.map(r =>
         h('div', { class: r.big ? 'row big' : 'row' }, h('dt', {}, r.k), h('dd', {}, r.v))));
+      if (o.kopieren === false) return dl;
+      const knopf = h('button', { type: 'button', class: 'kopieren' }, 'Ergebnis kopieren');
+      knopf.addEventListener('click', () => WK.kopieren(dl, knopf));
+      return h('div', { class: 'resultwrap' }, dl, knopf);
     },
     note(text, kind) { return h('p', { class: 'note ' + (kind || '') }, text); },
     table(head, rows) {
@@ -97,6 +102,42 @@
         h('summary', {}, 'Quelle und Prüfstand'),
         lines.map(l => h('p', {}, l)));
     }
+  };
+
+  // Kopiert Titel, sichtbare Eingaben und Ergebnis als Text (zum Einfügen in WhatsApp, Mail oder Aufmaß)
+  WK.kopierText = function (dl, root) {
+    const wurzel = root || dl.closest('main') || document;
+    const zeilen = ['Werkzeugkasten: ' + (document.getElementById('title') ? document.getElementById('title').textContent : '')];
+    const ein = [];
+    for (const f of wurzel.querySelectorAll('.field')) {
+      if (f.hidden || f.closest('[hidden]')) continue;
+      const lbl = f.querySelector('.lbl'), inp = f.querySelector('input'), sel = f.querySelector('select'), unit = f.querySelector('.unit');
+      const wert = inp ? inp.value.trim() : (sel && sel.selectedOptions[0] ? sel.selectedOptions[0].textContent.trim() : '');
+      if (!lbl || !wert) continue;
+      ein.push(lbl.textContent.trim() + ': ' + wert + (inp && unit ? ' ' + unit.textContent.trim() : ''));
+    }
+    if (ein.length) zeilen.push('', 'Eingaben:', ...ein);
+    const erg = [...dl.querySelectorAll('.row')].map(r => r.querySelector('dt').textContent.trim() + ': ' + r.querySelector('dd').textContent.trim());
+    zeilen.push('', 'Ergebnis:', ...erg);
+    return zeilen.join('\n');
+  };
+  WK.kopieren = function (dl, knopf) {
+    const text = WK.kopierText(dl);
+    const fertig = ok => {
+      const alt = 'Ergebnis kopieren';
+      knopf.textContent = ok ? 'Kopiert ✓' : 'Kopieren nicht möglich';
+      setTimeout(() => { knopf.textContent = alt; }, 1800);
+    };
+    const notnagel = () => {
+      try {
+        const ta = h('textarea', { style: 'position:fixed;opacity:0;top:0;left:0' }); ta.value = text;
+        document.body.append(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); fertig(ok);
+      } catch (e) { fertig(false); }
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => fertig(true), notnagel);
+      else notnagel();
+    } catch (e) { notnagel(); }
   };
 
   // Aufklappbare Erklärung der Fachbegriffe ("Was bedeutet das?"). Texte: js/data/erklaerungen.js, Schlüssel = Modul-ID

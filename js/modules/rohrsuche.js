@@ -114,7 +114,7 @@
         }
         const zeigen = r.slice(0, 15);
         outM.replaceChildren(...[
-          ui.result([{ k: 'Treffer', v: String(r.length), big: true }]),
+          ui.result([{ k: 'Treffer', v: String(r.length), big: true }], { kopieren: false }),
           ui.table(kopf, zeigen.map(x => zeile(x, art))),
           ui.note(fuss(art)),
           r.length > zeigen.length ? ui.note('Es werden die ' + zeigen.length + ' besten Treffer gezeigt. Gib die Wandstärke ein oder messe genauer, dann wird die Liste kürzer.') : null,
@@ -135,7 +135,7 @@
         if (!t.length) { outT.replaceChildren(ui.note('Nichts gefunden. Vergrößere die Spanne oder wähle „Alle“.', 'warn')); return; }
         const zeigen = t.slice(0, MAX);
         outT.replaceChildren(...[
-          ui.result([{ k: 'Rohre in der Liste', v: String(t.length), big: true }]),
+          ui.result([{ k: 'Rohre in der Liste', v: String(t.length), big: true }], { kopieren: false }),
           ui.table(kopf, zeigen.map(x => zeile(x, art))),
           ui.note(fuss(art)),
           t.length > zeigen.length ? ui.note('Es werden die ersten ' + MAX + ' Zeilen gezeigt. Wähle ein System oder gib einen Außendurchmesser ein, dann wird die Liste kürzer.') : null

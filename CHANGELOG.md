@@ -2,6 +2,15 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.17.0] – 2026-10-31
+
+### Neu
+- **Ergebnis kopieren.** Unter jedem Ergebnis steht ein Knopf "Ergebnis kopieren". Er kopiert den Namen der Kachel, die sichtbaren Eingaben und das Ergebnis als Text, zum Beispiel für WhatsApp, Mail oder das Aufmaß. Versteckte Felder werden nicht mitkopiert. Bei der Rohrsuche (nur Trefferzahl) gibt es den Knopf nicht
+- **Aufheizen (Wärme & Wasser):** Die Frage "Wie lange dauert das Aufheizen mit meiner Heizleistung?" kann jetzt auch die **nötige Heizleistung** für eine gewünschte Aufheizzeit rechnen (Auswahl "Was suchst du?") und nimmt einen optionalen **Wirkungsgrad** an. Gedacht für Warmwasserspeicher: Liter, von, auf, kW. Ohne Wirkungsgrad wird wie bisher ohne Verluste gerechnet. Auskühlverluste des Speichers sind nicht erfasst
+
+### Geprüft
+- Gegenprobe im Test: Leistung aus der Zeit und Zeit aus der Leistung sind umkehrbar (500 l von 10 auf 60 °C, 2 h, 90 %). Physik wie bisher (Dichte und Wärmekapazität von Wasser aus zwei Quellen)
+
 ## [1.16.0] – 2026-10-31
 
 ### Neu

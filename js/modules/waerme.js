@@ -41,12 +41,21 @@
   }
 
   // Zeit in Minuten für eine Energie (kWh) bei einer Leistung (kW), ohne Verluste
-  function zeit({ kWh, kW }) {
-    if (!(kWh >= 0) || !(kW > 0)) return null;
-    const min = Math.abs(kWh) / kW * 60;
+  // eta (0 bis 1) ist optional und steht für Wirkungsgrad oder Verluste, ohne Angabe 1
+  function zeit({ kWh, kW, eta }) {
+    const e = eta == null ? 1 : eta;
+    if (!(kWh >= 0) || !(kW > 0) || !(e > 0 && e <= 1)) return null;
+    const min = Math.abs(kWh) / (kW * e) * 60;
     let h = Math.floor(min / 60), m = Math.round(min - h * 60);
     if (m === 60) { h += 1; m = 0; }
     return { minuten: min, h, m };
+  }
+
+  // Nötige Heizleistung in kW, damit eine Energie (kWh) in einer Zeit (Stunden) ankommt. eta wie bei zeit()
+  function leistung({ kWh, stunden, eta }) {
+    const e = eta == null ? 1 : eta;
+    if (!(kWh >= 0) || !(stunden > 0) || !(e > 0 && e <= 1)) return null;
+    return { kW: Math.abs(kWh) / (stunden * e) };
   }
 
   // Gewicht von Wasser bei einer Temperatur
@@ -62,14 +71,14 @@
     if (!(m3 > 0)) return null;
     return { liter: m3 * WK.data.stoffwerte.gasWasserLiter };
   }
-  WK.calc.waerme = { rhoWasser, cWasser, cMittel, energie, zeit, gewicht, gasWasser };
+  WK.calc.waerme = { rhoWasser, cWasser, cMittel, energie, zeit, leistung, gewicht, gasWasser };
 
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
     { id: 'erwaermen', titel: 'Wasser erwärmen', frage: 'Wie viel Energie brauche ich, um Wasser zu erwärmen?', stichwort: 'Wasser erwärmen', klein: 'Zum Beispiel von 60 auf 80 °C',
       icon: SVG('<path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/><path d="M12 12v5M9.5 14.5h5"/>') },
-    { id: 'zeit', titel: 'Aufheizzeit', frage: 'Wie lange dauert das Aufheizen mit meiner Heizleistung?', stichwort: 'Aufheizzeit', klein: 'Mit der Leistung in kW',
+    { id: 'zeit', titel: 'Aufheizzeit', frage: 'Wie lange dauert das Aufheizen mit meiner Heizleistung?', stichwort: 'Aufheizzeit, Speicher', klein: 'Zum Beispiel Warmwasserspeicher: Zeit oder nötige Leistung',
       icon: SVG('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 3h6"/>') },
     { id: 'gewicht', titel: 'Gewicht von Wasser', frage: 'Wie schwer ist mein Wasser?', stichwort: 'Wassergewicht', klein: 'Warmes Wasser ist leichter als kaltes',
       icon: SVG('<path d="M6 8h12l2 12H4z"/><circle cx="12" cy="5" r="2"/>') },
@@ -85,7 +94,7 @@
     const { h, ui, fmt } = WK;
     const D = WK.data.stoffwerte;
     // Eingaben merken, damit die Temperatur beim Wechsel zwischen den Fragen erhalten bleibt
-    const S = { menge: '100', einheit: 'kg', t1: '60', t2: '80', kw: '', liter: '500', tg: '60', m3: '' };
+    const S = { menge: '100', einheit: 'kg', t1: '60', t2: '80', kw: '', ziel: 'zeit', std: '1', wg: '', liter: '500', tg: '60', m3: '' };
     const root = h('div');
 
     const feld = (label, key, o = {}) => {
@@ -120,7 +129,11 @@
         const t1 = feld('Von', 't1', { unit: '°C' });
         const t2 = feld('Auf', 't2', { unit: '°C' });
         const kw = id === 'zeit' ? feld('Heizleistung', 'kw', { unit: 'kW', placeholder: 'z. B. 6' }) : null;
-        felder = [menge.f.el, einheit.el, t1.f.el, t2.f.el, ...(kw ? [kw.f.el] : [])];
+        const ziel = id === 'zeit' ? ui.select('Was suchst du?', [{ value: 'zeit', label: 'Die Aufheizzeit' }, { value: 'leistung', label: 'Die nötige Heizleistung' }], S.ziel) : null;
+        const std = id === 'zeit' ? feld('Gewünschte Aufheizzeit', 'std', { unit: 'h', hint: 'In Stunden, zum Beispiel 1,5 für 1 Stunde 30 Minuten' }) : null;
+        const wg = id === 'zeit' ? feld('Wirkungsgrad (wenn bekannt)', 'wg', { unit: '%', placeholder: 'leer = ohne Verluste', hint: 'Zum Beispiel 90 für Verluste im Speicher und in der Übergabe. Leer lassen rechnet ohne Verluste.' }) : null;
+        felder = id === 'zeit' ? [ziel.el, menge.f.el, einheit.el, t1.f.el, t2.f.el, kw.f.el, std.f.el, wg.f.el]
+          : [menge.f.el, einheit.el, t1.f.el, t2.f.el];
         update = () => {
           const r = energie({ menge: menge.f.get(), einheit: einheit.get(), t1: t1.f.get(), t2: t2.f.get() });
           if (!r) {
@@ -129,10 +142,21 @@
             return;
           }
           const e = Math.abs(r.kWh);
+          if (id === 'zeit') { kw.f.el.hidden = ziel.get() !== 'zeit'; std.f.el.hidden = ziel.get() !== 'leistung'; }
+          const wgW = id === 'zeit' ? wg.f.get() : NaN;
+          const eta = wgW > 0 && wgW <= 100 ? wgW / 100 : (Number.isFinite(wgW) && wgW !== 0 ? -1 : 1);
           const rechnung = fmt(r.masse, 1) + ' kg × ' + fmt(r.c, 3) + ' kJ/(kg·K) × ' + fmt(Math.abs(t2.f.get() - t1.f.get()), 1) + ' K = ' + fmt(Math.abs(r.kJ), 0) + ' kJ = ' + fmt(e, 2) + ' kWh';
           const rows = [];
-          if (id === 'zeit') {
-            const z = zeit({ kWh: e, kW: kw.f.get() });
+          if (id === 'zeit' && eta < 0) {
+            out.replaceChildren(ui.note('Wirkungsgrad zwischen 1 und 100 % eingeben oder das Feld leer lassen.', 'warn'));
+            return;
+          }
+          if (id === 'zeit' && ziel.get() === 'leistung') {
+            const l = leistung({ kWh: e, stunden: std.f.get(), eta });
+            rows.push(l ? { k: 'Nötige Heizleistung', v: fmt(l.kW, 1) + ' kW', big: true } : { k: 'Nötige Heizleistung', v: 'Aufheizzeit fehlt', big: true });
+            rows.push({ k: r.abkuehlen ? 'Energie (frei werdend)' : 'Energie', v: fmt(e, 2) + ' kWh' });
+          } else if (id === 'zeit') {
+            const z = zeit({ kWh: e, kW: kw.f.get(), eta });
             if (z) rows.push({ k: 'Aufheizzeit', v: (z.h ? z.h + ' h ' : '') + z.m + ' min', big: true });
             rows.push({ k: r.abkuehlen ? 'Energie (frei werdend)' : 'Energie', v: fmt(e, 2) + ' kWh' });
             if (!z) rows.unshift({ k: 'Aufheizzeit', v: 'Heizleistung fehlt' });
@@ -142,9 +166,10 @@
           }
           if (einheit.get() === 'l') rows.push({ k: 'Gewicht der Menge', v: fmt(r.masse, 1) + ' kg' });
           out.replaceChildren(ui.result(rows), ui.note('Rechnung: ' + rechnung),
-            ui.note('Ohne Verluste und Wirkungsgrad. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.'));
+            ui.note(id === 'zeit' && eta < 1 ? 'Mit Wirkungsgrad ' + fmt(eta * 100, 0) + ' %. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.' : 'Ohne Verluste und Wirkungsgrad. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.'));
         };
-        menge.bind(update); t1.bind(update); t2.bind(update); if (kw) kw.bind(update);
+        menge.bind(update); t1.bind(update); t2.bind(update);
+        if (kw) { kw.bind(update); std.bind(update); wg.bind(update); ziel.select.addEventListener('change', () => { S.ziel = ziel.get(); update(); }); }
         einheit.select.addEventListener('change', () => { S.einheit = einheit.get(); update(); });
       } else if (id === 'gewicht') {
         const liter = feld('Wassermenge', 'liter', { unit: 'l' });
@@ -207,13 +232,13 @@
     hilfe: {
       wofuer: 'Fragen rund um Wasser und Wärme: wie viel Energie das Aufheizen braucht, wie lange es dauert, wie schwer das Wasser ist, wie viel Wasser durch die Heizung fließen muss und wie viel Wasser beim Verbrennen von Gas entsteht. Dazu eine Tabelle mit Stoffwerten zum Nachschlagen.',
       schritte: [
-        'Oben tippst du auf die Frage, die du beantwortet haben willst.',
+        'Oben tippst du auf die Frage, die du beantwortet haben willst. Beim Aufheizen zum Beispiel eines Speichers wählst du, ob du die Zeit oder die nötige Heizleistung suchst.',
         'Du siehst nur die Felder, die dafür nötig sind. Die Temperaturen bleiben beim Wechsel zwischen den Fragen erhalten.',
         'Das Ergebnis steht groß darunter, mit der Rechnung in einer Zeile.',
         'Mit "Andere Frage" kommst du zurück zur Auswahl.'
       ],
       beispiel: '100 kg Wasser von 60 auf 80 °C erwärmen: etwa 2,33 kWh. Mit 6 kW Heizleistung dauert das rund 23 Minuten.',
-      hinweis: 'Gerechnet wird ohne Verluste und ohne Wirkungsgrad. Tatsächlich brauchst du etwas mehr Energie und Zeit.'
+      hinweis: 'Ohne Eintrag bei Wirkungsgrad wird ohne Verluste gerechnet. Tatsächlich brauchst du etwas mehr Energie und Zeit. Verluste des Speichers (Auskühlen) sind nicht erfasst.'
     },
     quelle: [
       'Dichte von Wasser (0 bis 100 °C): engineeringtoolbox.com. Gegenprobe chemie.de (Stoffdaten Wasser), die Werte stimmen bis auf 0,05 kg/m³ überein.',
