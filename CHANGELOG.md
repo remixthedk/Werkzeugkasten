@@ -2,6 +2,12 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.9.0] – 2026-10-31
+
+### Neu
+- **Heizungsrohr** als siebte Frage in der Kachel Rohr: "Welches Rohr brauche ich für meine Heizleistung?" Aus kW und Spreizung kommen Wassermenge, der Innendurchmesser für eine gewünschte Geschwindigkeit (Vorgabe 0,5 m/s, änderbar), die kleinste passende Größe und eine Tabelle aller Größen mit Geschwindigkeit und Druckgefälle in Pa/m. Raxofix, Kupfer oder eigener Innendurchmesser. Keine Bewertung: Die Faustwerte stehen nur als Hinweis, weil die Quellen sich widersprechen und keine Norm nennen
+- **Ohmsches Gesetz** als dritte Frage im Strom-Modul: Strom, Spannung oder Widerstand aus den beiden anderen Werten, dazu die Leistung
+
 ## [1.8.0] – 2026-10-31
 
 Drei neue Rechner.

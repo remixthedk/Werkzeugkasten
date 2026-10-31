@@ -22,6 +22,7 @@ self.WK.MODULES = [
   { id: 'wasserinhalt', files: ['js/data/rohre.js', 'js/modules/wasserinhalt.js'] },
   { id: 'druckverlust', files: ['js/data/rohre.js', 'js/modules/druckverlust.js'] },
   { id: 'rohrgewicht',  files: ['js/data/rohre.js', 'js/modules/rohrgewicht.js'] },
+  { id: 'heizrohr',     files: ['js/data/rohre.js', 'js/modules/heizrohr.js'] },
   { id: 'ausdehnung',   files: ['js/data/ausdehnung.js', 'js/modules/ausdehnung.js'] },
   { id: 'gefaelle',     files: ['js/modules/gefaelle.js'] },
   { id: 'brennstoffe',  files: ['js/modules/brennstoffe.js'] },

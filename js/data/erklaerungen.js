@@ -31,6 +31,13 @@
       { b: 'Wassermenge', t: 'Wie viel Wasser pro Minute durch die Leitung fließt, in l/min. Sie steht im Datenblatt der Armatur oder des Geräts.' },
       INNEN
     ],
+    'rohr/heizrohr': [
+      SPREIZUNG,
+      VOLUMENSTROM,
+      { b: 'Geschwindigkeit', t: 'Wie schnell das Wasser im Rohr strömt, in m/s. Je kleiner das Rohr bei gleicher Wassermenge, desto schneller. Zu schnelles Wasser macht Geräusche und kostet Pumpenleistung.' },
+      { b: 'Pa/m', t: 'Der Druck, den das Wasser auf einem Meter Rohr durch Reibung verliert. 100 Pa sind 1 mbar. Die Pumpe muss diesen Druck über die ganze Leitung aufbringen.' },
+      INNEN
+    ],
     'rohr/rohrgewicht': [
       { b: 'Rohr mit Wasser', t: 'Ein gefülltes Rohr wiegt mehr als ein leeres. Für Schellen, Konsolen und Decken zählt das Gewicht von Rohr und Wasser zusammen. Warmes Wasser ist etwas leichter als kaltes.' },
       { b: 'kg je Meter', t: 'Wie viele Kilogramm ein Meter Rohr wiegt. Für die ganze Leitung rechnest du kg je Meter mal Länge.' },
@@ -135,6 +142,11 @@
       { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Bei Drehstrom verteilt sich die Leistung auf drei Leiter, der Strom je Leiter ist deshalb kleiner.' },
       { b: 'Leistungsfaktor cos φ', t: 'Er sagt, wie viel von der aufgenommenen Leistung wirklich genutzt wird. Heizstäbe und Durchlauferhitzer haben 1. Bei Motoren und Pumpen liegt er darunter und steht auf dem Typenschild. Je kleiner er ist, desto mehr Strom fließt bei gleicher Leistung.' },
       { b: 'Typenschild bei Motoren', t: 'Auf Motoren und Pumpen steht oft die abgegebene Leistung. Die aufgenommene Leistung ist höher, weil der Motor selbst Verluste hat. Besser ist der Strom vom Typenschild.' }
+    ],
+    'strom/ohm': [
+      { b: 'Ohmsches Gesetz', t: 'Spannung, Strom und Widerstand hängen zusammen: Spannung = Widerstand mal Strom. Kennst du zwei der drei Werte, ergibt sich der dritte.' },
+      { b: 'Widerstand (Ω)', t: 'Wie stark ein Bauteil den Strom bremst, angegeben in Ohm. Ein Heizstab ist im Kern ein Widerstand. Du kannst ihn mit dem Messgerät bei ausgeschaltetem Gerät messen.' },
+      { b: 'Leistung', t: 'Spannung mal Strom ergibt die Leistung in Watt. Die App zeigt sie dazu an.' }
     ],
     'strom/leistung': [
       { b: 'Drehstrom und Wechselstrom', t: 'Drehstrom hat drei Außenleiter (400 V zwischen zwei Leitern), Wechselstrom aus der normalen Steckdose einen (230 V). Der Strom wird je Außenleiter angegeben.' },

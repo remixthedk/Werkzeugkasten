@@ -9,12 +9,12 @@
     id: 'rohr',
     bereich: 'rohr',
     title: 'Rohr',
-    desc: 'Maße, Wasser, Druckverlust, Gewicht, Dehnung, Dämmung',
+    desc: 'Maße, Wasser, Druckverlust, Heizungsrohr, Gewicht, Dehnung, Dämmung',
     icon: SVG('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/>'),
     stichworte: 'rohr leitung',
     teilen: ['Rohrmaterial', 'Größe'],
     hilfe: {
-      wofuer: 'Alles rund um das Rohr an einem Ort: Maße nachschlagen, Wasserinhalt, Fließgeschwindigkeit und Druckverlust, Gewicht mit Wasser, Längenausdehnung und die Dämmung nach GEG.',
+      wofuer: 'Alles rund um das Rohr an einem Ort: Maße nachschlagen, Wasserinhalt, Fließgeschwindigkeit und Druckverlust, das passende Heizungsrohr zur Leistung, Gewicht mit Wasser, Längenausdehnung und die Dämmung nach GEG.',
       schritte: [
         'Tippe auf die Frage, die du beantwortet haben willst.',
         'Rohrmaterial und Größe wählst du nur einmal. Sie bleiben stehen, wenn du zwischen Wasserinhalt, Druckverlust, Gewicht und Dämmung wechselst, soweit das Material dort zur Auswahl steht.',
@@ -27,6 +27,7 @@
       { id: 'rohrgroessen', modul: 'rohrgroessen', frage: 'Welche Maße hat mein Rohr?', klein: 'Außen-, Innendurchmesser und Wandstärke nachschlagen' },
       { id: 'wasserinhalt', modul: 'wasserinhalt', frage: 'Wie viel Wasser passt in mein Rohr?', klein: 'Liter je Meter und für die ganze Länge' },
       { id: 'druckverlust', modul: 'druckverlust', frage: 'Reicht mein Rohr für die Wassermenge?', klein: 'Fließgeschwindigkeit und Druckverlust' },
+      { id: 'heizrohr', modul: 'heizrohr', frage: 'Welches Rohr brauche ich für meine Heizleistung?', klein: 'Aus kW und Spreizung: Wassermenge, Geschwindigkeit, Druckgefälle' },
       { id: 'rohrgewicht', modul: 'rohrgewicht', frage: 'Wie schwer ist mein Rohr mit Wasser?', klein: 'Für Schellen, Decken und Transport' },
       { id: 'ausdehnung', modul: 'ausdehnung', frage: 'Wie stark dehnt sich mein Rohr, wenn es warm wird?', klein: 'Verlängerung in Millimetern' },
       { id: 'daemmung', modul: 'daemmung', frage: 'Wie dick muss die Dämmung an meinem Rohr sein?', klein: 'Mindestdicke nach Gebäudeenergiegesetz' }
