@@ -77,6 +77,7 @@
       'Eine exakte Umrechnung gibt es laut Eurovent und Systemair nicht. Einzelne Hersteller nennen leicht abweichende Spannen ohne Quelle, sie sind hier nicht übernommen.',
       'G3 und G4 sind ISO Coarse, dafür gibt es keine ePM-Werte.'
     ],
+    frage: 'Wie gut filtert meine Filterklasse?',
     title: 'Filterklassen',
     desc: 'RLT-Filter: EN 779 und ISO 16890 im Vergleich',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>',

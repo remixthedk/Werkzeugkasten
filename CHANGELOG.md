@@ -2,6 +2,15 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.10.0] – 2026-10-31
+
+Alle Kacheln arbeiten jetzt mit Fragen in ganzen Sätzen. Keine Rechnung hat sich geändert.
+
+### Geändert
+- **Passstücke, Gefälle, Brennstoff in kWh, Einheiten:** Statt Registerkarten öffnen sie mit Fragen, zum Beispiel "Wie lang muss mein Passstück bei Versatz und Winkel sein?", "Wie tief liegt mein Rohr am Ende?", "Wie viele kWh sind meine Kubikmeter Erdgas?", "Wie rechne ich einen Druck um?". Favoriten dieser Kacheln bleiben erhalten
+- **Heizkörper-Leistung, Fußbodenheizung, Dichtheitsprüfung, Filterklassen:** Die Frage steht als Überschrift oben ("Wie viel Leistung hat mein Heizkörper bei anderen Temperaturen?"), "Was bedeutet das?" direkt darunter
+- Hilfetexte von Passstücke, Gefälle und Einheiten ohne Verweis auf die frühere Registerleiste
+
 ## [1.9.0] – 2026-10-31
 
 ### Neu

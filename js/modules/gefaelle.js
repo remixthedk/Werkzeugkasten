@@ -90,8 +90,8 @@
     hilfe: {
       wofuer: 'Gefälle gibt es als Prozent, als cm je Meter, als Verhältnis 1 : n oder als Winkel. Hier rechnest du alle ineinander um und bekommst den Höhenunterschied über eine Rohrlänge.',
       schritte: [
-        'Umrechnen: die Schreibweise wählen, in der du das Gefälle hast, und den Wert eintippen. Du siehst alle anderen Schreibweisen.',
-        'Höhe bei Länge: waagerechte Länge und Gefälle in Prozent eintippen. Das Feld Höhenunterschied zeigt, wie viele Zentimeter das Rohr am Ende tiefer liegt.',
+        'Gefälle umrechnen: die Schreibweise wählen, in der du das Gefälle hast, und den Wert eintippen. Du siehst alle anderen Schreibweisen.',
+        'Höhe bei Länge: die waagerechte Länge und Gefälle in Prozent eintippen. Das Feld Höhenunterschied zeigt, wie viele Zentimeter das Rohr am Ende tiefer liegt.',
         'Kennst du Länge und Höhenunterschied, tippe beide ein. Das Gefälle wird dann gerechnet.'
       ],
       beispiel: '2 % sind 2 cm je Meter, 1 : 50 und etwa 1,15°. Bei 5 m Länge liegt das Rohrende 10 cm tiefer.',

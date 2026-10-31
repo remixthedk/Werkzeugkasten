@@ -136,7 +136,7 @@
         'Winkel eintippen. Bei 45°-Bögen sind das 45.',
         'Fitting wählen, zum Beispiel "Profipress Bogen 45°" oder "Prestabo XL Bogen 90°", und die Größe. Das Z-Maß wird für beide Bögen eingesetzt. Das Z-Maß ist der Abstand von der Bogenmitte bis dorthin, wo das Rohr im Fitting anstößt. Bei anderen Fittings gibst du es selbst ein (Viega-Online-Katalog, Reiter "Z-Maße"). Kennst du es nicht, lass 0 stehen, dann bekommst du nur die Länge von Mitte zu Mitte.',
         'Ergebnis: Die Zuschnittlänge sägst du ab. Die Mittenlänge L ist die Strecke von Bogenmitte zu Bogenmitte.',
-        'Kennst du statt des Winkels das Längsmaß, wähle oben "Längs + Quer".'
+        'Kennst du statt des Winkels das Längsmaß, nimm die Frage mit Längs- und Quermaß.'
       ],
       beispiel: 'Versatz 300 mm bei 45°, Profipress 22 mm mit zwei Bögen 45°: Mittenlänge 424 mm. Z-Maß je Bogen 11 mm, also 424,3 − 11 − 11 = 402,3 mm Zuschnitt.',
       hinweis: 'Bei 45° gilt: Mittenlänge = Versatz × 1,414. Bei Fittings, die nicht in der Liste stehen, das Z-Maß bitte aus dem Katalog nehmen.'

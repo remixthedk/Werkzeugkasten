@@ -61,6 +61,33 @@
     ]
   });
 
+  // Kacheln mit Registerleiste: jede Registerkarte wird zu einer Frage in ganzen Sätzen (Leiste ausgeblendet).
+  // Die Sammelkachel hat eine eigene ID (k-...), das Modul bleibt über #/<id> erreichbar und seine Favoriten wandern auf die Kachel.
+  const modul = id => WK.modules.find(m => m.id === id);
+  const aus = (id, k, extra) => {
+    const m = modul(id) || {};
+    WK.gruppe(Object.assign({ id: 'k-' + id, bereich: m.bereich, title: m.title, desc: m.desc, icon: m.icon, stichworte: m.stichworte, hilfe: m.hilfe }, extra, k));
+  };
+  aus('passstuecke', { fragen: [
+    { id: 'versatz', begriffe: 'passstuecke', modul: 'passstuecke', tab: 0, frage: 'Wie lang muss mein Passstück bei Versatz und Winkel sein?', klein: 'Zuschnittlänge aus Versatz, Winkel und Z-Maß' },
+    { id: 'dreieck', begriffe: 'passstuecke', modul: 'passstuecke', tab: 1, frage: 'Wie lang muss mein Passstück bei Längs- und Quermaß sein?', klein: 'Zuschnittlänge aus den beiden Maßen am Bau' }
+  ] });
+  aus('gefaelle', { fragen: [
+    { id: 'um', begriffe: 'gefaelle', modul: 'gefaelle', tab: 0, frage: 'Wie rechne ich mein Gefälle um?', klein: 'Prozent, cm je Meter, 1 : n und Winkel' },
+    { id: 'hoehe', begriffe: 'gefaelle', modul: 'gefaelle', tab: 1, frage: 'Wie tief liegt mein Rohr am Ende?', klein: 'Höhenunterschied aus Länge und Gefälle' }
+  ] });
+  aus('brennstoffe', { fragen: [
+    { id: 'gas', begriffe: 'brennstoffe', modul: 'brennstoffe', tab: 0, frage: 'Wie viele kWh sind meine Kubikmeter Erdgas?', klein: 'Mit Zustandszahl und Brennwert von der Rechnung, auch zurück' },
+    { id: 'sonst', begriffe: 'brennstoffe', modul: 'brennstoffe', tab: 1, frage: 'Wie viele kWh stecken in Öl, Pellets oder Flüssiggas?', klein: 'Aus Menge und Energiegehalt' }
+  ] });
+  aus('einheiten', { fragen: [
+    { id: 'druck', begriffe: 'einheiten', modul: 'einheiten', tab: 0, frage: 'Wie rechne ich einen Druck um?', klein: 'Pa, mbar, bar, mWS, psi und mehr' },
+    { id: 'leistung', begriffe: 'einheiten', modul: 'einheiten', tab: 1, frage: 'Wie rechne ich eine Leistung um?', klein: 'W, kW, kcal/h, BTU/h' },
+    { id: 'energie', begriffe: 'einheiten', modul: 'einheiten', tab: 2, frage: 'Wie rechne ich eine Energie um?', klein: 'J, kWh, kcal, BTU und mehr' },
+    { id: 'durchfluss', begriffe: 'einheiten', modul: 'einheiten', tab: 3, frage: 'Wie rechne ich einen Durchfluss um?', klein: 'l/s, l/min, m³/h und mehr' },
+    { id: 'temperatur', begriffe: 'einheiten', modul: 'einheiten', tab: 4, frage: 'Wie rechne ich eine Temperatur um?', klein: '°C, K, °F' }
+  ] });
+
   // Leistung & Volumenstrom steckt als Frage in "Wärme & Wasser"
   const vs = WK.modules.find(m => m.id === 'volumenstrom');
   if (vs) { vs.versteckt = true; WK.ersatz.volumenstrom = 'waerme'; }

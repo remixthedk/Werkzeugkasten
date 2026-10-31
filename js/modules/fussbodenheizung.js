@@ -81,6 +81,7 @@
       'Nicht enthalten: Heizleistung je Verlegeabstand und Vorlauftemperatur (DIN EN 1264), Druckverlust, höchste Heizkreislänge je Rohr. Die Angaben dazu hängen vom Hersteller ab (eine Beispielquelle nennt 100 bis 120 m für 16×2).'
     ],
     stichworte: 'fußbodenheizung fbh rohrlänge verlegeabstand heizkreis fläche verteiler flächenheizung rohr meter volumenstrom',
+    frage: 'Wie viel Rohr und wie viele Heizkreise brauche ich für meine Fußbodenheizung?',
     title: 'Fußbodenheizung',
     desc: 'Rohrlänge, Heizkreise und Volumenstrom',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h13a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h13"/></svg>',

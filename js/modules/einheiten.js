@@ -73,7 +73,7 @@
     hilfe: {
       wofuer: 'Rechnet Druck, Leistung, Energie, Durchfluss und Temperatur in die anderen üblichen Einheiten um, zum Beispiel bar in mWS oder BTU/h in kW.',
       schritte: [
-        'Oben die Größe wählen: Druck, Leistung, Energie, Durchfluss oder Temperatur.',
+        'Die Größe wählen: Druck, Leistung, Energie, Durchfluss oder Temperatur.',
         'Den Wert eintippen und darunter die Einheit wählen, in der du ihn hast.',
         'In der Tabelle siehst du den Wert gleich in allen anderen Einheiten.'
       ],

@@ -167,7 +167,7 @@
         root.replaceChildren(...[
           h('button', { type: 'button', class: 'zurueck', onclick: menu }, '‹ Andere Frage'),
           h('h2', { class: 'frage' }, f.frage),
-          WK.ui.begriffe(g.id + '/' + f.id, f.offen),
+          WK.ui.begriffe(f.begriffe || g.id + '/' + f.id, f.offen),
           anleitung,
           el,
           WK.ui.quelle(m.quelle)
@@ -320,7 +320,8 @@
     back.hidden = false;
     favKnopf(m);
     document.title = m.title + ' – Werkzeugkasten';
-    view.replaceChildren(...[WK.ui.help(m.hilfe), WK.ui.begriffe(m.id), m.render(), WK.ui.quelle(m.quelle)].filter(Boolean));
+    // Einzelne Kachel mit nur einer Aufgabe: die Frage steht als Überschrift oben, wie bei den Sammelkacheln
+    view.replaceChildren(...[m.frage ? h('h2', { class: 'frage' }, m.frage) : null, m.frage ? WK.ui.begriffe(m.id) : null, WK.ui.help(m.hilfe), m.frage ? null : WK.ui.begriffe(m.id), m.render(), WK.ui.quelle(m.quelle)].filter(Boolean));
   }
 
   function route() {

@@ -74,6 +74,7 @@
       'Nicht enthalten: Prüfung mit Wasser (die Quellen nennen uneinheitliche Zeiten und Drücke) und Gasleitungen.'
     ],
     stichworte: 'dichtheitsprüfung druckprobe trinkwasser luft inertgas prüfdruck prüfzeit belastungsprüfung zvshk 150 mbar leitungsvolumen',
+    frage: 'Wie lange und mit welchem Druck prüfe ich meine Trinkwasserleitung mit Luft?',
     title: 'Dichtheitsprüfung',
     desc: 'Trinkwasser mit Luft: Prüfdruck und Prüfzeit',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 13l3-4"/><path d="M9 3h6"/></svg>',

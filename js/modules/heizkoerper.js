@@ -74,6 +74,7 @@
       'Der Exponent n steht nicht fest im Modul als Wert je Typ: Er ist ein Eingabefeld mit 1,3 als Vorgabe, weil er je Hersteller und Typ unterschiedlich ist.'
     ],
     stichworte: 'heizkörper leistung umrechnung vorlauftemperatur rücklauf niedertemperatur wärmepumpe exponent en 442 übertemperatur watt',
+    frage: 'Wie viel Leistung hat mein Heizkörper bei anderen Temperaturen?',
     title: 'Heizkörper-Leistung',
     desc: 'Leistung bei anderen Temperaturen',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M8 8v8M12 8v8M16 8v8"/></svg>',
