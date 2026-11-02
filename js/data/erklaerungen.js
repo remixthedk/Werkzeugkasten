@@ -249,6 +249,14 @@
     'rechnen/mwst': [
       { b: 'Netto und Brutto', t: 'Netto ist der Preis ohne Mehrwertsteuer, brutto der Preis mit Mehrwertsteuer. Brutto = Netto × (1 + Steuersatz ÷ 100). Zurück rechnest du, indem du durch diesen Faktor teilst, nicht indem du die Prozente abziehst.' }
     ],
+    // ---- Gewinde erkennen ----
+    gewinde: [
+      { b: 'Außen-Ø und Kern-Ø', t: 'Der Außendurchmesser ist das größte Maß des Gewindes (Spitze des Außengewindes, Grund des Innengewindes). Der Kerndurchmesser ist das kleinste Maß (Grund des Außengewindes, Spitze des Innengewindes). Beide gehören zur selben Größe.' },
+      { b: 'Wo genau messen', t: 'Außengewinde: den Messschieber außen über die Gewindespitzen legen. Innengewinde: mit den Außenbacken von innen messen, die Backen berühren dann die Spitzen und du bekommst die enge Stelle. Die weite Stelle (Gewindegrund) misst du nur mit etwas Fingerspitzengefühl. Weißt du es nicht, nimm „Weiß ich nicht“, die App prüft beides.' },
+      { b: 'Gewindegänge zählen', t: 'Zähle, wie viele Gewindegänge auf 25,4 mm (1 Zoll) liegen, zum Beispiel mit einem Lineal. Rohrgewinde hat 28 Gänge (1/8 Zoll), 19 (1/4 und 3/8 Zoll), 14 (1/2 und 3/4 Zoll) oder 11 (ab 1 Zoll).' },
+      { b: 'G, Rp und R', t: 'Das sind die Rohrgewinde: G zylindrisch (außen und innen), Rp zylindrisches Innengewinde, R kegeliges Außengewinde. Bei gleicher Größe haben sie dieselben Maße. Beim kegeligen Gewinde gilt das Maß an der Bezugsebene nahe dem Rohrende.' },
+      { b: 'Zoll und DN', t: 'Die Zollgröße bezeichnet das Gewinde, sie ist nicht der Durchmesser in Zoll. 2 1/2 Zoll heißt 75,18 mm Gewindedurchmesser. Die Nennweite DN gehört zum Gewinderohr: 2 1/2 Zoll sind DN 65.' }
+    ],
     // ---- Warmwasser ----
     'warmwasser/misch': [
       { b: 'Mischtemperatur', t: 'Die Temperatur, die sich ergibt, wenn warmes und kaltes Wasser zusammenkommen. Sie liegt immer zwischen den beiden Temperaturen, näher bei der Seite mit der größeren Menge.' },

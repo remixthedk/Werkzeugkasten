@@ -2,6 +2,22 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.20.0] – 2026-11-02
+
+### Neu
+- **Gewinde erkennen** (Bereich Rohr & Montage). Die Kachel "Rohrsuche" heißt jetzt **"Rohr & Gewinde erkennen"** und hat eine dritte Frage: "Welche Größe hat mein Rohrgewinde?" Du misst den Durchmesser in mm und die App nennt die Zoll-Größe und die DN. Beispiel: Innengewinde etwa 75 mm = 2 1/2 Zoll, DN 65
+- **"Wo genau hast du gemessen?"** mit fünf Messstellen: außen über die Gewindespitzen, innen zwischen den Gewindespitzen (enge Stelle), innen im Gewindegrund (weite Stelle), außen im Gewindegrund oder "Weiß ich nicht" (dann wird beides geprüft). Ein Tipp erklärt, welches Maß der Messschieber am Innengewinde bekommt
+- **Gewindegänge (optional):** Zähle die Gänge auf 25,4 mm. Damit werden knappe Fälle eindeutig. Passt die Gängezahl nicht, sagt die App, dass es kein Rohrgewinde ist (zum Beispiel metrisch)
+- Ergebnis: Zoll, DN, Außen-Ø des Gewinderohrs, Gewinde-Außen-Ø, Kern-Ø, Gänge je Zoll mit Steigung, Abstand zum Messwert. Passen mehrere Größen, steht eine Liste dabei. Dazu die **Tabelle aller Rohrgewinde** von 1/8 bis 4 Zoll
+- Erklärkasten "Was bedeutet das?" (Außen-Ø und Kern-Ø, wo messen, Gänge zählen, G, Rp und R, Zoll und DN)
+
+### Geprüft
+- Gewinde-Außen-Ø und Gänge je Zoll in zwei Quellen identisch (REMS, Pressol nach DIN/ISO 228). Kern-Ø im Test über Außen-Ø − 2 · 0,640327 · Steigung gegengeprüft, alle 13 Größen. Jede Größe findet sich im Test selbst wieder (Außen-Ø und Kern-Ø)
+- Gilt für G, Rp und R (Whitworth 55°). Metrische und amerikanische Gewinde sind nicht enthalten. Tests: 171 Logik- und 58 Oberflächentests
+
+### Nicht enthalten
+- 5 und 6 Zoll (nur eine Quelle), seltene Zwischengrößen, NPT und metrische Gewinde, Unterscheidung zylindrisch und kegelig
+
 ## [1.19.0] – 2026-11-01
 
 ### Neu

@@ -63,7 +63,9 @@
     { id: 'stahl', frage: 'Welches Stahlrohr habe ich da?', stichwort: 'Stahlrohr erkennen', klein: 'Gewinderohr oder Siederohr, aus Außen-Ø und Wandstärke',
       icon: SVG('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="5"/><path d="M12 4v3"/>') },
     { id: 'verbund', frage: 'Welches Verbundrohr habe ich da?', stichwort: 'Verbundrohr erkennen', klein: 'Kunststoffrohr mit Alu-Schicht: welcher Hersteller passt zu den Maßen',
-      icon: SVG('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="4"/>') }
+      icon: SVG('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="4"/>') },
+    { id: 'gewinde', frage: 'Welche Größe hat mein Rohrgewinde?', stichwort: 'Gewinde erkennen', klein: 'Innen- oder Außengewinde messen: Zoll und DN',
+      icon: SVG('<path d="M8 4h8M8 8h8M8 12h8M8 16h8M8 20h8"/><path d="M6 3v18M18 3v18"/>') }
   ];
   const MAX = 60;
 
@@ -73,11 +75,11 @@
 
     function zeigeMenu() {
       root.replaceChildren(
-        h('p', { class: 'lead' }, 'Was für ein Rohr ist es?'),
+        h('p', { class: 'lead' }, 'Was willst du erkennen?'),
         h('div', { class: 'wahl' }, FRAGEN.map(q => h('button', { type: 'button', onclick: () => zeigeFrage(q.id) },
           h('span', { class: 'ico', html: q.icon }),
           h('span', {}, h('span', { class: 'tag' }, q.stichwort), h('strong', {}, q.frage), h('small', {}, q.klein))))),
-        ui.note('Kupfer, C-Stahl (Prestabo, Mapress) und Edelstahl sind genormt und stehen bei den Rohrmaßen. Hier geht es um Rohre, die man nicht gleich erkennt.'));
+        ui.note('Kupfer, C-Stahl (Prestabo, Mapress) und Edelstahl sind genormt und stehen bei den Rohrmaßen. Hier geht es um Rohre und Gewinde, die man nicht gleich erkennt.'));
     }
 
     // Kurze Tabellenzeile: Stahl = Rohrart, DN, Maße. Verbund = System (bei TECEflex mit Größenname), Maße.
@@ -94,6 +96,12 @@
     function zeigeFrage(art) {
       const q = FRAGEN.find(x => x.id === art);
       const zurueck = h('button', { type: 'button', class: 'zurueck', onclick: zeigeMenu }, '‹ Andere Frage');
+      if (art === 'gewinde') {
+        const gw = WK.modules.find(m => m.id === 'gewinde');
+        root.replaceChildren(zurueck, h('h2', { class: 'frage' }, q.frage), WK.ui.begriffe('gewinde'), gw.render());
+        try { window.scrollTo(0, 0); } catch (e) { /* ohne Fenster egal */ }
+        return;
+      }
       const kopf = kopfFuer(art);
 
       // Tab 1: Messen
@@ -163,25 +171,27 @@
     id: 'rohrsuche',
     bereich: 'rohr',
     hilfe: {
-      wofuer: 'Du hast ein Rohr vor dir und weißt nicht, welches es ist. Hier misst du Außendurchmesser und Wandstärke, und die App zeigt, welche Stahl- oder Verbundrohre zu den Maßen passen. Oder du schaust in die Tabelle und grenzt selbst ein.',
+      wofuer: 'Du hast ein Rohr oder ein Gewinde vor dir und weißt nicht, welches es ist. Beim Rohr misst du Außendurchmesser und Wandstärke, und die App zeigt, welche Stahl- oder Verbundrohre passen. Beim Gewinde misst du den Durchmesser und bekommst Zoll und DN. Oder du schaust in die Tabelle und grenzt selbst ein.',
       schritte: [
-        'Tippe auf die Art des Rohrs: Stahlrohr oder Verbundrohr (Kunststoff mit Alu-Schicht, die man an der Schnittkante sieht).',
+        'Tippe auf das, was du erkennen willst: Stahlrohr, Verbundrohr (Kunststoff mit Alu-Schicht, die man an der Schnittkante sieht) oder Gewinde.',
         'Messen: Außendurchmesser mit dem Messschieber messen und eintragen. Wenn du die Wandstärke an der Schnittkante messen kannst, trag sie auch ein, dann wird die Liste kürzer.',
         'Wähle, wie genau du gemessen hast. Die App lässt dann entsprechend viel Abweichung zu.',
-        'Tabelle: Alle Rohre nach Außendurchmesser sortiert. Wähle ein System oder gib einen ungefähren Außendurchmesser ein.'
+        'Tabelle: Alle Rohre nach Außendurchmesser sortiert. Wähle ein System oder gib einen ungefähren Außendurchmesser ein.',
+        'Gewinde: Gib den gemessenen Durchmesser ein und sag, wo genau du gemessen hast (außen über die Spitzen, innen zwischen den Spitzen oder im Gewindegrund). Zähle wenn möglich die Gewindegänge auf 25,4 mm.'
       ],
-      beispiel: 'Stahlrohr mit 60,3 mm außen und 2,9 mm Wand: Siederohr nahtlos DN 50. Dasselbe Rohr mit 3,65 mm Wand ist ein Gewinderohr DN 50.',
+      beispiel: 'Stahlrohr mit 60,3 mm außen und 2,9 mm Wand: Siederohr nahtlos DN 50. Dasselbe Rohr mit 3,65 mm Wand ist ein Gewinderohr DN 50. Innengewinde mit etwa 75 mm: 2 1/2 Zoll, DN 65.',
       hinweis: 'Die Treffer sind Vorschläge. Gefunden wird nur, was in der App hinterlegt ist. Der Aufdruck auf dem Rohr nennt meist den Hersteller.'
     },
     quelle: [
       'Siederohr nahtlos, DIN EN 10220: Reihe der Außendurchmesser mit allen Wandstärken aus der Maße-und-Gewichte-Tabelle von rff. Die Wandstärken sind aus den Gewichten der Tabelle zurückgerechnet (kg/m = 0,02466 · s · (d − s)), die Außendurchmesser stimmen mit der Liste von Mannesmann überein. Normalwandstärke je Außen-Ø nach Sikla (Tabelle 17.2) und thyssenkrupp (nahtlose normalwandige Stahlrohre), beide übereinstimmend bis 168,3 mm. Bei 193,7 und 219,1 mm nennen sie verschiedene Normalwände, diese Größen sind nicht aufgenommen.',
       'Nennweiten (DN) nur dort, wo eine Quelle sie zuordnet (21,3 bis 168,3 mm in den elf Normalgrößen). Gewinderohr DIN EN 10255 wie im Modul Rohrmaße.',
       'Verbundrohr: Wavin Tigris nach Technischem Handbuch und Sortimentsübersicht von Wavin, TECEflex nach den Technischen Informationen von TECE (Ausgaben 2017 und 2024, gleicher Hersteller). Viega Raxofix wie im Modul Rohrmaße, das Viega-Rohr Sanfix Fosta hat laut Gebrauchsanleitung dieselben Maße. Uponor 16 x 2,0 und 20 x 2,25 (Herstellerangabe und Händlerangabe), Rehau Rautitan stabil 16,2 x 2,6 und 25 x 3,7 (zwei Quellen), Geberit Mepla 20 x 2,5 (zwei Händler).',
+      'Gewinde: Gewinde-Außendurchmesser und Gänge je Zoll der Rohrgewinde 1/8 bis 4 Zoll aus REMS Gewindetabellen und Pressol (DIN/ISO 228), die übereinstimmen. Kerndurchmesser aus Pressol (ISO 228), im Test über Außen-Ø − 2 · 0,640327 · Steigung gegengeprüft. Nicht enthalten: 5 und 6 Zoll (nur eine Quelle), seltene Zwischengrößen, metrische und amerikanische Gewinde (NPT).',
       'Nicht hinterlegt: geschweißte Stahlrohre nach EN 10220 (nur eine Quelle), Größen von Uponor, Rehau und Mepla mit nur einer Quelle, Sanha und Prineto (keine Maße gefunden). Innen-Ø gerechnet aus Außen-Ø minus 2 × Wand.'
     ],
-    stichworte: 'rohrsuche rohr erkennen messen messschieber außendurchmesser wandstärke siederohr gewinderohr stahlrohr verbundrohr hersteller welches rohr unbekannt tigris teceflex uponor rautitan mepla raxofix sanfix',
-    title: 'Rohrsuche',
-    desc: 'Rohr messen und erkennen: Stahl und Verbundrohr',
+    stichworte: 'rohrsuche gewinde erkennen zoll dn innengewinde außengewinde rohr erkennen messen messschieber außendurchmesser wandstärke siederohr gewinderohr stahlrohr verbundrohr hersteller welches rohr unbekannt tigris teceflex uponor rautitan mepla raxofix sanfix',
+    title: 'Rohr & Gewinde erkennen',
+    desc: 'Rohr oder Gewinde messen: Stahl, Verbundrohr, Zoll und DN',
     icon: SVG('<circle cx="10" cy="10" r="6"/><path d="M15 15l5 5"/>'),
     render
   });
