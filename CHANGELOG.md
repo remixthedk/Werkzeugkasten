@@ -2,11 +2,18 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.20.2] – 2026-11-11
+
+### Behoben
+- **Zurück-Geste und Zurück-Taste von Android gehen in einer Kachel einen Schritt zurück.** Ist eine Frage offen, schließt die Geste sie und zeigt die Fragenauswahl der Kachel. Die nächste Geste führt zur Startseite. Bisher sprang sie aus der Kachel direkt auf die Startseite
+- Schließt du die Frage selbst (Pfeil oben links oder "‹ Andere Frage"), ist keine zweite Geste nötig. Auch nach einem Neuladen mit offener Frage (zum Beispiel wenn Android die App aus dem Hintergrund zurückholt) stimmt der Verlauf
+- Technisch: Beim Öffnen einer Frage kommt ein Verlaufseintrag dazu, der beim Schließen wieder verschwindet. In einem echten Browser mit elf Abläufen geprüft
+
 ## [1.20.1] – 2026-11-11
 
 ### Behoben
 - **Zurück-Pfeil oben links geht einen Schritt zurück.** Bisher sprang er aus jeder Kachel direkt auf die Startseite, auch wenn eine Frage offen war (zum Beispiel "Welcher Druck gehört zu welcher Temperatur?" bei Kältemittel). Jetzt führt er bei offener Frage zurück zur Fragenauswahl der Kachel, wie "‹ Andere Frage". Steht die Fragenauswahl oder eine Kachel ohne Unterfragen offen, geht er wie bisher zur Startseite. Gilt für alle Kacheln mit Fragen
-- Die Zurück-Taste und -Geste von Android springt weiterhin aus der Kachel heraus. Das ist nicht geändert
+- Die Zurück-Taste und -Geste von Android folgen in 1.20.2
 
 ## [1.20.0] – 2026-11-02
 

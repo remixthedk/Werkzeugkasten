@@ -292,6 +292,25 @@
     const z = view.querySelector('.zurueck');
     if (z) { e.preventDefault(); z.click(); }
   });
+  // Auch die Zurück-Geste oder -Taste von Android geht in der Kachel einen Schritt zurück: Sobald eine Frage aufgeht, kommt ein
+  // Verlaufseintrag dazu. Zurück entfernt ihn und schließt die Frage. Schließt man die Frage selbst, wird der Eintrag wieder entfernt.
+  // Das gilt auch nach einem Neuladen mit offener Frage: die frisch gezeichnete Seite hat keine Frage, der alte Eintrag wird entfernt.
+  const imFrageEintrag = () => !!(history.state && history.state.wkFrage);
+  let ausPop = false;
+  if (window.MutationObserver) {
+    new MutationObserver(() => {
+      const offen = !!view.querySelector('.zurueck');
+      try {
+        if (offen && !imFrageEintrag()) history.pushState({ wkFrage: 1 }, '');
+        else if (!offen && imFrageEintrag() && !ausPop) history.back();
+      } catch (e) { /* ohne Verlauf bleibt es beim Pfeil */ }
+      if (!offen) ausPop = false;
+    }).observe(view, { childList: true, subtree: true });
+    window.addEventListener('popstate', () => {
+      const z = view.querySelector('.zurueck');
+      if (z) { ausPop = true; z.click(); }
+    });
+  }
   let failedModules = [];
 
   function home() {
