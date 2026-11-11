@@ -286,6 +286,12 @@
   const view = document.getElementById('view');
   const title = document.getElementById('title');
   const back = document.getElementById('back');
+  // Der Pfeil oben links geht einen Schritt zurück: steht in einer Kachel eine Frage offen, zurück zur Fragenauswahl
+  // (wie "‹ Andere Frage"), sonst zur Startseite. Fragen innerhalb einer Kachel sind keine eigenen Seiten.
+  back.addEventListener('click', e => {
+    const z = view.querySelector('.zurueck');
+    if (z) { e.preventDefault(); z.click(); }
+  });
   let failedModules = [];
 
   function home() {

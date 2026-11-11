@@ -2,6 +2,12 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.20.1] – 2026-11-11
+
+### Behoben
+- **Zurück-Pfeil oben links geht einen Schritt zurück.** Bisher sprang er aus jeder Kachel direkt auf die Startseite, auch wenn eine Frage offen war (zum Beispiel "Welcher Druck gehört zu welcher Temperatur?" bei Kältemittel). Jetzt führt er bei offener Frage zurück zur Fragenauswahl der Kachel, wie "‹ Andere Frage". Steht die Fragenauswahl oder eine Kachel ohne Unterfragen offen, geht er wie bisher zur Startseite. Gilt für alle Kacheln mit Fragen
+- Die Zurück-Taste und -Geste von Android springt weiterhin aus der Kachel heraus. Das ist nicht geändert
+
 ## [1.20.0] – 2026-11-02
 
 ### Neu
