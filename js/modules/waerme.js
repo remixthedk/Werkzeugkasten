@@ -76,10 +76,8 @@
   // ---- Oberfläche ----
   const SVG = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
   const FRAGEN = [
-    { id: 'erwaermen', titel: 'Wasser erwärmen', frage: 'Wie viel Energie brauche ich, um Wasser zu erwärmen?', stichwort: 'Wasser erwärmen', klein: 'Zum Beispiel von 60 auf 80 °C',
+    { id: 'zeit', titel: 'Aufheizen', frage: 'Wie viel Energie, Zeit oder Leistung brauche ich zum Aufheizen?', stichwort: 'Aufheizen, Speicher', klein: 'Energie in kWh, Aufheizzeit oder nötige Heizleistung',
       icon: SVG('<path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/><path d="M12 12v5M9.5 14.5h5"/>') },
-    { id: 'zeit', titel: 'Aufheizzeit', frage: 'Wie lange dauert das Aufheizen mit meiner Heizleistung?', stichwort: 'Aufheizzeit, Speicher', klein: 'Zum Beispiel Warmwasserspeicher: Zeit oder nötige Leistung',
-      icon: SVG('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 3h6"/>') },
     { id: 'gewicht', titel: 'Gewicht von Wasser', frage: 'Wie schwer ist mein Wasser?', stichwort: 'Wassergewicht', klein: 'Warmes Wasser ist leichter als kaltes',
       icon: SVG('<path d="M6 8h12l2 12H4z"/><circle cx="12" cy="5" r="2"/>') },
     { id: 'fluss', titel: 'Volumenstrom', frage: 'Wie viel Wasser muss durch meine Heizung fließen?', stichwort: 'Volumenstrom', klein: 'Volumenstrom aus Leistung und Spreizung',
@@ -94,7 +92,7 @@
     const { h, ui, fmt } = WK;
     const D = WK.data.stoffwerte;
     // Eingaben merken, damit die Temperatur beim Wechsel zwischen den Fragen erhalten bleibt
-    const S = { menge: '100', einheit: 'kg', t1: '60', t2: '80', kw: '', ziel: 'zeit', std: '1', wg: '', liter: '500', tg: '60', m3: '' };
+    const S = { menge: '100', einheit: 'kg', t1: '60', t2: '80', kw: '', ziel: 'energie', std: '1', wg: '', liter: '500', tg: '60', m3: '' };
     const root = h('div');
 
     const feld = (label, key, o = {}) => {
@@ -123,18 +121,19 @@
         return;
       }
 
-      if (id === 'erwaermen' || id === 'zeit') {
+      if (id === 'zeit') {
         const menge = feld('Wassermenge', 'menge');
         const einheit = ui.select('Einheit der Menge', [{ value: 'kg', label: 'Kilogramm (kg)' }, { value: 'l', label: 'Liter (l), gemessen bei der Starttemperatur' }], S.einheit);
         const t1 = feld('Von', 't1', { unit: '°C' });
         const t2 = feld('Auf', 't2', { unit: '°C' });
-        const kw = id === 'zeit' ? feld('Heizleistung', 'kw', { unit: 'kW', placeholder: 'z. B. 6' }) : null;
-        const ziel = id === 'zeit' ? ui.select('Was suchst du?', [{ value: 'zeit', label: 'Die Aufheizzeit' }, { value: 'leistung', label: 'Die nötige Heizleistung' }], S.ziel) : null;
-        const std = id === 'zeit' ? feld('Gewünschte Aufheizzeit', 'std', { unit: 'h', hint: 'In Stunden, zum Beispiel 1,5 für 1 Stunde 30 Minuten' }) : null;
-        const wg = id === 'zeit' ? feld('Wirkungsgrad (wenn bekannt)', 'wg', { unit: '%', placeholder: 'leer = ohne Verluste', hint: 'Zum Beispiel 90 für Verluste im Speicher und in der Übergabe. Leer lassen rechnet ohne Verluste.' }) : null;
-        felder = id === 'zeit' ? [ziel.el, menge.f.el, einheit.el, t1.f.el, t2.f.el, kw.f.el, std.f.el, wg.f.el]
-          : [menge.f.el, einheit.el, t1.f.el, t2.f.el];
+        const kw = feld('Heizleistung', 'kw', { unit: 'kW', placeholder: 'z. B. 6' });
+        const ziel = ui.select('Was suchst du?', [{ value: 'energie', label: 'Die nötige Energie' }, { value: 'zeit', label: 'Die Aufheizzeit' }, { value: 'leistung', label: 'Die nötige Heizleistung' }], S.ziel);
+        const std = feld('Gewünschte Aufheizzeit', 'std', { unit: 'h', hint: 'In Stunden, zum Beispiel 1,5 für 1 Stunde 30 Minuten' });
+        const wg = feld('Wirkungsgrad (wenn bekannt)', 'wg', { unit: '%', placeholder: 'leer = ohne Verluste', hint: 'Zum Beispiel 90 für Verluste im Speicher und in der Übergabe. Leer lassen rechnet ohne Verluste.' });
+        felder = [ziel.el, menge.f.el, einheit.el, t1.f.el, t2.f.el, kw.f.el, std.f.el, wg.f.el];
         update = () => {
+          const z = ziel.get();
+          kw.f.el.hidden = z !== 'zeit'; std.f.el.hidden = z !== 'leistung'; wg.f.el.hidden = z === 'energie';
           const r = energie({ menge: menge.f.get(), einheit: einheit.get(), t1: t1.f.get(), t2: t2.f.get() });
           if (!r) {
             out.replaceChildren(ui.note(Number.isFinite(t1.f.get()) && Number.isFinite(t2.f.get()) && (t1.f.get() < 0 || t1.f.get() > 100 || t2.f.get() < 0 || t2.f.get() > 100)
@@ -142,34 +141,34 @@
             return;
           }
           const e = Math.abs(r.kWh);
-          if (id === 'zeit') { kw.f.el.hidden = ziel.get() !== 'zeit'; std.f.el.hidden = ziel.get() !== 'leistung'; }
-          const wgW = id === 'zeit' ? wg.f.get() : NaN;
+          const wgW = z === 'energie' ? NaN : wg.f.get();
           const eta = wgW > 0 && wgW <= 100 ? wgW / 100 : (Number.isFinite(wgW) && wgW !== 0 ? -1 : 1);
           const rechnung = fmt(r.masse, 1) + ' kg × ' + fmt(r.c, 3) + ' kJ/(kg·K) × ' + fmt(Math.abs(t2.f.get() - t1.f.get()), 1) + ' K = ' + fmt(Math.abs(r.kJ), 0) + ' kJ = ' + fmt(e, 2) + ' kWh';
           const rows = [];
-          if (id === 'zeit' && eta < 0) {
+          if (eta < 0) {
             out.replaceChildren(ui.note('Wirkungsgrad zwischen 1 und 100 % eingeben oder das Feld leer lassen.', 'warn'));
             return;
           }
-          if (id === 'zeit' && ziel.get() === 'leistung') {
+          if (z === 'leistung') {
             const l = leistung({ kWh: e, stunden: std.f.get(), eta });
             rows.push(l ? { k: 'Nötige Heizleistung', v: fmt(l.kW, 1) + ' kW', big: true } : { k: 'Nötige Heizleistung', v: 'Aufheizzeit fehlt', big: true });
             rows.push({ k: r.abkuehlen ? 'Energie (frei werdend)' : 'Energie', v: fmt(e, 2) + ' kWh' });
-          } else if (id === 'zeit') {
-            const z = zeit({ kWh: e, kW: kw.f.get(), eta });
-            if (z) rows.push({ k: 'Aufheizzeit', v: (z.h ? z.h + ' h ' : '') + z.m + ' min', big: true });
+          } else if (z === 'zeit') {
+            const zt = zeit({ kWh: e, kW: kw.f.get(), eta });
+            if (zt) rows.push({ k: 'Aufheizzeit', v: (zt.h ? zt.h + ' h ' : '') + zt.m + ' min', big: true });
             rows.push({ k: r.abkuehlen ? 'Energie (frei werdend)' : 'Energie', v: fmt(e, 2) + ' kWh' });
-            if (!z) rows.unshift({ k: 'Aufheizzeit', v: 'Heizleistung fehlt' });
+            if (!zt) rows.unshift({ k: 'Aufheizzeit', v: 'Heizleistung fehlt' });
           } else {
             rows.push({ k: r.abkuehlen ? 'Frei werdende Energie' : 'Energie', v: fmt(e, 2) + ' kWh', big: true });
             rows.push({ k: 'in kJ', v: fmt(Math.abs(r.kJ), 0) + ' kJ' });
           }
           if (einheit.get() === 'l') rows.push({ k: 'Gewicht der Menge', v: fmt(r.masse, 1) + ' kg' });
           out.replaceChildren(ui.result(rows), ui.note('Rechnung: ' + rechnung),
-            ui.note(id === 'zeit' && eta < 1 ? 'Mit Wirkungsgrad ' + fmt(eta * 100, 0) + ' %. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.' : 'Ohne Verluste und Wirkungsgrad. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.'));
+            ui.note(z !== 'energie' && eta < 1 ? 'Mit Wirkungsgrad ' + fmt(eta * 100, 0) + ' %. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.' : 'Ohne Verluste und Wirkungsgrad. Die Wärmekapazität ist der Mittelwert zwischen den beiden Temperaturen.'));
         };
         menge.bind(update); t1.bind(update); t2.bind(update);
-        if (kw) { kw.bind(update); std.bind(update); wg.bind(update); ziel.select.addEventListener('change', () => { S.ziel = ziel.get(); update(); }); }
+        kw.bind(update); std.bind(update); wg.bind(update);
+        ziel.select.addEventListener('change', () => { S.ziel = ziel.get(); update(); });
         einheit.select.addEventListener('change', () => { S.einheit = einheit.get(); update(); });
       } else if (id === 'gewicht') {
         const liter = feld('Wassermenge', 'liter', { unit: 'l' });
@@ -232,7 +231,7 @@
     hilfe: {
       wofuer: 'Fragen rund um Wasser und Wärme: wie viel Energie das Aufheizen braucht, wie lange es dauert, wie schwer das Wasser ist, wie viel Wasser durch die Heizung fließen muss und wie viel Wasser beim Verbrennen von Gas entsteht. Dazu eine Tabelle mit Stoffwerten zum Nachschlagen.',
       schritte: [
-        'Oben tippst du auf die Frage, die du beantwortet haben willst. Beim Aufheizen zum Beispiel eines Speichers wählst du, ob du die Zeit oder die nötige Heizleistung suchst.',
+        'Oben tippst du auf die Frage, die du beantwortet haben willst. Beim Aufheizen, zum Beispiel eines Speichers, wählst du, ob du die nötige Energie, die Zeit oder die nötige Heizleistung suchst.',
         'Du siehst nur die Felder, die dafür nötig sind. Die Temperaturen bleiben beim Wechsel zwischen den Fragen erhalten.',
         'Das Ergebnis steht groß darunter, mit der Rechnung in einer Zeile.',
         'Mit "Andere Frage" kommst du zurück zur Auswahl.'
@@ -250,7 +249,7 @@
     ],
     stichworte: 'wassergewicht aufheizzeit stoffwerte volumenstrom spreizung l/h durchfluss leistung heizkreis wärmekapazität spezifische wärme dichte gewicht wasser kondensat verbrennung aufheizen erwärmen energie kwh liter kg wärmemenge speicher luft kupfer stahl brennwert abgas',
     title: 'Wärme & Wasser',
-    desc: 'Wasser erwärmen, Volumenstrom, Gewicht, Stoffwerte, Gas',
+    desc: 'Aufheizen, Volumenstrom, Gewicht, Stoffwerte, Gas',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/><path d="M9 14a3 3 0 0 0 3 3"/></svg>',
     render
   });

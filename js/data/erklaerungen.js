@@ -71,11 +71,9 @@
       { b: 'Siedepunkt', t: 'Die Temperatur, bei der das Kältemittel bei diesem Druck gerade ganz flüssig ist. Diese Temperatur minus deinem Messwert an der Flüssigkeitsleitung ergibt die Unterkühlung.' }
     ],
     // ---- Wärme & Wasser ----
-    'waerme/erwaermen': [
-      { b: 'Spezifische Wärmekapazität', t: 'Sie sagt, wie viel Energie 1 kg Wasser braucht, um 1 K wärmer zu werden. Bei Wasser sind das etwa 1,16 Wh. Die App nimmt den genauen Wert für deine Temperaturen.' },
-      { b: 'kWh', t: 'Kilowattstunde: die Energiemenge, die eine Leistung von 1 kW in einer Stunde liefert.' }
-    ],
     'waerme/zeit': [
+      { b: 'Spezifische Wärmekapazität', t: 'Sie sagt, wie viel Energie 1 kg Wasser braucht, um 1 K wärmer zu werden. Bei Wasser sind das etwa 1,16 Wh. Die App nimmt den genauen Wert für deine Temperaturen.' },
+      { b: 'kWh', t: 'Kilowattstunde: die Energiemenge, die eine Leistung von 1 kW in einer Stunde liefert.' },
       { b: 'Heizleistung', t: 'Die Leistung des Geräts in kW, zum Beispiel des Heizstabs oder des Kessels. Sie steht auf dem Typenschild. Die Rechnung gilt ohne Verluste, in der Praxis dauert es etwas länger.' },
       { b: 'Wirkungsgrad', t: 'Wie viel von der Leistung wirklich im Wasser ankommt. 90 % heißt: Ein Zehntel geht als Verlust verloren, die Aufheizzeit wird entsprechend länger. Wenn du das Feld leer lässt, wird ohne Verluste gerechnet.' },
       { b: 'Speicher', t: 'Der Inhalt in Litern ist die Wassermenge. Wähle Liter und trage die Starttemperatur und die Zieltemperatur ein. Das Auskühlen des Speichers (Bereitschaftsverlust) ist nicht eingerechnet.' }

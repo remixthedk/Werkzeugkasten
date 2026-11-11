@@ -2,6 +2,13 @@
 
 Alle Änderungen pro Version. Neueste oben. Die Versionsnummer steht in `js/version.js`.
 
+## [1.20.3] – 2026-11-11
+
+### Geändert
+- **Wärme & Wasser: "Wasser erwärmen" und "Aufheizzeit" sind jetzt eine Frage.** Beide rechneten dasselbe (Menge × Wärmekapazität × Temperaturunterschied), "Aufheizzeit" zeigte die Energie ohnehin mit an. Neu: "Wie viel Energie, Zeit oder Leistung brauche ich zum Aufheizen?" mit der Auswahl "Was suchst du?": die nötige Energie (Standard), die Aufheizzeit oder die nötige Heizleistung.
+- Die Felder zeigen sich passend zur Auswahl: Heizleistung nur bei "Aufheizzeit", gewünschte Zeit nur bei "nötige Heizleistung", Wirkungsgrad nur bei Zeit und Leistung (Energie ist immer ohne Verluste).
+- Die Menüauswahl hat eine Kachel weniger (fünf statt sechs Fragen). Die Erklärkästen beider Fragen stehen jetzt gemeinsam in der neuen Frage. Rechnung und Werte sind unverändert.
+
 ## [1.20.2] – 2026-11-11
 
 ### Behoben
